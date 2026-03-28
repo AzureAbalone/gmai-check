@@ -74,7 +74,7 @@ useHead({
 // ─── Preload hero images for LCP ───
 useHead({
   link: [
-    { rel: 'preload', as: 'image', href: heroImages[0].src },
+    { rel: 'preload', as: 'image', href: heroImages[0]!.src },
   ],
 })
 </script>

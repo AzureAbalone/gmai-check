@@ -8,7 +8,7 @@ export default defineNuxtPlugin({
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     if (prefersReducedMotion) {
-      return { provide: { lenis: null } }
+      return { provide: { lenis: null as Lenis | null } }
     }
 
     const lenis = new Lenis({
@@ -25,7 +25,7 @@ export default defineNuxtPlugin({
     })
 
     return {
-      provide: { lenis },
+      provide: { lenis: lenis as Lenis | null },
     }
   },
 })
