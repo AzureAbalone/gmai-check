@@ -26,9 +26,11 @@ const features = [
 ]
 
 const heroImages = [
-  { src: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80', alt: 'Nhà bếp hiện đại với đồ gia dụng chất lượng' },
-  { src: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80', alt: 'Nội thất phòng khách đẹp tinh tế' },
-  { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80', alt: 'Phòng tắm sạch sẽ và gọn gàng' },
+  { src: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80', alt: 'Nhà bếp hiện đại', label: 'Nhà bếp' },
+  { src: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80', alt: 'Phòng khách tinh tế', label: 'Phòng khách' },
+  { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80', alt: 'Phòng tắm gọn gàng', label: 'Phòng tắm' },
+  { src: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80', alt: 'Phòng ngủ ấm cúng', label: 'Phòng ngủ' },
+  { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', alt: 'Ngoại thất hiện đại', label: 'Ngoại thất' },
 ]
 
 const trustBrands = [
@@ -130,24 +132,30 @@ useHead({
       </div>
     </section>
 
-    <!-- ═══════════════════════ HERO IMAGES ═══════════════════════ -->
-    <section class="reveal flex gap-4 px-6 lg:px-20 h-[300px] md:h-[400px] overflow-hidden" aria-label="Bộ sưu tập hình ảnh">
-      <div
-        v-for="(img, index) in heroImages"
-        :key="img.alt"
-        class="flex-1 rounded-2xl overflow-hidden group"
-      >
-        <NuxtImg
-          :src="img.src"
-          :alt="img.alt"
-          :loading="index === 0 ? 'eager' : 'lazy'"
-          :fetchpriority="index === 0 ? 'high' : undefined"
-          decoding="async"
-          width="800"
-          height="600"
-          sizes="sm:100vw md:50vw lg:33vw"
-          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+    <!-- ═══════════════════════ HERO — DIAGONAL ACCORDION ═══════════════════════ -->
+    <section class="reveal" aria-label="Bộ sưu tập không gian sống">
+      <div class="diagonal-accordion">
+        <div
+          v-for="(img, i) in heroImages"
+          :key="img.label"
+          class="diagonal-panel"
+          :class="{ 'diagonal-panel--first': i === 0, 'diagonal-panel--last': i === heroImages.length - 1 }"
+        >
+          <NuxtImg
+            :src="img.src"
+            :alt="img.alt"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            :fetchpriority="i === 0 ? 'high' : undefined"
+            decoding="async"
+            width="800"
+            height="600"
+            class="diagonal-panel__img"
+          />
+          <!-- Overlay gradient + label -->
+          <div class="diagonal-panel__overlay">
+            <span class="diagonal-panel__label">{{ img.label }}</span>
+          </div>
+        </div>
       </div>
     </section>
 
