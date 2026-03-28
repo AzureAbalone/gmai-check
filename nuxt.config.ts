@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   // ─── Site config for SEO / Sitemap ───
   site: {
     url: 'https://vinahome.vn',
-    name: 'VINA HOME',
+    name: 'Nhà phân phối Duyên Phượng',
     description: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.',
     defaultLocale: 'vi',
   },
@@ -54,7 +54,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'vi' },
-      title: 'VINA HOME — Tiện ích thông minh, nâng tầm cuộc sống',
+      title: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -64,14 +64,14 @@ export default defineNuxtConfig({
         { name: 'msapplication-TileColor', content: '#0D6E6E' },
         // Open Graph
         { property: 'og:type', content: 'website' },
-        { property: 'og:site_name', content: 'VINA HOME' },
-        { property: 'og:title', content: 'VINA HOME — Tiện ích thông minh, nâng tầm cuộc sống' },
+        { property: 'og:site_name', content: 'Nhà phân phối Duyên Phượng' },
+        { property: 'og:title', content: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống' },
         { property: 'og:description', content: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm. Giao hàng toàn quốc.' },
         { property: 'og:image', content: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80' },
         { property: 'og:locale', content: 'vi_VN' },
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'VINA HOME — Tiện ích thông minh, nâng tầm cuộc sống' },
+        { name: 'twitter:title', content: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống' },
         { name: 'twitter:description', content: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.' },
       ],
       link: [
@@ -112,6 +112,11 @@ export default defineNuxtConfig({
 
   // ─── Vite optimization ───
   vite: {
+    optimizeDeps: {
+      include: [
+        'lenis',
+      ],
+    },
     build: {
       // Chunk splitting for better caching
       rollupOptions: {

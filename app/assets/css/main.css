@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   VINA HOME — Optimized Global Stylesheet
+   Nhà phân phối Duyên Phượng — Optimized Global Stylesheet
    ═══════════════════════════════════════════════════════════ */
 
 /* ─── Lenis smooth scroll base ─── */
@@ -84,6 +84,18 @@ iconify-icon, .iconify {
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+/* ─── Brand carousel infinite scroll ─── */
+.brand-carousel {
+  animation: brand-scroll 25s linear infinite;
+}
+.brand-carousel:hover {
+  animation-play-state: paused;
+}
+@keyframes brand-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
 }
 
 /* ─── Custom scrollbar (thin) ─── */

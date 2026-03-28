@@ -31,11 +31,17 @@ const heroImages = [
   { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80', alt: 'Phòng tắm sạch sẽ và gọn gàng' },
 ]
 
-const trustBrands = ['LOCK&LOCK', 'DAIKIN', 'SUNHOUSE', 'KANGAROO', 'TUPPERWARE']
+const trustBrands = [
+  { name: 'Lock&Lock', fontWeight: '900', letterSpacing: '1', fontSize: '13' },
+  { name: 'DAIKIN', fontWeight: '700', letterSpacing: '3', fontSize: '14' },
+  { name: 'SUNHOUSE', fontWeight: '800', letterSpacing: '2', fontSize: '13' },
+  { name: 'KANGAROO', fontWeight: '700', letterSpacing: '2.5', fontSize: '13' },
+  { name: 'Tupperware', fontWeight: '600', letterSpacing: '1.5', fontSize: '13' },
+]
 
 // ─── SEO: Structured Data (JSON-LD) ───
 useHead({
-  title: 'VINA HOME — Tiện ích thông minh, nâng tầm cuộc sống',
+  title: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống',
   meta: [
     { name: 'description', content: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm. Giao hàng toàn quốc, đổi trả dễ dàng.' },
   ],
@@ -45,7 +51,7 @@ useHead({
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: 'VINA HOME',
+        name: 'Nhà phân phối Duyên Phượng',
         url: 'https://vinahome.vn',
         description: 'Đồ gia dụng thông minh cho mọi gia đình Việt',
         potentialAction: {
@@ -60,7 +66,7 @@ useHead({
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Organization',
-        name: 'VINA HOME',
+        name: 'Nhà phân phối Duyên Phượng',
         url: 'https://vinahome.vn',
         logo: 'https://vinahome.vn/logo.png',
         contactPoint: {
@@ -145,17 +151,31 @@ useHead({
       </div>
     </section>
 
-    <!-- ═══════════════════════ TRUST LOGOS ═══════════════════════ -->
-    <section class="reveal flex flex-wrap items-center justify-center gap-8 lg:gap-12 py-10 bg-white px-6" aria-label="Thương hiệu đối tác">
-      <span
-        v-for="brand in trustBrands"
-        :key="brand"
-        class="text-sm lg:text-base font-bold tracking-[2px] text-[#CCC] hover:text-[#888] transition-colors cursor-default select-none"
-        role="img"
-        :aria-label="'Thương hiệu ' + brand"
-      >
-        {{ brand }}
-      </span>
+    <!-- ═══════════════════════ TRUST LOGOS — INFINITE CAROUSEL ═══════════════════════ -->
+    <section class="reveal relative overflow-hidden py-8 bg-white" aria-label="Thương hiệu đối tác">
+      <!-- Edge fades -->
+      <div class="pointer-events-none absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-white to-transparent" aria-hidden="true" />
+      <div class="pointer-events-none absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-white to-transparent" aria-hidden="true" />
+
+      <!-- Scrolling track (3x duplicated for seamless loop) -->
+      <div class="brand-carousel flex items-center gap-16 w-max">
+        <template v-for="n in 3" :key="'set-' + n">
+          <span
+            v-for="brand in trustBrands"
+            :key="n + '-' + brand.name"
+            class="shrink-0 text-[#C0C0C0] hover:text-[#666] transition-colors duration-300 cursor-default select-none whitespace-nowrap"
+            :style="{
+              fontWeight: brand.fontWeight,
+              letterSpacing: brand.letterSpacing + 'px',
+              fontSize: brand.fontSize + 'px',
+            }"
+            role="img"
+            :aria-label="'Logo ' + brand.name"
+          >
+            {{ brand.name }}
+          </span>
+        </template>
+      </div>
     </section>
 
     <!-- ═══════════════════════ FEATURES ═══════════════════════ -->
@@ -211,7 +231,7 @@ useHead({
       <div class="flex-[1.2] rounded-2xl overflow-hidden h-[320px] lg:h-[380px] group">
         <NuxtImg
           src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&q=80"
-          alt="Bộ sưu tập đồ gia dụng VINA HOME chất lượng cao"
+          alt="Bộ sưu tập đồ gia dụng Duyên Phượng chất lượng cao"
           loading="lazy"
           decoding="async"
           width="800"

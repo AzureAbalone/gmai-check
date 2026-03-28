@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useFetch, useHead, useRoute, useRouter } from '#imports'
 import { useScrollReveal } from '~/composables/useScrollReveal'
 
@@ -88,7 +88,7 @@ const filteredProducts = computed(() => {
 
 // ─── SEO ───
 useHead({
-  title: 'Sản phẩm — VINA HOME',
+  title: 'Sản phẩm — Duyên Phượng',
   meta: [
     { name: 'description', content: 'Khám phá bộ sưu tập đồ gia dụng chất lượng cao cho nhà bếp, phòng tắm, phòng khách. Giá tốt nhất, giao hàng toàn quốc.' },
   ],
@@ -98,13 +98,59 @@ useHead({
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: 'Sản phẩm gia dụng — VINA HOME',
+        name: 'Sản phẩm gia dụng — Duyên Phượng',
         description: 'Bộ sưu tập sản phẩm gia dụng chất lượng cao',
         url: 'https://vinahome.vn/products',
       }),
     },
   ],
 })
+// ─── Dropdown states ───
+const showCategoryDropdown = ref(false)
+const showSortDropdown = ref(false)
+const categoryDropdownRef = ref<HTMLElement | null>(null)
+const sortDropdownRef = ref<HTMLElement | null>(null)
+
+const activeCategoryLabel = computed(() => {
+  return categories.find(c => c.value === activeCategory.value)?.label || 'Tất cả'
+})
+
+const activeCategoryIcon = computed(() => {
+  return categories.find(c => c.value === activeCategory.value)?.icon || 'solar:widget-2-outline'
+})
+
+const sortOptions = [
+  { value: 'default', label: 'Mặc định' },
+  { value: 'price-asc', label: 'Giá: thấp → cao' },
+  { value: 'price-desc', label: 'Giá: cao → thấp' },
+  { value: 'rating', label: 'Đánh giá cao nhất' },
+]
+
+const activeSortLabel = computed(() => {
+  return sortOptions.find(s => s.value === sortOrder.value)?.label || 'Sắp xếp'
+})
+
+function selectCategory(value: string) {
+  activeCategory.value = value
+  showCategoryDropdown.value = false
+}
+
+function selectSort(value: string) {
+  sortOrder.value = value
+  showSortDropdown.value = false
+}
+
+function handleClickOutside(e: MouseEvent) {
+  if (categoryDropdownRef.value && !categoryDropdownRef.value.contains(e.target as Node)) {
+    showCategoryDropdown.value = false
+  }
+  if (sortDropdownRef.value && !sortDropdownRef.value.contains(e.target as Node)) {
+    showSortDropdown.value = false
+  }
+}
+
+onMounted(() => document.addEventListener('click', handleClickOutside))
+onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
 </script>
 
 <template>
@@ -125,38 +171,116 @@ useHead({
     </section>
 
     <!-- Filter Bar -->
-    <section class="sticky top-[72px] z-40 flex flex-wrap items-center gap-3 px-6 lg:px-20 py-4 bg-white border-b border-[#E5E5E5]" aria-label="Bộ lọc sản phẩm">
-      <div role="tablist" aria-label="Danh mục sản phẩm" class="flex flex-wrap gap-3">
+    <section class="sticky top-[72px] z-40 flex items-center gap-3 px-6 lg:px-20 py-4 bg-white border-b border-[#E5E5E5]" aria-label="Bộ lọc sản phẩm">
+      <!-- Category Dropdown -->
+      <div ref="categoryDropdownRef" class="relative">
         <button
-          v-for="cat in categories"
-          :key="cat.value"
-          role="tab"
-          :aria-selected="activeCategory === cat.value"
-          :aria-label="'Lọc theo ' + cat.label"
-          class="inline-flex items-center gap-1.5 px-5 py-2 rounded-full text-[13px] font-medium border transition-all cursor-pointer"
-          :class="activeCategory === cat.value
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-medium border transition-all cursor-pointer"
+          :class="showCategoryDropdown
             ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
-            : 'bg-transparent text-[#666] border-[#E5E5E5] hover:border-[#1A1A1A]'"
-          @click="activeCategory = cat.value"
+            : activeCategory !== 'all'
+              ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
+              : 'bg-transparent text-[#666] border-[#E5E5E5] hover:border-[#1A1A1A]'"
+          @click.stop="showCategoryDropdown = !showCategoryDropdown; showSortDropdown = false"
         >
-          <Icon :name="cat.icon" size="14" aria-hidden="true" />
-          {{ cat.label }}
+          <Icon :name="activeCategoryIcon" size="14" aria-hidden="true" />
+          {{ activeCategoryLabel }}
+          <Icon
+            name="solar:alt-arrow-down-outline"
+            size="14"
+            aria-hidden="true"
+            class="transition-transform duration-200"
+            :class="showCategoryDropdown ? 'rotate-180' : ''"
+          />
         </button>
+        <Transition
+          enter-active-class="transition duration-200 ease-out"
+          enter-from-class="opacity-0 translate-y-1"
+          enter-to-class="opacity-100 translate-y-0"
+          leave-active-class="transition duration-150 ease-in"
+          leave-from-class="opacity-100 translate-y-0"
+          leave-to-class="opacity-0 translate-y-1"
+        >
+          <div
+            v-if="showCategoryDropdown"
+            class="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl border border-[#E5E5E5] shadow-lg shadow-black/5 overflow-hidden"
+          >
+            <button
+              v-for="cat in categories"
+              :key="cat.value"
+              class="flex items-center gap-2.5 w-full px-4 py-2.5 text-[13px] font-medium text-left transition-colors"
+              :class="activeCategory === cat.value
+                ? 'bg-[#F5F5F5] text-[#1A1A1A]'
+                : 'text-[#666] hover:bg-[#FAFAFA] hover:text-[#1A1A1A]'"
+              @click.stop="selectCategory(cat.value)"
+            >
+              <Icon :name="cat.icon" size="16" aria-hidden="true" />
+              {{ cat.label }}
+              <Icon
+                v-if="activeCategory === cat.value"
+                name="solar:check-circle-bold"
+                size="14"
+                class="ml-auto text-[#0D6E6E]"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+        </Transition>
       </div>
 
-      <div class="ml-auto flex items-center gap-2">
-        <Icon name="solar:sort-from-top-to-bottom-outline" size="16" class="text-[#888]" aria-hidden="true" />
-        <label for="sort-select" class="sr-only">Sắp xếp sản phẩm</label>
-        <select
-          id="sort-select"
-          v-model="sortOrder"
-          class="text-sm text-[#666] bg-transparent border border-[#E5E5E5] rounded-lg px-3 py-2 focus:outline-none focus:border-[#0D6E6E] focus:ring-1 focus:ring-[#0D6E6E]/30 cursor-pointer"
+      <!-- Sort Dropdown -->
+      <div ref="sortDropdownRef" class="relative ml-auto">
+        <button
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-medium border transition-all cursor-pointer"
+          :class="showSortDropdown
+            ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
+            : sortOrder !== 'default'
+              ? 'bg-[#0D6E6E]/10 text-[#0D6E6E] border-[#0D6E6E]/30'
+              : 'bg-transparent text-[#666] border-[#E5E5E5] hover:border-[#1A1A1A]'"
+          @click.stop="showSortDropdown = !showSortDropdown; showCategoryDropdown = false"
         >
-          <option value="default">Sắp xếp</option>
-          <option value="price-asc">Giá: thấp → cao</option>
-          <option value="price-desc">Giá: cao → thấp</option>
-          <option value="rating">Đánh giá cao nhất</option>
-        </select>
+          <Icon name="solar:sort-from-top-to-bottom-outline" size="14" aria-hidden="true" />
+          {{ activeSortLabel }}
+          <Icon
+            name="solar:alt-arrow-down-outline"
+            size="14"
+            aria-hidden="true"
+            class="transition-transform duration-200"
+            :class="showSortDropdown ? 'rotate-180' : ''"
+          />
+        </button>
+        <Transition
+          enter-active-class="transition duration-200 ease-out"
+          enter-from-class="opacity-0 translate-y-1"
+          enter-to-class="opacity-100 translate-y-0"
+          leave-active-class="transition duration-150 ease-in"
+          leave-from-class="opacity-100 translate-y-0"
+          leave-to-class="opacity-0 translate-y-1"
+        >
+          <div
+            v-if="showSortDropdown"
+            class="absolute top-full right-0 mt-2 w-52 bg-white rounded-xl border border-[#E5E5E5] shadow-lg shadow-black/5 overflow-hidden"
+          >
+            <button
+              v-for="opt in sortOptions"
+              :key="opt.value"
+              class="flex items-center gap-2.5 w-full px-4 py-2.5 text-[13px] font-medium text-left transition-colors"
+              :class="sortOrder === opt.value
+                ? 'bg-[#F5F5F5] text-[#1A1A1A]'
+                : 'text-[#666] hover:bg-[#FAFAFA] hover:text-[#1A1A1A]'"
+              @click.stop="selectSort(opt.value)"
+            >
+              {{ opt.label }}
+              <Icon
+                v-if="sortOrder === opt.value"
+                name="solar:check-circle-bold"
+                size="14"
+                class="ml-auto text-[#0D6E6E]"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+        </Transition>
       </div>
     </section>
 

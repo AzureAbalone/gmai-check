@@ -28,8 +28,8 @@ const footerLinks = {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
         <!-- Brand -->
         <div class="lg:col-span-2 space-y-4">
-          <NuxtLink to="/" class="text-lg font-bold tracking-[2px] text-white hover:opacity-80 transition-opacity" aria-label="Về trang chủ">
-            VINA HOME
+          <NuxtLink to="/" class="hover:opacity-80 transition-opacity" aria-label="Về trang chủ">
+            <DuyenPhuongLogo variant="light" size="sm" />
           </NuxtLink>
           <p class="text-sm leading-relaxed text-[#64748B] max-w-xs">
             Đồ gia dụng thông minh cho mọi gia đình Việt. Chất lượng cao — giá phải chăng.
@@ -76,7 +76,7 @@ const footerLinks = {
 
       <!-- Divider + Copyright -->
       <div class="border-t border-[#1E293B] pt-6">
-        <p class="text-xs text-[#475569]">&copy; {{ currentYear }} VINA HOME. All rights reserved.</p>
+        <p class="text-xs text-[#475569]">&copy; {{ currentYear }} Nhà phân phối Duyên Phượng. All rights reserved.</p>
       </div>
     </div>
   </footer>

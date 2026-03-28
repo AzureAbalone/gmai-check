@@ -59,10 +59,10 @@ const navLinks = [
     <!-- Logo -->
     <NuxtLink
       to="/"
-      class="text-xl font-bold tracking-[2px] text-[#1A1A1A] hover:opacity-70 transition-opacity"
-      aria-label="VINA HOME — Trang chủ"
+      class="hover:opacity-80 transition-opacity"
+      aria-label="Nhà phân phối Duyên Phượng — Trang chủ"
     >
-      VINA HOME
+      <DuyenPhuongLogo size="sm" />
     </NuxtLink>
 
     <!-- Desktop Nav -->

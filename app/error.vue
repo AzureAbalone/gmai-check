@@ -34,20 +34,10 @@ function handleBack() {
 <template>
   <div class="min-h-screen bg-[#FAFAFA] flex flex-col items-center justify-center px-6 text-center">
     <!-- Error visual -->
-    <div class="relative mb-8">
+    <div class="mb-8">
       <span class="text-[120px] lg:text-[180px] font-bold text-[#E5E5E5] leading-none select-none font-['Newsreader']">
         {{ statusCode }}
       </span>
-      <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-20 h-20 rounded-full bg-[#0D6E6E]/10 flex items-center justify-center">
-          <Icon
-            :name="statusCode === 404 ? 'solar:map-point-search-bold' : 'solar:danger-triangle-bold'"
-            size="40"
-            class="text-[#0D6E6E]"
-            aria-hidden="true"
-          />
-        </div>
-      </div>
     </div>
 
     <h1 class="font-['Newsreader'] text-3xl lg:text-4xl font-medium text-[#1A1A1A] mb-4">{{ title }}</h1>
