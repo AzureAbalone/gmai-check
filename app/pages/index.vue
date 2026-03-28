@@ -28,7 +28,7 @@ const features = [
 const heroImages = [
   { src: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80', alt: 'Nhà bếp hiện đại', label: 'Nhà bếp' },
   { src: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80', alt: 'Phòng khách tinh tế', label: 'Phòng khách' },
-  { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80', alt: 'Phòng tắm gọn gàng', label: 'Phòng tắm' },
+  { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80', alt: 'Phòng tắm gọn gàng', label: 'Phòng tắm', objectPosition: 'center 70%' },
   { src: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80', alt: 'Phòng ngủ ấm cúng', label: 'Phòng ngủ' },
   { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', alt: 'Ngoại thất hiện đại', label: 'Ngoại thất' },
 ]
@@ -150,6 +150,7 @@ useHead({
             width="800"
             height="600"
             class="diagonal-panel__img"
+            :style="img.objectPosition ? { objectPosition: img.objectPosition } : undefined"
           />
           <!-- Overlay gradient + label -->
           <div class="diagonal-panel__overlay">
