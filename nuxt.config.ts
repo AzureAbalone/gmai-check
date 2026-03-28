@@ -29,11 +29,6 @@ export default defineNuxtConfig({
       lg: 1024,
       xl: 1280,
     },
-    providers: {
-      unsplash: {
-        provider: 'unsplash',
-      },
-    },
   },
 
   // ─── Site config for SEO / Sitemap ───

@@ -131,7 +131,7 @@ useHead({
         :key="img.alt"
         class="flex-1 rounded-2xl overflow-hidden group"
       >
-        <img
+        <NuxtImg
           :src="img.src"
           :alt="img.alt"
           :loading="index === 0 ? 'eager' : 'lazy'"
@@ -139,6 +139,7 @@ useHead({
           decoding="async"
           width="800"
           height="600"
+          sizes="sm:100vw md:50vw lg:33vw"
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
       </div>
@@ -208,13 +209,14 @@ useHead({
         </NuxtLink>
       </div>
       <div class="flex-[1.2] rounded-2xl overflow-hidden h-[320px] lg:h-[380px] group">
-        <img
+        <NuxtImg
           src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&q=80"
           alt="Bộ sưu tập đồ gia dụng VINA HOME chất lượng cao"
           loading="lazy"
           decoding="async"
           width="800"
           height="600"
+          sizes="sm:100vw lg:60vw"
           class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
         />
       </div>

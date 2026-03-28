@@ -185,13 +185,14 @@ useHead({
         >
           <!-- Image -->
           <div class="relative h-56 overflow-hidden bg-[#F5F5F5]">
-            <img
+            <NuxtImg
               :src="product.image"
               :alt="product.name"
               loading="lazy"
               decoding="async"
               width="600"
               height="400"
+              sizes="sm:100vw md:50vw lg:33vw"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <span
