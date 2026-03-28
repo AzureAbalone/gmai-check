@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
+    '@nuxt/eslint',
   ],
 
   // ─── Icon optimization ───

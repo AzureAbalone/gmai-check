@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
-    "lint": "echo 'No linter configured'"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@iconify-json/solar": "^1.2.5",
@@ -24,6 +25,8 @@
     "vue-router": "^5.0.4"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^1.15.2",
+    "eslint": "^9.39.4",
     "typescript": "^6.0.2",
     "vue-tsc": "^3.2.6"
   }

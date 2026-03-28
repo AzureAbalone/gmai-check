@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { computed, ref, watch } from 'vue'
+import { useFetch, useHead, useRoute, useRouter } from '#imports'
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
 useScrollReveal()
 
 interface Product {
@@ -22,11 +26,17 @@ const { data: products, status } = await useFetch<Product[]>('/api/products', {
 
 const activeCategory = ref('all')
 const sortOrder = ref('default')
-
-// ─── Read category from URL query (deep linking from footer) ───
 const route = useRoute()
-if (route.query.category && typeof route.query.category === 'string') {
-  activeCategory.value = route.query.category
+const router = useRouter()
+
+const categoryValues = new Set(['all', 'kitchen', 'bathroom', 'living'])
+
+function getCategoryFromQuery(category: unknown) {
+  if (typeof category === 'string' && categoryValues.has(category)) {
+    return category
+  }
+
+  return 'all'
 }
 
 const categories = [
@@ -35,6 +45,31 @@ const categories = [
   { value: 'bathroom', label: 'Phòng tắm', icon: 'solar:bath-outline' },
   { value: 'living', label: 'Phòng khách', icon: 'solar:sofa-2-outline' },
 ]
+
+watch(() => route.query.category, (category) => {
+  activeCategory.value = getCategoryFromQuery(category)
+}, { immediate: true })
+
+watch(activeCategory, (category) => {
+  const currentQueryCategory = typeof route.query.category === 'string'
+    ? route.query.category
+    : undefined
+  const nextQueryCategory = category === 'all' ? undefined : category
+
+  if (currentQueryCategory === nextQueryCategory) {
+    return
+  }
+
+  const nextQuery = { ...route.query }
+
+  if (nextQueryCategory) {
+    nextQuery.category = nextQueryCategory
+  } else {
+    delete nextQuery.category
+  }
+
+  router.replace({ query: nextQuery })
+})
 
 const filteredProducts = computed(() => {
   let items = products.value || []
@@ -158,7 +193,7 @@ useHead({
               width="600"
               height="400"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            >
+            />
             <span
               v-if="product.badge"
               class="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"

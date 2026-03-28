@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useHead } from '#imports'
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
 useScrollReveal()
 
 const features = [
@@ -95,11 +98,11 @@ useHead({
         id="hero-heading"
         class="reveal font-['Newsreader'] text-4xl md:text-5xl lg:text-[56px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[800px]"
       >
-        Tiện ích thông minh,<br>nâng tầm cuộc sống.
+        Tiện ích thông minh,<br/>nâng tầm cuộc sống.
       </h1>
 
       <p class="reveal text-lg text-[#666] max-w-[600px] leading-relaxed">
-        Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.<br class="hidden md:block">
+        Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.<br class="hidden md:block"/>
         Giao hàng toàn quốc, đổi trả dễ dàng.
       </p>
 
@@ -137,7 +140,7 @@ useHead({
           width="800"
           height="600"
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        >
+        />
       </div>
     </section>
 
@@ -161,7 +164,7 @@ useHead({
           SẢN PHẨM NỔI BẬT
         </span>
         <h2 id="features-heading" class="font-['Newsreader'] text-3xl lg:text-[40px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[700px]">
-          Mọi tiện ích cho ngôi nhà của bạn,<br>tất cả ở một nơi.
+          Mọi tiện ích cho ngôi nhà của bạn,<br/>tất cả ở một nơi.
         </h2>
         <p class="text-base text-[#888] max-w-[560px]">
           Từ nhà bếp gọn gàng đến phòng tắm sạch sẽ — chúng tôi mang đến sản phẩm chất lượng với giá phải chăng nhất.
@@ -191,7 +194,7 @@ useHead({
           CHẤT LƯỢNG ĐẢM BẢO
         </span>
         <h2 id="showcase-heading" class="font-['Newsreader'] text-3xl lg:text-4xl font-medium leading-[1.15] text-[#1A1A1A]">
-          Sản phẩm bền đẹp,<br>giá cả hợp lý.
+          Sản phẩm bền đẹp,<br/>giá cả hợp lý.
         </h2>
         <p class="text-[15px] leading-relaxed text-[#888]">
           Chúng tôi hợp tác trực tiếp với các nhà sản xuất hàng đầu Việt Nam và Nhật Bản để mang đến sản phẩm chất lượng cao nhất với mức giá tốt nhất cho người tiêu dùng.
@@ -213,14 +216,14 @@ useHead({
           width="800"
           height="600"
           class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-        >
+        />
       </div>
     </section>
 
     <!-- ═══════════════════════ FINAL CTA ═══════════════════════ -->
     <section id="contact" class="reveal flex flex-col items-center gap-8 py-24 px-6 lg:px-[120px] bg-[#0F172A] text-center" aria-labelledby="cta-heading">
       <h2 id="cta-heading" class="font-['Newsreader'] text-3xl lg:text-5xl font-medium leading-[1.1] text-white max-w-[700px]">
-        Mua sắm thông minh.<br>Giao hàng tận nơi.
+        Mua sắm thông minh.<br/>Giao hàng tận nơi.
       </h2>
       <p class="text-base text-[#94A3B8] max-w-[500px]">
         Bắt đầu mua sắm ngay hôm nay — miễn phí giao hàng cho đơn từ 300.000đ
