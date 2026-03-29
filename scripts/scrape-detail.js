@@ -113,41 +113,56 @@ function extractDetail(html) {
   return detail;
 }
 
-// ─── Fetch a single product detail ───
+// ─── Fetch a single product detail (with retry) ───
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 2000;
+
 async function fetchProduct(cycleTLS, product, index, total) {
   const url = product.url;
   if (!url) return { product: { ...product, detail: null }, ok: false, skipped: true, time: 0, bytes: 0 };
 
-  const reqStart = Date.now();
-  try {
-    const r = await cycleTLS(url, { body: "", ja3: JA3, userAgent: USER_AGENT, headers: HEADERS });
-    const reqTime = Date.now() - reqStart;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const reqStart = Date.now();
+    try {
+      const r = await cycleTLS(url, { body: "", ja3: JA3, userAgent: USER_AGENT, headers: HEADERS });
+      const reqTime = Date.now() - reqStart;
 
-    if (r.status === 200) {
-      const html = typeof r.data === "string" ? r.data : String(r.data);
-      const bytes = Buffer.byteLength(html, "utf-8");
-      const detail = extractDetail(html);
+      if (r.status === 200) {
+        const html = typeof r.data === "string" ? r.data : String(r.data);
+        const bytes = Buffer.byteLength(html, "utf-8");
+        const detail = extractDetail(html);
 
-      const merged = {
-        ...product,
-        name: detail.name || product.name,
-        code: detail.code || product.code,
-        dimensions: detail.dimensions || "",
-        material: detail.material || "",
-        packaging: detail.packaging || "",
-        price: detail.price || "",
-        colors: detail.colors || [],
-        images: detail.images.length > 0 ? detail.images : product.images,
-        description: detail.description || "",
-        descriptionHtml: detail.descriptionHtml || "",
-        badge: detail.badge || product.badge,
-      };
+        const merged = {
+          ...product,
+          name: detail.name || product.name,
+          code: detail.code || product.code,
+          dimensions: detail.dimensions || "",
+          material: detail.material || "",
+          packaging: detail.packaging || "",
+          price: detail.price || "",
+          colors: detail.colors || [],
+          images: detail.images.length > 0 ? detail.images : product.images,
+          description: detail.description || "",
+          descriptionHtml: detail.descriptionHtml || "",
+          badge: detail.badge || product.badge,
+        };
 
-      return { product: merged, ok: true, skipped: false, time: reqTime, bytes, detail };
+        return { product: merged, ok: true, skipped: false, time: reqTime, bytes, detail };
+      }
+
+      // Retry on 408 timeout
+      if (r.status === 408 && attempt < MAX_RETRIES) {
+        await sleep(RETRY_DELAY * attempt);
+        continue;
+      }
+      return { product: { ...product, detail_error: `HTTP ${r.status}` }, ok: false, skipped: false, time: reqTime, bytes: 0 };
+    } catch (err) {
+      if (attempt < MAX_RETRIES) {
+        await sleep(RETRY_DELAY * attempt);
+        continue;
+      }
+      return { product: { ...product, detail_error: err.message }, ok: false, skipped: false, time: Date.now() - reqStart, bytes: 0 };
     }
-    return { product: { ...product, detail_error: `HTTP ${r.status}` }, ok: false, skipped: false, time: reqTime, bytes: 0 };
-  } catch (err) {
-    return { product: { ...product, detail_error: err.message }, ok: false, skipped: false, time: Date.now() - reqStart, bytes: 0 };
   }
 }
 
@@ -183,17 +198,14 @@ async function main() {
   console.log(`   Batch delay: ${DELAY_BETWEEN_BATCH}ms`);
   console.log(`   Output: ${OUTPUT_DIR}/<category>/<product>.json\n`);
 
-  // Resume support
+  // Resume support — only track index, not all products
   let startIndex = 0;
   let results = [];
-  const doneSet = new Set();
 
   if (fs.existsSync(PROGRESS_FILE)) {
     try {
       const progress = JSON.parse(fs.readFileSync(PROGRESS_FILE, "utf-8"));
-      results = progress.products || [];
-      startIndex = results.length;
-      results.forEach((p) => doneSet.add(p.url));
+      startIndex = progress.lastIndex || 0;
       console.log(`📂 Resuming from index ${startIndex}\n`);
     } catch (_) { /* start fresh */ }
   }
@@ -282,10 +294,10 @@ async function main() {
         }
       }
 
-      // Progress save
+      // Progress save — only store the index
       const lastGi = batch[batch.length - 1].globalIndex + 1;
       if (lastGi % BATCH_SAVE_EVERY < CONCURRENCY || b === batches.length - 1) {
-        fs.writeFileSync(PROGRESS_FILE, JSON.stringify({ products: results }, null, 2), "utf-8");
+        fs.writeFileSync(PROGRESS_FILE, JSON.stringify({ lastIndex: lastGi }), "utf-8");
         console.log(`  💾 Progress saved (${lastGi}/${products.length})`);
       }
 
