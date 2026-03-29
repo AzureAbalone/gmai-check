@@ -60,7 +60,7 @@ const relatedProducts = computed(() => {
 // ─── Reactive state ───
 const selectedColorIndex = ref(0)
 const activeImageIndex = ref(0)
-const openAccordion = ref<string | null>('specs')
+const openAccordions = reactive(new Set<string>(['specs']))
 
 // ─── Computed ───
 const selectedColor = computed(() => product.value?.colors?.[selectedColorIndex.value])
@@ -87,7 +87,11 @@ function selectColor(index: number) {
 }
 
 function toggleAccordion(key: string) {
-  openAccordion.value = openAccordion.value === key ? null : key
+  if (openAccordions.has(key)) {
+    openAccordions.delete(key)
+  } else {
+    openAccordions.add(key)
+  }
 }
 
 // ─── SEO ───
@@ -294,7 +298,7 @@ useHead({
               <div class="border-b border-[#E5E5E5]">
                 <button
                   class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordion === 'specs'"
+                  :aria-expanded="openAccordions.has('specs')"
                   @click="toggleAccordion('specs')"
                 >
                   <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
@@ -305,7 +309,7 @@ useHead({
                     name="solar:alt-arrow-down-outline"
                     size="16"
                     class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordion === 'specs' }"
+                    :class="{ 'rotate-180': openAccordions.has('specs') }"
                     aria-hidden="true"
                   />
                 </button>
@@ -315,7 +319,7 @@ useHead({
                   enter-from-class="pdp-accordion-enter-from"
                   leave-to-class="pdp-accordion-leave-to"
                 >
-                  <div v-if="openAccordion === 'specs'" class="pb-4">
+                  <div v-if="openAccordions.has('specs')" class="pb-4">
                     <div class="space-y-2">
                       <div
                         v-for="spec in product.specs"
@@ -334,7 +338,7 @@ useHead({
               <div class="border-b border-[#E5E5E5]">
                 <button
                   class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordion === 'info'"
+                  :aria-expanded="openAccordions.has('info')"
                   @click="toggleAccordion('info')"
                 >
                   <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
@@ -345,7 +349,7 @@ useHead({
                     name="solar:alt-arrow-down-outline"
                     size="16"
                     class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordion === 'info' }"
+                    :class="{ 'rotate-180': openAccordions.has('info') }"
                     aria-hidden="true"
                   />
                 </button>
@@ -355,7 +359,7 @@ useHead({
                   enter-from-class="pdp-accordion-enter-from"
                   leave-to-class="pdp-accordion-leave-to"
                 >
-                  <div v-if="openAccordion === 'info'" class="pb-4">
+                  <div v-if="openAccordions.has('info')" class="pb-4">
                     <p class="text-sm leading-relaxed text-[#666]">{{ product.productInfo }}</p>
                   </div>
                 </Transition>
@@ -365,7 +369,7 @@ useHead({
               <div v-if="product.advantages?.length" class="border-b border-[#E5E5E5]">
                 <button
                   class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordion === 'advantages'"
+                  :aria-expanded="openAccordions.has('advantages')"
                   @click="toggleAccordion('advantages')"
                 >
                   <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
@@ -376,7 +380,7 @@ useHead({
                     name="solar:alt-arrow-down-outline"
                     size="16"
                     class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordion === 'advantages' }"
+                    :class="{ 'rotate-180': openAccordions.has('advantages') }"
                     aria-hidden="true"
                   />
                 </button>
@@ -386,7 +390,7 @@ useHead({
                   enter-from-class="pdp-accordion-enter-from"
                   leave-to-class="pdp-accordion-leave-to"
                 >
-                  <div v-if="openAccordion === 'advantages'" class="pb-4">
+                  <div v-if="openAccordions.has('advantages')" class="pb-4">
                     <ul class="space-y-2">
                       <li v-for="(item, i) in product.advantages" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
                         <Icon name="solar:check-circle-bold" size="16" class="text-[#0D6E6E] mt-0.5 flex-shrink-0" aria-hidden="true" />
@@ -401,7 +405,7 @@ useHead({
               <div v-if="product.usage?.length" class="border-b border-[#E5E5E5]">
                 <button
                   class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordion === 'usage'"
+                  :aria-expanded="openAccordions.has('usage')"
                   @click="toggleAccordion('usage')"
                 >
                   <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
@@ -412,7 +416,7 @@ useHead({
                     name="solar:alt-arrow-down-outline"
                     size="16"
                     class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordion === 'usage' }"
+                    :class="{ 'rotate-180': openAccordions.has('usage') }"
                     aria-hidden="true"
                   />
                 </button>
@@ -422,7 +426,7 @@ useHead({
                   enter-from-class="pdp-accordion-enter-from"
                   leave-to-class="pdp-accordion-leave-to"
                 >
-                  <div v-if="openAccordion === 'usage'" class="pb-4">
+                  <div v-if="openAccordions.has('usage')" class="pb-4">
                     <ul class="space-y-2">
                       <li v-for="(item, i) in product.usage" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
                         <span class="text-[#0D6E6E] font-medium">•</span>
@@ -437,7 +441,7 @@ useHead({
               <div v-if="product.storage?.length" class="border-b border-[#E5E5E5]">
                 <button
                   class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordion === 'storage'"
+                  :aria-expanded="openAccordions.has('storage')"
                   @click="toggleAccordion('storage')"
                 >
                   <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
@@ -448,7 +452,7 @@ useHead({
                     name="solar:alt-arrow-down-outline"
                     size="16"
                     class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordion === 'storage' }"
+                    :class="{ 'rotate-180': openAccordions.has('storage') }"
                     aria-hidden="true"
                   />
                 </button>
@@ -458,7 +462,7 @@ useHead({
                   enter-from-class="pdp-accordion-enter-from"
                   leave-to-class="pdp-accordion-leave-to"
                 >
-                  <div v-if="openAccordion === 'storage'" class="pb-4">
+                  <div v-if="openAccordions.has('storage')" class="pb-4">
                     <ul class="space-y-2">
                       <li v-for="(item, i) in product.storage" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
                         <span class="text-[#0D6E6E] font-medium">•</span>
