@@ -137,8 +137,8 @@ export default defineNuxtConfig({
 
   // ─── Experimental features ───
   experimental: {
-    // Upstream fs-backed payload cache collides on root ('') vs nested ('products') keys in dev/prerender.
-    payloadExtraction: false,
+    // Disable only in dev: fs-backed payload cache collides on root ('') vs nested ('products') keys.
+    payloadExtraction: process.env.NODE_ENV !== 'development',
     renderJsonPayloads: true,
     viewTransition: true,
   },
