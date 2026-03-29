@@ -9,7 +9,7 @@ const footerLinks = {
     { label: 'Ngoài trời', to: '/products' },
   ],
   company: [
-    { label: 'Về chúng tôi', to: '/#about' },
+    { label: 'Về chúng tôi', to: '/#contact' },
     { label: 'Blog', to: '#' },
     { label: 'Tuyển dụng', to: '#' },
   ],

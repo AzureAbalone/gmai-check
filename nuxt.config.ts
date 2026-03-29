@@ -75,6 +75,9 @@ export default defineNuxtConfig({
         { name: 'twitter:description', content: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.' },
       ],
       link: [
+        // Favicon
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         // Font preconnect + swap
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },

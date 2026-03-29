@@ -43,7 +43,7 @@ watch(isMobileOpen, (open) => {
 
 const navLinks = [
   { label: 'Sản phẩm', to: '/products', icon: 'solar:widget-2-outline' },
-  { label: 'Về chúng tôi', to: '/#about', icon: 'solar:info-circle-outline' },
+  { label: 'Về chúng tôi', to: '/#contact', icon: 'solar:info-circle-outline' },
   { label: 'Liên hệ', to: 'https://zalo.me/0968164783', icon: 'solar:chat-round-dots-outline', external: true },
 ]
 
