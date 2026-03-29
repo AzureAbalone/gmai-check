@@ -19,8 +19,10 @@ export default defineNuxtPlugin({
     })
 
     // Cleanup on route change to prevent scroll issues
+    // Skip scroll-to-top when navigating to a hash anchor (e.g. /#about)
     const router = useRouter()
-    router.beforeEach(() => {
+    router.beforeEach((to) => {
+      if (to.hash) return
       lenis.scrollTo(0, { immediate: true })
     })
 

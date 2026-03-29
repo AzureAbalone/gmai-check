@@ -30,27 +30,13 @@ const { data: product, status } = await useFetch<ProductDetail>(`/api/products/$
 
 // ─── Reactive state ───
 const selectedColorIndex = ref(0)
-const quantity = ref(1)
 const activeImageIndex = ref(0)
 const openAccordion = ref<string | null>('specs')
 
 // ─── Computed ───
 const selectedColor = computed(() => product.value?.colors?.[selectedColorIndex.value])
 
-const formattedPrice = computed(() => {
-  if (!product.value) return ''
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.value.price)
-})
 
-const formattedOriginalPrice = computed(() => {
-  if (!product.value?.originalPrice) return ''
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.value.originalPrice)
-})
-
-const discountPercent = computed(() => {
-  if (!product.value?.originalPrice) return null
-  return Math.round((1 - product.value.price / product.value.originalPrice) * 100)
-})
 
 const categoryLabel = computed(() => {
   const map: Record<string, string> = {
@@ -61,13 +47,7 @@ const categoryLabel = computed(() => {
   return map[product.value?.category || ''] || 'Sản phẩm'
 })
 
-// ─── Actions ───
-function adjustQuantity(delta: number) {
-  const newVal = quantity.value + delta
-  if (newVal >= 1 && newVal <= 99) {
-    quantity.value = newVal
-  }
-}
+
 
 function selectImage(index: number) {
   activeImageIndex.value = index
@@ -157,7 +137,7 @@ useHead({
         <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-16">
 
           <!-- ═══ LEFT: Image Gallery ═══ -->
-          <div class="reveal flex-1 lg:max-w-[55%]">
+          <div class="reveal flex-1 lg:max-w-[55%] lg:sticky lg:top-[100px] lg:self-start">
             <!-- Main Image -->
             <div class="relative rounded-2xl overflow-hidden bg-[#F5F5F5] h-[360px] sm:h-[440px] lg:h-[520px] group">
               <NuxtImg
@@ -206,7 +186,16 @@ useHead({
           </div>
 
           <!-- ═══ RIGHT: Product Info ═══ -->
-          <div class="reveal reveal-delay-1 flex-1 space-y-6 lg:sticky lg:top-[100px] lg:self-start">
+          <div class="reveal reveal-delay-1 flex-1 space-y-6">
+
+            <!-- Back to products -->
+            <NuxtLink
+              to="/products"
+              class="inline-flex items-center gap-2 text-sm font-medium text-[#888] hover:text-[#0D6E6E] transition-colors"
+            >
+              <Icon name="solar:arrow-left-outline" size="16" aria-hidden="true" />
+              Xem tất cả sản phẩm
+            </NuxtLink>
 
             <!-- Category + Title -->
             <div class="space-y-3">
@@ -234,17 +223,7 @@ useHead({
               <span class="text-sm text-[#999]">({{ product.reviews }} đánh giá)</span>
             </div>
 
-            <!-- Price -->
-            <div class="flex items-baseline gap-3">
-              <span class="text-3xl lg:text-[36px] font-bold text-[#1A1A1A]">{{ formattedPrice }}</span>
-              <span v-if="formattedOriginalPrice" class="text-lg text-[#999] line-through">{{ formattedOriginalPrice }}</span>
-              <span
-                v-if="discountPercent"
-                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-50 text-red-600"
-              >
-                -{{ discountPercent }}%
-              </span>
-            </div>
+
 
             <!-- Description -->
             <p class="text-[15px] leading-relaxed text-[#666]">
@@ -275,65 +254,7 @@ useHead({
               </div>
             </div>
 
-            <!-- Quantity + Add to Cart -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <!-- Quantity selector -->
-              <div class="flex items-center border border-[#E5E5E5] rounded-xl overflow-hidden">
-                <button
-                  class="pdp-quantity-btn w-12 h-12 flex items-center justify-center text-[#666] hover:bg-[#F5F5F5] hover:text-[#1A1A1A] transition-colors"
-                  :disabled="quantity <= 1"
-                  :class="{ 'opacity-30 cursor-not-allowed': quantity <= 1 }"
-                  aria-label="Giảm số lượng"
-                  @click="adjustQuantity(-1)"
-                >
-                  <Icon name="solar:minus-circle-outline" size="18" aria-hidden="true" />
-                </button>
-                <span class="w-12 h-12 flex items-center justify-center text-base font-semibold text-[#1A1A1A] select-none border-x border-[#E5E5E5]">
-                  {{ quantity }}
-                </span>
-                <button
-                  class="pdp-quantity-btn w-12 h-12 flex items-center justify-center text-[#666] hover:bg-[#F5F5F5] hover:text-[#1A1A1A] transition-colors"
-                  :disabled="quantity >= 99"
-                  aria-label="Tăng số lượng"
-                  @click="adjustQuantity(1)"
-                >
-                  <Icon name="solar:add-circle-outline" size="18" aria-hidden="true" />
-                </button>
-              </div>
 
-              <!-- Add to cart -->
-              <button
-                class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#0D6E6E] text-white text-base font-semibold rounded-xl hover:bg-[#0A5858] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-lg transition-all"
-              >
-                <Icon name="solar:cart-plus-bold" size="20" aria-hidden="true" />
-                Thêm vào giỏ hàng
-              </button>
-            </div>
-
-            <!-- Trust Badges -->
-            <div class="flex flex-col sm:flex-row gap-3 pt-2">
-              <div class="flex items-center gap-2.5 px-4 py-3 bg-[#F5F9F9] rounded-xl border border-[#E0EFEF]">
-                <Icon name="solar:delivery-bold" size="20" class="text-[#0D6E6E]" aria-hidden="true" />
-                <div>
-                  <p class="text-xs font-semibold text-[#1A1A1A]">Miễn phí vận chuyển</p>
-                  <p class="text-[11px] text-[#888]">Đơn từ 300K</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-2.5 px-4 py-3 bg-[#F5F9F9] rounded-xl border border-[#E0EFEF]">
-                <Icon name="solar:refresh-circle-bold" size="20" class="text-[#0D6E6E]" aria-hidden="true" />
-                <div>
-                  <p class="text-xs font-semibold text-[#1A1A1A]">Đổi trả 30 ngày</p>
-                  <p class="text-[11px] text-[#888]">Miễn phí</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-2.5 px-4 py-3 bg-[#F5F9F9] rounded-xl border border-[#E0EFEF]">
-                <Icon name="solar:shield-check-bold" size="20" class="text-[#0D6E6E]" aria-hidden="true" />
-                <div>
-                  <p class="text-xs font-semibold text-[#1A1A1A]">Bảo hành 12 tháng</p>
-                  <p class="text-[11px] text-[#888]">Chính hãng</p>
-                </div>
-              </div>
-            </div>
 
             <!-- Divider -->
             <div class="border-t border-[#E5E5E5]" />
@@ -379,96 +300,7 @@ useHead({
                   </div>
                 </Transition>
               </div>
-
-              <!-- In the Box -->
-              <div class="border-b border-[#E5E5E5]">
-                <button
-                  class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordion === 'inbox'"
-                  @click="toggleAccordion('inbox')"
-                >
-                  <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
-                    <Icon name="solar:box-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
-                    Trong hộp gồm có
-                  </span>
-                  <Icon
-                    name="solar:alt-arrow-down-outline"
-                    size="16"
-                    class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordion === 'inbox' }"
-                    aria-hidden="true"
-                  />
-                </button>
-                <Transition
-                  enter-active-class="pdp-accordion-enter-active"
-                  leave-active-class="pdp-accordion-leave-active"
-                  enter-from-class="pdp-accordion-enter-from"
-                  leave-to-class="pdp-accordion-leave-to"
-                >
-                  <div v-if="openAccordion === 'inbox'" class="pb-4">
-                    <ul class="space-y-2">
-                      <li
-                        v-for="item in product.inTheBox"
-                        :key="item"
-                        class="flex items-center gap-2.5 text-sm text-[#666]"
-                      >
-                        <Icon name="solar:check-circle-bold" size="16" class="text-[#0D6E6E] flex-shrink-0" aria-hidden="true" />
-                        {{ item }}
-                      </li>
-                    </ul>
-                  </div>
-                </Transition>
-              </div>
-
-              <!-- Features -->
-              <div>
-                <button
-                  class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordion === 'features'"
-                  @click="toggleAccordion('features')"
-                >
-                  <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
-                    <Icon name="solar:star-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
-                    Tính năng nổi bật
-                  </span>
-                  <Icon
-                    name="solar:alt-arrow-down-outline"
-                    size="16"
-                    class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordion === 'features' }"
-                    aria-hidden="true"
-                  />
-                </button>
-                <Transition
-                  enter-active-class="pdp-accordion-enter-active"
-                  leave-active-class="pdp-accordion-leave-active"
-                  enter-from-class="pdp-accordion-enter-from"
-                  leave-to-class="pdp-accordion-leave-to"
-                >
-                  <div v-if="openAccordion === 'features'" class="pb-4">
-                    <div class="flex flex-wrap gap-2">
-                      <span
-                        v-for="feat in product.features"
-                        :key="feat"
-                        class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F5F9F9] text-[#0D6E6E] text-xs font-medium rounded-full border border-[#E0EFEF]"
-                      >
-                        <Icon name="solar:verified-check-bold" size="12" aria-hidden="true" />
-                        {{ feat }}
-                      </span>
-                    </div>
-                  </div>
-                </Transition>
-              </div>
             </div>
-
-            <!-- Back to products -->
-            <NuxtLink
-              to="/products"
-              class="inline-flex items-center gap-2 text-sm font-medium text-[#888] hover:text-[#0D6E6E] transition-colors pt-2"
-            >
-              <Icon name="solar:arrow-left-outline" size="16" aria-hidden="true" />
-              Xem tất cả sản phẩm
-            </NuxtLink>
           </div>
         </div>
       </section>
