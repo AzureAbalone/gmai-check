@@ -14,16 +14,20 @@ interface Product {
 
 
 
+const PAGE_SIZE = 10
 const isExpanded = ref(false)
 const showDropdown = ref(false)
 let dropdownTimer: ReturnType<typeof setTimeout> | null = null
 const isMobileOverlay = ref(false)
+const mobileReady = ref(false)
 const searchQuery = ref('')
 const inputRef = ref<HTMLInputElement | null>(null)
 const mobileInputRef = ref<HTMLInputElement | null>(null)
 const containerRef = ref<HTMLElement | null>(null)
 const activeIndex = ref(-1)
 const products = ref<Product[]>([])
+const visibleCount = ref(PAGE_SIZE)
+const loadingMore = ref(false)
 
 // ─── Fetch products ───
 const { data } = await useFetch<Product[]>('/api/products', {
@@ -62,6 +66,33 @@ function elasticSearch(query: string, items: Product[]): Product[] {
 }
 
 const results = computed(() => elasticSearch(searchQuery.value, products.value))
+const visibleProducts = computed(() => products.value.slice(0, visibleCount.value))
+const hasMore = computed(() => visibleCount.value < products.value.length)
+
+// Bold matching text in product names
+function highlightMatch(name: string): string {
+  const q = searchQuery.value.trim()
+  if (!q) return name
+  const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return name.replace(new RegExp(`(${escaped})`, 'gi'), '<strong>$1</strong>')
+}
+
+// Infinite scroll: load more suggestions
+function loadMore() {
+  if (loadingMore.value || !hasMore.value) return
+  loadingMore.value = true
+  setTimeout(() => {
+    visibleCount.value += PAGE_SIZE
+    loadingMore.value = false
+  }, 300)
+}
+
+function onSuggestionScroll(e: Event) {
+  const el = e.target as HTMLElement
+  if (el.scrollTop + el.clientHeight >= el.scrollHeight - 40) {
+    loadMore()
+  }
+}
 
 // ─── Desktop expand / collapse ───
 function expand() {
@@ -88,8 +119,18 @@ function collapse() {
   }
 }
 
+// Desktop: clear text but keep search open & refocus
+function clearSearch() {
+  searchQuery.value = ''
+  activeIndex.value = -1
+  visibleCount.value = PAGE_SIZE
+  nextTick(() => inputRef.value?.focus())
+}
+
+// Desktop: full close (called on Escape or link click)
 function clearAndCollapse() {
   searchQuery.value = ''
+  visibleCount.value = PAGE_SIZE
   showDropdown.value = false
   if (dropdownTimer) clearTimeout(dropdownTimer)
   setTimeout(() => {
@@ -101,14 +142,33 @@ function clearAndCollapse() {
 // ─── Mobile overlay ───
 function openMobile() {
   isMobileOverlay.value = true
+  mobileReady.value = false
+  visibleCount.value = PAGE_SIZE
   document.body.style.overflow = 'hidden'
   nextTick(() => mobileInputRef.value?.focus())
+  setTimeout(() => {
+    mobileReady.value = true
+  }, 200)
+}
+
+// Mobile: clear text but keep overlay open, or close if empty
+function mobileClearOrClose() {
+  if (searchQuery.value.trim()) {
+    searchQuery.value = ''
+    activeIndex.value = -1
+    visibleCount.value = PAGE_SIZE
+    nextTick(() => mobileInputRef.value?.focus())
+  } else {
+    closeMobile()
+  }
 }
 
 function closeMobile() {
+  mobileReady.value = false
   isMobileOverlay.value = false
   searchQuery.value = ''
   activeIndex.value = -1
+  visibleCount.value = PAGE_SIZE
   document.body.style.overflow = ''
 }
 
@@ -190,7 +250,7 @@ const categoryMap: Record<string, string> = {
           v-if="searchQuery"
           class="clear-btn"
           aria-label="Xóa tìm kiếm"
-          @mousedown.prevent="clearAndCollapse"
+          @mousedown.prevent="clearSearch"
         >
           <Icon name="solar:close-circle-bold" size="16" aria-hidden="true" />
         </button>
@@ -210,8 +270,8 @@ const categoryMap: Record<string, string> = {
         <!-- Suggested items (when no search query) -->
         <div v-if="!searchQuery.trim()" class="py-2">
           <p class="px-4 py-1.5 text-[10px] font-semibold text-[#AAA] uppercase tracking-widest">Gợi ý tìm kiếm</p>
-          <ul class="dropdown-scroll" role="listbox" data-lenis-prevent>
-            <li v-for="(product, i) in products.slice(0, 6)" :key="product.id" role="option">
+          <ul class="dropdown-scroll" role="listbox" data-lenis-prevent @scroll="onSuggestionScroll">
+            <li v-for="(product, i) in visibleProducts" :key="product.id" role="option">
               <NuxtLink
                 :to="`/products/${product.id}`"
                 class="dropdown-item flex items-center gap-3 px-4 py-2.5 transition-colors duration-100 hover:bg-[#F8FAFA]"
@@ -224,6 +284,9 @@ const categoryMap: Record<string, string> = {
                 <p class="flex-1 min-w-0 text-[13px] font-medium text-[#555] truncate">{{ product.name }}</p>
                 <Icon name="lucide:arrow-up-right" size="12" class="text-[#CCC] shrink-0" aria-hidden="true" />
               </NuxtLink>
+            </li>
+            <li v-if="loadingMore" class="flex justify-center py-3">
+              <div class="w-4 h-4 border-2 border-[#0D6E6E] border-t-transparent rounded-full animate-spin" />
             </li>
           </ul>
         </div>
@@ -252,7 +315,8 @@ const categoryMap: Record<string, string> = {
                   <NuxtImg :src="product.image" :alt="product.name" width="72" height="72" loading="lazy" class="w-full h-full object-cover" />
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="text-[13px] font-medium text-[#1A1A1A] truncate">{{ product.name }}</p>
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <p class="text-[13px] font-medium text-[#1A1A1A] truncate" v-html="highlightMatch(product.name)" />
                   <span class="text-[10px] text-[#999]">{{ categoryMap[product.category] || product.category }}</span>
                 </div>
                 <Icon name="lucide:arrow-right" size="13" class="text-[#CCC] shrink-0" aria-hidden="true" />
@@ -306,28 +370,68 @@ const categoryMap: Record<string, string> = {
           <button
             class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#F5F5F5] text-[#999] active:bg-[#E5E5E5] transition-colors"
             aria-label="Đóng"
-            @click="closeMobile"
+            @click="mobileClearOrClose"
           >
             <Icon name="solar:close-circle-outline" size="18" aria-hidden="true" />
           </button>
         </div>
 
         <!-- Mobile Results -->
-        <div class="mobile-results-body flex-1 overflow-y-auto overscroll-contain">
-          <div v-if="!searchQuery.trim()" class="py-2" data-lenis-prevent>
-            <p class="px-5 py-2 text-[10px] font-semibold text-[#AAA] uppercase tracking-widest">Gợi ý tìm kiếm</p>
-            <ul class="py-1" role="listbox">
-              <li v-for="product in products" :key="product.id" role="option">
+        <div class="mobile-results-body flex-1 overflow-y-auto overscroll-contain" data-lenis-prevent @scroll="onSuggestionScroll">
+          <!-- Loading skeleton while products mount -->
+          <div v-if="!mobileReady" class="flex flex-col items-center justify-center py-16 text-center">
+            <div class="w-6 h-6 border-2 border-[#0D6E6E] border-t-transparent rounded-full animate-spin mb-3" />
+            <p class="text-xs text-[#AAA]">Đang tải sản phẩm...</p>
+          </div>
+
+          <!-- Suggested products (deferred) -->
+          <template v-else>
+            <div v-if="!searchQuery.trim()" class="py-2">
+              <p class="px-5 py-2 text-[10px] font-semibold text-[#AAA] uppercase tracking-widest">Gợi ý tìm kiếm</p>
+              <ul class="py-1" role="listbox">
+                <li v-for="product in visibleProducts" :key="product.id" role="option">
+                  <NuxtLink
+                    :to="`/products/${product.id}`"
+                    class="mobile-item flex items-center gap-4 px-5 py-3 transition-colors hover:bg-[#FAFAFA]"
+                    @click="closeMobile"
+                  >
+                    <div class="w-12 h-12 rounded-xl overflow-hidden bg-[#F5F5F5] shrink-0">
+                      <NuxtImg :src="product.image" :alt="product.name" width="96" height="96" loading="lazy" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-[#1A1A1A] truncate">{{ product.name }}</p>
+                      <div class="flex items-center gap-2 mt-0.5">
+                        <span class="text-[11px] text-[#888] bg-[#F0F0F0] px-2 py-0.5 rounded-full">{{ categoryMap[product.category] || product.category }}</span>
+                        <span class="flex items-center gap-0.5 text-[11px] text-[#888]">
+                          <Icon name="solar:star-bold" size="10" class="text-amber-400" aria-hidden="true" />
+                          {{ product.rating }}
+                        </span>
+                      </div>
+                    </div>
+                    <Icon name="lucide:arrow-up-right" size="14" class="text-[#CCC] shrink-0" aria-hidden="true" />
+                  </NuxtLink>
+                </li>
+                <li v-if="loadingMore" class="flex justify-center py-4">
+                  <div class="w-5 h-5 border-2 border-[#0D6E6E] border-t-transparent rounded-full animate-spin" />
+                </li>
+              </ul>
+            </div>
+
+            <ul v-else-if="results.length" class="py-2" role="listbox">
+              <li v-for="(product, i) in results" :key="product.id" role="option" :aria-selected="i === activeIndex">
                 <NuxtLink
                   :to="`/products/${product.id}`"
-                  class="flex items-center gap-4 px-5 py-3 transition-colors hover:bg-[#FAFAFA]"
+                  class="mobile-item flex items-center gap-4 px-5 py-3 transition-colors"
+                  :class="i === activeIndex ? 'bg-[#F0FAF9]' : 'hover:bg-[#FAFAFA]'"
                   @click="closeMobile"
+                  @mouseenter="activeIndex = i"
                 >
                   <div class="w-12 h-12 rounded-xl overflow-hidden bg-[#F5F5F5] shrink-0">
                     <NuxtImg :src="product.image" :alt="product.name" width="96" height="96" loading="lazy" class="w-full h-full object-cover" />
                   </div>
                   <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-[#1A1A1A] truncate">{{ product.name }}</p>
+                    <!-- eslint-disable-next-line vue/no-v-html -->
+                    <p class="text-sm font-medium text-[#1A1A1A] truncate" v-html="highlightMatch(product.name)" />
                     <div class="flex items-center gap-2 mt-0.5">
                       <span class="text-[11px] text-[#888] bg-[#F0F0F0] px-2 py-0.5 rounded-full">{{ categoryMap[product.category] || product.category }}</span>
                       <span class="flex items-center gap-0.5 text-[11px] text-[#888]">
@@ -336,44 +440,17 @@ const categoryMap: Record<string, string> = {
                       </span>
                     </div>
                   </div>
-                  <Icon name="lucide:arrow-up-right" size="14" class="text-[#CCC] shrink-0" aria-hidden="true" />
+                  <Icon name="lucide:arrow-right" size="16" class="text-[#CCC] shrink-0" aria-hidden="true" />
                 </NuxtLink>
               </li>
             </ul>
-          </div>
 
-          <ul v-else-if="results.length" class="py-2" role="listbox">
-            <li v-for="(product, i) in results" :key="product.id" role="option" :aria-selected="i === activeIndex">
-              <NuxtLink
-                :to="`/products/${product.id}`"
-                class="flex items-center gap-4 px-5 py-3 transition-colors"
-                :class="i === activeIndex ? 'bg-[#F0FAF9]' : 'hover:bg-[#FAFAFA]'"
-                @click="closeMobile"
-                @mouseenter="activeIndex = i"
-              >
-                <div class="w-12 h-12 rounded-xl overflow-hidden bg-[#F5F5F5] shrink-0">
-                  <NuxtImg :src="product.image" :alt="product.name" width="96" height="96" loading="lazy" class="w-full h-full object-cover" />
-                </div>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm font-medium text-[#1A1A1A] truncate">{{ product.name }}</p>
-                  <div class="flex items-center gap-2 mt-0.5">
-                    <span class="text-[11px] text-[#888] bg-[#F0F0F0] px-2 py-0.5 rounded-full">{{ categoryMap[product.category] || product.category }}</span>
-                    <span class="flex items-center gap-0.5 text-[11px] text-[#888]">
-                      <Icon name="solar:star-bold" size="10" class="text-amber-400" aria-hidden="true" />
-                      {{ product.rating }}
-                    </span>
-                  </div>
-                </div>
-                <Icon name="solar:alt-arrow-right-outline" size="16" class="text-[#CCC] shrink-0" aria-hidden="true" />
-              </NuxtLink>
-            </li>
-          </ul>
-
-          <div v-else class="flex flex-col items-center justify-center py-20 text-center px-6">
-            <Icon name="solar:sad-circle-outline" size="32" class="text-[#DDD] mb-3" aria-hidden="true" />
-            <p class="text-sm font-medium text-[#666]">Không tìm thấy sản phẩm</p>
-            <p class="text-xs text-[#AAA] mt-1">Thử từ khóa khác</p>
-          </div>
+            <div v-else class="flex flex-col items-center justify-center py-20 text-center px-6">
+              <Icon name="lucide:search-x" size="32" class="text-[#DDD] mb-3" aria-hidden="true" />
+              <p class="text-sm font-medium text-[#666]">Không tìm thấy sản phẩm</p>
+              <p class="text-xs text-[#AAA] mt-1">Thử từ khóa khác</p>
+            </div>
+          </template>
         </div>
       </div>
     </Transition>
@@ -463,6 +540,21 @@ const categoryMap: Record<string, string> = {
   color: #BBB;
 }
 
+/* Hide native search clear button (WebKit/Blink) */
+.search-input::-webkit-search-cancel-button,
+.search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
 .clear-btn {
   display: flex;
   align-items: center;
@@ -539,6 +631,13 @@ const categoryMap: Record<string, string> = {
 
 .dropdown-scroll::-webkit-scrollbar-thumb:hover {
   background: #CCC;
+}
+
+/* Highlight matching text in search results */
+.dropdown-item :deep(strong),
+.mobile-item :deep(strong) {
+  font-weight: 700;
+  color: #0D6E6E;
 }
 
 /* Stagger-animate items */
