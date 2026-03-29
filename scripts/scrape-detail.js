@@ -117,7 +117,7 @@ function extractDetail(html) {
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 2000;
 
-async function fetchProduct(cycleTLS, product, index, total) {
+async function fetchProduct(cycleTLS, product, _index, _total) {
   const url = product.url;
   if (!url) return { product: { ...product, detail: null }, ok: false, skipped: true, time: 0, bytes: 0 };
 
@@ -176,7 +176,7 @@ function saveProductFile(product) {
   const filePath = path.join(catDir, filename);
 
   // Strip descriptionHtml from individual file (keep it lean)
-  const { descriptionHtml, ...clean } = product;
+  const { descriptionHtml: _descriptionHtml, ...clean } = product;
   fs.writeFileSync(filePath, JSON.stringify(clean, null, 2), "utf-8");
   return filePath;
 }
@@ -207,7 +207,7 @@ async function main() {
       const progress = JSON.parse(fs.readFileSync(PROGRESS_FILE, "utf-8"));
       startIndex = progress.lastIndex || 0;
       console.log(`📂 Resuming from index ${startIndex}\n`);
-    } catch (_) { /* start fresh */ }
+    } catch (_e) { /* start fresh */ }
   }
 
   ensureDir(OUTPUT_DIR);
