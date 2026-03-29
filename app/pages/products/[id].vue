@@ -10,14 +10,14 @@ const productId = Number(route.params.id)
 interface ProductDetail {
   id: number
   name: string
+  code: string
   category: string
   image: string
   images: string[]
+  thumbnail: string
   rating: number
   reviews: number
   badge: string | null
-  price: number
-  originalPrice: number | null
   description: string
   productInfo: string
   advantages: string[]
@@ -25,15 +25,16 @@ interface ProductDetail {
   storage: string[]
   colors: { name: string; hex: string }[]
   specs: { label: string; value: string }[]
-  inTheBox: string[]
-  features: string[]
+  url: string
 }
 
 interface ProductSummary {
   id: number
   name: string
+  code: string
   category: string
   image: string
+  thumbnail: string
   rating: number
   reviews: number
   badge: string | null
@@ -109,12 +110,7 @@ useHead({
           ratingValue: product.value?.rating || 0,
           reviewCount: product.value?.reviews || 0,
         },
-        offers: {
-          '@type': 'Offer',
-          price: product.value?.price || 0,
-          priceCurrency: 'VND',
-          availability: 'https://schema.org/InStock',
-        },
+        availability: 'https://schema.org/InStock',
       })),
     },
   ],

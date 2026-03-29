@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useFetch, useHead, useRoute, useRouter } from '#imports'
+import { useFetch, useHead } from '#imports'
 import { useScrollReveal } from '~/composables/useScrollReveal'
 
 useScrollReveal()
@@ -14,8 +14,10 @@ onMounted(() => {
 interface Product {
   id: number
   name: string
+  code: string
   category: string
   image: string
+  thumbnail: string
   rating: number
   reviews: number
   badge: string | null
@@ -26,27 +28,74 @@ const { data: products, status } = await useFetch<Product[]>('/api/products', {
   default: () => [],
 })
 
+// Build categories dynamically from products data
+const categorySlugToLabel: Record<string, string> = {
+  'au-bat-dia': 'Âu bát đĩa',
+  'ban-ghe-1': 'Bàn ghế',
+  'bat-rac-hokori': 'Bát rác Hokori',
+  'binh-giu-nhiet-hokori': 'Bình giữ nhiệt Hokori',
+  'binh-nuoc-1': 'Bình nước',
+  'bst-tien-ich': 'BST tiện ích',
+  'bst-yeu-bep': 'BST yêu bếp',
+  'ca-coc-ly-1': 'Ca cốc ly',
+  'chai-can': 'Chai can',
+  'chau-gao-xo': 'Chậu gáo xô',
+  'chau-hokori': 'Chậu Hokori',
+  'coc-hokori': 'Cốc Hokori',
+  'dia-hokori': 'Đĩa Hokori',
+  'dung-cu-ve-sinh': 'Dụng cụ vệ sinh',
+  'dung-cu-ve-sinh-1': 'Dụng cụ vệ sinh',
+  'ghe-hokori': 'Ghế Hokori',
+  'hop-giay-hokori': 'Hộp giấy Hokori',
+  'hop-thuc-pham-2': 'Hộp thực phẩm',
+  'ke-gio-mac-ao-1': 'Kệ giỏ mắc áo',
+  'ke-hokori': 'Kệ Hokori',
+  'khay-da-vi-da-khay-lam-kem-1': 'Khay đá & kem',
+  'khay-nhua': 'Khay nhựa',
+  'lo-gia-vi-tam-tieu': 'Lọ gia vị',
+  'lo-keo-1': 'Lọ keo',
+  'mac-ao-hokori': 'Mắc áo Hokori',
+  'ong-dua-hop-giay-cam-coc': 'Ống đũa & hộp giấy',
+  'ro-can-xe': 'Rổ cần xé',
+  'ro-hokori': 'Rổ Hokori',
+  'ro-ra-1': 'Rổ rá',
+  'san-pham-cao-cap-hokori-1': 'SP cao cấp Hokori',
+  'san-pham-giu-nhiet-2': 'SP giữ nhiệt',
+  'san-pham-khac-1': 'SP khác',
+  'san-pham-tre-em': 'SP trẻ em',
+  'song-nhua-ro-can-xe': 'Sọng nhựa & rổ cần xé',
+  'thung-chu-nhat': 'Thùng chữ nhật',
+  'thung-nhua-tron': 'Thùng nhựa tròn',
+  'thung-rac-bat-rac': 'Thùng rác & bát rác',
+  'tu-hokori-1': 'Tủ Hokori',
+  'tu-lucky-1': 'Tủ Lucky',
+  'tu-my-pham-hokori': 'Tủ mỹ phẩm Hokori',
+}
+
+const dynamicCategories = computed(() => {
+  const cats = new Set((products.value || []).map(p => p.category))
+  return [
+    { value: 'all', label: 'Tất cả' },
+    ...Array.from(cats).sort().map(slug => ({
+      value: slug,
+      label: categorySlugToLabel[slug] || slug.replace(/-\d+$/, '').replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase()),
+    })),
+  ]
+})
+
 const activeCategory = ref('all')
 const sortOrder = ref('default')
 const route = useRoute()
 const router = useRouter()
 
-const categoryValues = new Set(['all', 'kitchen', 'bathroom', 'living'])
-
 function getCategoryFromQuery(category: unknown) {
-  if (typeof category === 'string' && categoryValues.has(category)) {
-    return category
+  if (typeof category === 'string') {
+    // Accept any category slug from the data
+    const valid = new Set(dynamicCategories.value.map(c => c.value))
+    if (valid.has(category)) return category
   }
-
   return 'all'
 }
-
-const categories = [
-  { value: 'all', label: 'Tất cả', icon: 'solar:widget-2-outline' },
-  { value: 'kitchen', label: 'Nhà bếp', icon: 'solar:chef-hat-heart-outline' },
-  { value: 'bathroom', label: 'Phòng tắm', icon: 'solar:bath-outline' },
-  { value: 'living', label: 'Phòng khách', icon: 'solar:sofa-2-outline' },
-]
 
 watch(() => route.query.category, (category) => {
   activeCategory.value = getCategoryFromQuery(category)
@@ -196,11 +245,7 @@ const categoryDropdownRef = ref<HTMLElement | null>(null)
 const sortDropdownRef = ref<HTMLElement | null>(null)
 
 const activeCategoryLabel = computed(() => {
-  return categories.find(c => c.value === activeCategory.value)?.label || 'Tất cả'
-})
-
-const activeCategoryIcon = computed(() => {
-  return categories.find(c => c.value === activeCategory.value)?.icon || 'solar:widget-2-outline'
+  return dynamicCategories.value.find(c => c.value === activeCategory.value)?.label || 'Tất cả'
 })
 
 const sortOptions = [
@@ -265,7 +310,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
               : 'bg-transparent text-[#666] border-[#E5E5E5] hover:border-[#1A1A1A]'"
           @click.stop="showCategoryDropdown = !showCategoryDropdown; showSortDropdown = false"
         >
-          <Icon :name="activeCategoryIcon" size="14" aria-hidden="true" />
+          <Icon name="solar:widget-2-outline" size="14" aria-hidden="true" />
           {{ activeCategoryLabel }}
           <Icon
             name="solar:alt-arrow-down-outline"
@@ -285,10 +330,10 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
         >
           <div
             v-if="showCategoryDropdown"
-            class="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl border border-[#E5E5E5] shadow-lg shadow-black/5 overflow-hidden"
+            class="absolute top-full left-0 mt-2 w-64 max-h-80 overflow-y-auto bg-white rounded-xl border border-[#E5E5E5] shadow-lg shadow-black/5"
           >
             <button
-              v-for="cat in categories"
+              v-for="cat in dynamicCategories"
               :key="cat.value"
               class="flex items-center gap-2.5 w-full px-4 py-2.5 text-[13px] font-medium text-left transition-colors"
               :class="activeCategory === cat.value
@@ -296,7 +341,6 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
                 : 'text-[#666] hover:bg-[#FAFAFA] hover:text-[#1A1A1A]'"
               @click.stop="selectCategory(cat.value)"
             >
-              <Icon :name="cat.icon" size="16" aria-hidden="true" />
               {{ cat.label }}
               <Icon
                 v-if="activeCategory === cat.value"
