@@ -5,10 +5,12 @@ const path = require("path");
 
 // ─── Config ───
 const INPUT_FILE = path.join(__dirname, "products.json");
-const OUTPUT_FILE = path.join(__dirname, "products-detailed.json");
+const OUTPUT_DIR = path.join(__dirname, "products-detail");
+const COMBINED_FILE = path.join(__dirname, "products-detailed.json");
 const PROGRESS_FILE = path.join(__dirname, "detail-progress.json");
-const DELAY_MS = 1200;
-const BATCH_SAVE_EVERY = 10;
+const CONCURRENCY = 10;      // parallel requests
+const DELAY_BETWEEN_BATCH = 300; // ms between batches
+const BATCH_SAVE_EVERY = 50;
 
 const HEADERS = {
   accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
@@ -29,19 +31,45 @@ const USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const absUrl = (src) => (src && !src.startsWith("http") ? "https://vietnhatplastic.com" + src : src || "");
 
+function formatDuration(ms) {
+  const s = Math.floor(ms / 1000);
+  if (s < 60) return `${s}s`;
+  const m = Math.floor(s / 60);
+  const rem = s % 60;
+  if (m < 60) return `${m}m ${rem}s`;
+  const h = Math.floor(m / 60);
+  return `${h}h ${m % 60}m ${rem}s`;
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1048576) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / 1048576).toFixed(1)} MB`;
+}
+
+function slugify(str) {
+  return str
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d").replace(/Đ/g, "D")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .substring(0, 120);
+}
+
+function ensureDir(dir) {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+}
+
 // ─── Extract detail from a product page ───
 function extractDetail(html) {
   const $ = cheerio.load(html);
   const detail = {};
 
-  // ── Name ──
   detail.name = $(".product-detail-title").first().text().trim() || "";
 
-  // ── Product info rows ──
-  // Structure: <div class="product-detail-row"> with label + value
   $(".product-detail-row").each((_, el) => {
     const text = $(el).text().trim();
-
     if (text.startsWith("Mã sản phẩm")) {
       detail.code = text.replace("Mã sản phẩm:", "").trim();
     } else if (text.startsWith("Kích thước")) {
@@ -53,11 +81,11 @@ function extractDetail(html) {
     } else if (text.startsWith("Giá sản phẩm") || text.startsWith("Giá")) {
       detail.price = text.replace(/Giá( sản phẩm)?:/, "").trim();
     } else if (text.startsWith("Màu sắc")) {
-      // Colors might be in swatches or text
       const colorTexts = [];
-      $(el).find("img, .color-item, [class*='color']").each((_, c) => {
-        const alt = $(c).attr("alt") || $(c).attr("title") || "";
-        if (alt) colorTexts.push(alt);
+      $(el).find("ul.color-list li a").each((_, a) => {
+        const style = $(a).attr("style") || "";
+        const match = style.match(/background-color:\s*([^;]+)/);
+        if (match) colorTexts.push(match[1].trim());
       });
       if (colorTexts.length === 0) {
         const colorText = text.replace("Màu sắc:", "").trim();
@@ -67,7 +95,6 @@ function extractDetail(html) {
     }
   });
 
-  // ── All images (from left column gallery) ──
   const images = [];
   $(".product-detail-top img").each((_, img) => {
     const src = $(img).attr("src") || $(img).attr("data-src") || "";
@@ -76,136 +103,275 @@ function extractDetail(html) {
   });
   detail.images = images;
 
-  // ── Description from bottom section ──
   const descSection = $(".product-detail-bottom .article-content").first();
   if (descSection.length) {
-    // Get first <p> as main description
     detail.description = descSection.find("p").first().text().trim() || descSection.text().trim();
-    // Get full HTML for rich content
     detail.descriptionHtml = descSection.html() || "";
   }
 
-  // ── Badge ──
   detail.badge = $(".product-badge .badge, .product-detail-top .badge").first().text().trim() || "";
-
   return detail;
+}
+
+// ─── Fetch a single product detail ───
+async function fetchProduct(cycleTLS, product, index, total) {
+  const url = product.url;
+  if (!url) return { product: { ...product, detail: null }, ok: false, skipped: true, time: 0, bytes: 0 };
+
+  const reqStart = Date.now();
+  try {
+    const r = await cycleTLS(url, { body: "", ja3: JA3, userAgent: USER_AGENT, headers: HEADERS });
+    const reqTime = Date.now() - reqStart;
+
+    if (r.status === 200) {
+      const html = typeof r.data === "string" ? r.data : String(r.data);
+      const bytes = Buffer.byteLength(html, "utf-8");
+      const detail = extractDetail(html);
+
+      const merged = {
+        ...product,
+        name: detail.name || product.name,
+        code: detail.code || product.code,
+        dimensions: detail.dimensions || "",
+        material: detail.material || "",
+        packaging: detail.packaging || "",
+        price: detail.price || "",
+        colors: detail.colors || [],
+        images: detail.images.length > 0 ? detail.images : product.images,
+        description: detail.description || "",
+        descriptionHtml: detail.descriptionHtml || "",
+        badge: detail.badge || product.badge,
+      };
+
+      return { product: merged, ok: true, skipped: false, time: reqTime, bytes, detail };
+    }
+    return { product: { ...product, detail_error: `HTTP ${r.status}` }, ok: false, skipped: false, time: reqTime, bytes: 0 };
+  } catch (err) {
+    return { product: { ...product, detail_error: err.message }, ok: false, skipped: false, time: Date.now() - reqStart, bytes: 0 };
+  }
+}
+
+// ─── Save individual product JSON ───
+function saveProductFile(product) {
+  const cat = product.category || "uncategorized";
+  const catDir = path.join(OUTPUT_DIR, cat);
+  ensureDir(catDir);
+
+  const filename = slugify(product.name) + ".json";
+  const filePath = path.join(catDir, filename);
+
+  // Strip descriptionHtml from individual file (keep it lean)
+  const { descriptionHtml, ...clean } = product;
+  fs.writeFileSync(filePath, JSON.stringify(clean, null, 2), "utf-8");
+  return filePath;
 }
 
 // ─── Main ───
 async function main() {
-  // Load product list from listing scraper
   if (!fs.existsSync(INPUT_FILE)) {
     console.error("❌ Missing", INPUT_FILE);
-    console.error("   Run scrape-products.js first to get the product list.");
+    console.error("   Run scrape-products.js first.");
     process.exit(1);
   }
 
   const data = JSON.parse(fs.readFileSync(INPUT_FILE, "utf-8"));
   const products = data.products || [];
-  console.log(`🚀 Detail scraper — ${products.length} products to process`);
-  console.log(`   Delay: ${DELAY_MS}ms\n`);
+
+  console.log("🚀 Detail scraper (concurrent)");
+  console.log(`   Products: ${products.length}`);
+  console.log(`   Concurrency: ${CONCURRENCY}`);
+  console.log(`   Batch delay: ${DELAY_BETWEEN_BATCH}ms`);
+  console.log(`   Output: ${OUTPUT_DIR}/<category>/<product>.json\n`);
 
   // Resume support
   let startIndex = 0;
   let results = [];
+  const doneSet = new Set();
+
   if (fs.existsSync(PROGRESS_FILE)) {
     try {
       const progress = JSON.parse(fs.readFileSync(PROGRESS_FILE, "utf-8"));
       results = progress.products || [];
       startIndex = results.length;
+      results.forEach((p) => doneSet.add(p.url));
       console.log(`📂 Resuming from index ${startIndex}\n`);
     } catch (_) { /* start fresh */ }
   }
 
+  ensureDir(OUTPUT_DIR);
   const cycleTLS = await initCycleTLS();
-  let failed = [];
+
+  // ─── Statistics ───
+  const stats = {
+    startTime: Date.now(),
+    processed: 0, success: 0, skipped: 0, failed: 0,
+    requestTimes: [], bytesReceived: 0, imagesTotal: 0,
+    withDimensions: 0, withMaterial: 0, withDescription: 0,
+    withCode: 0, withColors: 0,
+    materials: {}, categories: {},
+    filesWritten: 0,
+  };
+
+  const failedIndices = [];
+  const remaining = products.slice(startIndex);
+  const batches = [];
+
+  // Split into batches
+  for (let i = 0; i < remaining.length; i += CONCURRENCY) {
+    batches.push(remaining.slice(i, i + CONCURRENCY).map((p, j) => ({ product: p, globalIndex: startIndex + i + j })));
+  }
 
   try {
-    for (let i = startIndex; i < products.length; i++) {
-      const product = products[i];
-      const url = product.url;
-      const progress = `[${i + 1}/${products.length}]`;
+    for (let b = 0; b < batches.length; b++) {
+      const batch = batches[b];
+      const batchPromises = batch.map(({ product, globalIndex }) =>
+        fetchProduct(cycleTLS, product, globalIndex, products.length)
+      );
 
-      if (!url) {
-        console.log(`${progress} ⚠ No URL, skipping: ${product.name}`);
-        results.push({ ...product, detail: null });
-        continue;
-      }
+      const batchResults = await Promise.all(batchPromises);
 
-      try {
-        const r = await cycleTLS(url, {
-          body: "",
-          ja3: JA3,
-          userAgent: USER_AGENT,
-          headers: HEADERS,
-        });
+      for (let r = 0; r < batchResults.length; r++) {
+        const res = batchResults[r];
+        const gi = batch[r].globalIndex;
+        stats.processed++;
 
-        if (r.status === 200) {
-          const html = typeof r.data === "string" ? r.data : String(r.data);
-          const detail = extractDetail(html);
-
-          // Merge detail into product
-          results.push({
-            ...product,
-            // Override with richer detail data
-            name: detail.name || product.name,
-            code: detail.code || product.code,
-            dimensions: detail.dimensions || "",
-            material: detail.material || "",
-            packaging: detail.packaging || "",
-            price: detail.price || "",
-            colors: detail.colors || [],
-            images: detail.images.length > 0 ? detail.images : product.images,
-            description: detail.description || "",
-            descriptionHtml: detail.descriptionHtml || "",
-            badge: detail.badge || product.badge,
-          });
-
-          console.log(`${progress} ✅ ${detail.name || product.name}`);
-          console.log(`         dims=${detail.dimensions || "-"} mat=${detail.material || "-"} imgs=${detail.images.length}`);
-        } else {
-          console.log(`${progress} ❌ HTTP ${r.status}: ${product.name}`);
-          results.push({ ...product, detail_error: `HTTP ${r.status}` });
-          failed.push(i);
+        if (res.skipped) {
+          stats.skipped++;
+          results.push(res.product);
+          console.log(`[${gi + 1}/${products.length}] ⚠ Skipped (no URL)`);
+          continue;
         }
-      } catch (err) {
-        console.error(`${progress} ❌ ${err.message}: ${product.name}`);
-        results.push({ ...product, detail_error: err.message });
-        failed.push(i);
+
+        if (res.ok) {
+          stats.success++;
+          stats.requestTimes.push(res.time);
+          stats.bytesReceived += res.bytes;
+          stats.imagesTotal += res.detail.images.length;
+
+          if (res.detail.dimensions) stats.withDimensions++;
+          if (res.detail.material) {
+            stats.withMaterial++;
+            stats.materials[res.detail.material] = (stats.materials[res.detail.material] || 0) + 1;
+          }
+          if (res.detail.description) stats.withDescription++;
+          if (res.detail.code) stats.withCode++;
+          if (res.detail.colors && res.detail.colors.length > 0) stats.withColors++;
+
+          const cat = res.product.category || "uncategorized";
+          stats.categories[cat] = (stats.categories[cat] || 0) + 1;
+
+          // Save individual file
+          saveProductFile(res.product);
+          stats.filesWritten++;
+
+          results.push(res.product);
+
+          // Live stats
+          const elapsed = Date.now() - stats.startTime;
+          const avgPerItem = elapsed / stats.processed;
+          const left = products.length - (gi + 1);
+          const eta = formatDuration((left / CONCURRENCY) * (avgPerItem));
+          const speed = (stats.processed / (elapsed / 1000)).toFixed(1);
+
+          console.log(`[${gi + 1}/${products.length}] ✅ ${res.product.name} | ${res.time}ms | ETA: ${eta} | ${speed}/s`);
+        } else {
+          stats.failed++;
+          failedIndices.push(gi);
+          results.push(res.product);
+          console.log(`[${gi + 1}/${products.length}] ❌ ${res.product.detail_error || "error"}: ${batch[r].product.name}`);
+        }
       }
 
-      // Save progress
-      if ((i + 1) % BATCH_SAVE_EVERY === 0) {
+      // Progress save
+      const lastGi = batch[batch.length - 1].globalIndex + 1;
+      if (lastGi % BATCH_SAVE_EVERY < CONCURRENCY || b === batches.length - 1) {
         fs.writeFileSync(PROGRESS_FILE, JSON.stringify({ products: results }, null, 2), "utf-8");
-        console.log(`  💾 Progress saved (${i + 1}/${products.length})`);
+        console.log(`  💾 Progress saved (${lastGi}/${products.length})`);
       }
 
-      // Delay
-      if (i < products.length - 1) {
-        await sleep(DELAY_MS);
-      }
+      // Batch delay
+      if (b < batches.length - 1) await sleep(DELAY_BETWEEN_BATCH);
     }
 
-    // ── Save final output ──
+    // ─── Save combined file ───
     const output = {
       scraped_at: new Date().toISOString(),
       source: "vietnhatplastic.com",
       total: results.length,
-      failed: failed.length,
+      failed: stats.failed,
       products: results,
     };
+    fs.writeFileSync(COMBINED_FILE, JSON.stringify(output, null, 2), "utf-8");
 
-    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(output, null, 2), "utf-8");
+    // ─── Statistics ───
+    const totalTime = Date.now() - stats.startTime;
+    const avgReq = stats.requestTimes.length > 0
+      ? Math.round(stats.requestTimes.reduce((a, b) => a + b, 0) / stats.requestTimes.length) : 0;
+    const minReq = stats.requestTimes.length > 0 ? Math.min(...stats.requestTimes) : 0;
+    const maxReq = stats.requestTimes.length > 0 ? Math.max(...stats.requestTimes) : 0;
+    const combinedSize = fs.existsSync(COMBINED_FILE) ? fs.statSync(COMBINED_FILE).size : 0;
+    const avgImgs = stats.success > 0 ? (stats.imagesTotal / stats.success).toFixed(1) : 0;
 
-    console.log("\n" + "═".repeat(50));
-    console.log("✅ COMPLETE!");
-    console.log(`   Total: ${results.length} products`);
-    console.log(`   Failed: ${failed.length}`);
-    console.log(`   Output: ${OUTPUT_FILE}`);
+    // Count output dir size
+    let dirSize = 0;
+    let fileCount = 0;
+    const catDirs = fs.existsSync(OUTPUT_DIR) ? fs.readdirSync(OUTPUT_DIR) : [];
+    catDirs.forEach((d) => {
+      const dp = path.join(OUTPUT_DIR, d);
+      if (fs.statSync(dp).isDirectory()) {
+        const files = fs.readdirSync(dp);
+        fileCount += files.length;
+        files.forEach((f) => { dirSize += fs.statSync(path.join(dp, f)).size; });
+      }
+    });
 
-    // Cleanup progress
+    console.log("\n" + "═".repeat(60));
+    console.log("  📊 DETAIL SCRAPE STATISTICS");
+    console.log("═".repeat(60));
+    console.log(`  Total time:          ${formatDuration(totalTime)}`);
+    console.log(`  Products processed:  ${stats.processed} / ${products.length}`);
+    console.log(`  Success rate:        ${stats.success}/${stats.processed} (${((stats.success / Math.max(stats.processed, 1)) * 100).toFixed(1)}%)`);
+    console.log(`  Failed:              ${stats.failed}`);
+    console.log(`  Skipped (no URL):    ${stats.skipped}`);
+    console.log("─".repeat(60));
+    console.log(`  Concurrency:         ${CONCURRENCY} parallel`);
+    console.log(`  Effective speed:     ${(stats.processed / (totalTime / 1000)).toFixed(2)} products/sec`);
+    console.log(`  Avg response time:   ${avgReq}ms`);
+    console.log(`  Min response time:   ${minReq}ms`);
+    console.log(`  Max response time:   ${maxReq}ms`);
+    console.log("─".repeat(60));
+    console.log(`  Total images:        ${stats.imagesTotal} (avg ${avgImgs}/product)`);
+    console.log(`  With dimensions:     ${stats.withDimensions}/${stats.success} (${((stats.withDimensions / Math.max(stats.success, 1)) * 100).toFixed(0)}%)`);
+    console.log(`  With material:       ${stats.withMaterial}/${stats.success} (${((stats.withMaterial / Math.max(stats.success, 1)) * 100).toFixed(0)}%)`);
+    console.log(`  With code:           ${stats.withCode}/${stats.success} (${((stats.withCode / Math.max(stats.success, 1)) * 100).toFixed(0)}%)`);
+    console.log(`  With colors:         ${stats.withColors}/${stats.success} (${((stats.withColors / Math.max(stats.success, 1)) * 100).toFixed(0)}%)`);
+    console.log(`  With description:    ${stats.withDescription}/${stats.success} (${((stats.withDescription / Math.max(stats.success, 1)) * 100).toFixed(0)}%)`);
+    console.log("─".repeat(60));
+    console.log(`  Data received:       ${formatBytes(stats.bytesReceived)}`);
+    console.log(`  Combined JSON:       ${formatBytes(combinedSize)}`);
+    console.log(`  Individual files:    ${fileCount} files (${formatBytes(dirSize)})`);
+    console.log(`  Category folders:    ${catDirs.length}`);
+    console.log("─".repeat(60));
+
+    const matEntries = Object.entries(stats.materials).sort((a, b) => b[1] - a[1]);
+    if (matEntries.length > 0) {
+      console.log("  🧱 Materials:");
+      matEntries.forEach(([m, c]) => console.log(`     ${m} (${c})`));
+      console.log("─".repeat(60));
+    }
+
+    const catEntries = Object.entries(stats.categories).sort((a, b) => b[1] - a[1]);
+    if (catEntries.length > 0) {
+      console.log("  📂 Categories:");
+      catEntries.forEach(([c, n]) => console.log(`     ${c} (${n})`));
+    }
+
+    console.log("═".repeat(60));
+    console.log(`  ✅ Individual: ${OUTPUT_DIR}/<category>/<product>.json`);
+    console.log(`  ✅ Combined:   ${COMBINED_FILE}`);
+    console.log("═".repeat(60));
+
     if (fs.existsSync(PROGRESS_FILE)) fs.unlinkSync(PROGRESS_FILE);
-
   } finally {
     cycleTLS.exit();
   }
