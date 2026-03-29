@@ -14,9 +14,9 @@ defineProps<{
       'gap-3': size === 'lg',
     }"
   >
-    <!-- DP monogram logo image -->
+    <!-- DP monogram logo image with cache-bust -->
     <img
-      src="/logo.png"
+      src="/logo.png?v=3"
       alt="Duyên Phượng logo"
       :width="size === 'sm' ? 30 : size === 'lg' ? 42 : 36"
       :height="size === 'sm' ? 30 : size === 'lg' ? 42 : 36"
