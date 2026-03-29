@@ -390,126 +390,115 @@ useHead({
       </section>
 
       <!-- ═══════════════════════ RELATED PRODUCTS ═══════════════════════ -->
-      <section v-if="relatedProducts.length" class="py-16 px-6 lg:px-20 bg-[#FAFAFA] border-t border-[#E5E5E5]" aria-labelledby="related-heading">
-        <div class="max-w-7xl mx-auto">
-          <!-- Header with nav arrows -->
-          <div class="flex items-center justify-between mb-8">
-            <h2 id="related-heading" class="font-['Newsreader'] text-2xl lg:text-3xl font-medium text-[#1A1A1A]">
-              Sản phẩm liên quan
-            </h2>
-            <div class="flex items-center gap-3">
-              <!-- Desktop nav arrows -->
-              <button
-                class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-200"
-                :class="canScrollLeft
-                  ? 'border-[#E5E5E5] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] cursor-pointer'
-                  : 'border-[#E5E5E5] text-[#CCC] cursor-not-allowed'"
-                :disabled="!canScrollLeft"
-                aria-label="Cuộn sang trái"
-                @click="scrollCarousel('left')"
-              >
-                <Icon name="solar:arrow-left-outline" size="18" aria-hidden="true" />
-              </button>
-              <button
-                class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-200"
-                :class="canScrollRight
-                  ? 'border-[#E5E5E5] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] cursor-pointer'
-                  : 'border-[#E5E5E5] text-[#CCC] cursor-not-allowed'"
-                :disabled="!canScrollRight"
-                aria-label="Cuộn sang phải"
-                @click="scrollCarousel('right')"
-              >
-                <Icon name="solar:arrow-right-outline" size="18" aria-hidden="true" />
-              </button>
-              <!-- View all link -->
-              <NuxtLink
-                to="/products"
-                class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-[#0D6E6E] hover:text-[#0A5858] transition-colors"
-              >
-                Xem tất cả
-                <Icon name="solar:arrow-right-outline" size="16" aria-hidden="true" />
-              </NuxtLink>
-            </div>
-          </div>
+      <section v-if="relatedProducts.length" class="py-16 bg-[#FAFAFA] border-t border-[#E5E5E5]" aria-labelledby="related-heading">
+        <!-- Header -->
+        <div class="max-w-7xl mx-auto px-6 lg:px-20 flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-between gap-2 mb-8">
+          <h2 id="related-heading" class="font-['Newsreader'] text-2xl lg:text-3xl font-medium text-[#1A1A1A]">
+            Sản phẩm liên quan
+          </h2>
+          <NuxtLink
+            to="/products"
+            class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-[#0D6E6E] hover:text-[#0A5858] transition-colors"
+          >
+            Xem tất cả
+            <Icon name="solar:arrow-right-outline" size="16" aria-hidden="true" />
+          </NuxtLink>
+        </div>
 
-          <!-- Carousel container -->
-          <div class="relative">
-            <!-- Fade edges (desktop only) -->
-            <div
-              v-if="canScrollLeft"
-              class="hidden lg:block absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10 pointer-events-none"
-            />
-            <div
-              v-if="canScrollRight"
-              class="hidden lg:block absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10 pointer-events-none"
-            />
+        <!-- Carousel wrapper with side nav buttons -->
+        <div class="relative max-w-7xl mx-auto">
+          <!-- ◀ Left nav button (desktop) — floats on left side -->
+          <button
+            v-if="canScrollLeft"
+            class="related-nav-btn hidden lg:flex items-center justify-center absolute left-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E5E5] shadow-lg shadow-black/8 text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-all duration-200 cursor-pointer"
+            aria-label="Cuộn sang trái"
+            @click="scrollCarousel('left')"
+          >
+            <Icon name="solar:alt-arrow-left-outline" size="20" aria-hidden="true" />
+          </button>
 
-            <!-- Scrollable track -->
-            <div
-              ref="carouselRef"
-              class="related-carousel flex gap-4 overflow-x-auto scroll-smooth pb-4 -mx-2 px-2"
-            >
-              <NuxtLink
-                v-for="rp in relatedProducts"
-                :key="rp.id"
-                :to="`/products/${rp.id}`"
-                class="related-card group flex-shrink-0 w-[160px] sm:w-[200px] lg:w-[220px] bg-white rounded-2xl overflow-hidden border border-[#E5E5E5] hover:border-[#0D6E6E]/30 hover:shadow-lg transition-all duration-300"
-              >
-                <!-- Image -->
-                <div class="relative aspect-square overflow-hidden bg-[#F5F5F5]">
-                  <NuxtImg
-                    :src="rp.image"
-                    :alt="rp.name"
-                    loading="lazy"
-                    decoding="async"
-                    width="400"
-                    height="400"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <!-- Badge -->
-                  <span
-                    v-if="rp.badge"
-                    class="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold"
-                    :class="rp.badge === 'Mới' ? 'bg-[#0D6E6E] text-white' : 'bg-[#DC2626] text-white'"
-                  >
-                    <Icon :name="rp.badge === 'Mới' ? 'solar:star-bold' : 'solar:tag-price-bold'" size="10" aria-hidden="true" />
-                    {{ rp.badge }}
-                  </span>
-                </div>
-                <!-- Info -->
-                <div class="p-4 space-y-2">
-                  <h3 class="text-sm font-medium text-[#1A1A1A] leading-snug line-clamp-2 group-hover:text-[#0D6E6E] transition-colors">
-                    {{ rp.name }}
-                  </h3>
-                  <!-- Rating -->
-                  <div class="flex items-center gap-1">
-                    <div class="flex items-center gap-0.5">
-                      <Icon
-                        v-for="star in 5"
-                        :key="star"
-                        name="solar:star-bold"
-                        size="12"
-                        :class="star <= rp.rating ? 'text-amber-400' : 'text-gray-200'"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <span class="text-xs text-[#999]">({{ rp.reviews }})</span>
-                  </div>
-                </div>
-              </NuxtLink>
-            </div>
-          </div>
+          <!-- ▶ Right nav button (desktop) — floats on right side -->
+          <button
+            v-if="canScrollRight"
+            class="related-nav-btn hidden lg:flex items-center justify-center absolute right-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E5E5] shadow-lg shadow-black/8 text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-all duration-200 cursor-pointer"
+            aria-label="Cuộn sang phải"
+            @click="scrollCarousel('right')"
+          >
+            <Icon name="solar:alt-arrow-right-outline" size="20" aria-hidden="true" />
+          </button>
 
-          <!-- Mobile: View all link -->
-          <div class="flex justify-center mt-6 sm:hidden">
+          <!-- Left fade gradient (always visible) -->
+          <div
+            class="absolute left-0 top-0 bottom-0 w-16 lg:w-24 bg-gradient-to-r from-[#FAFAFA] via-[#FAFAFA]/70 to-transparent z-10 pointer-events-none"
+          />
+          <!-- Right fade gradient (always visible) -->
+          <div
+            class="absolute right-0 top-0 bottom-0 w-16 lg:w-24 bg-gradient-to-l from-[#FAFAFA] via-[#FAFAFA]/70 to-transparent z-10 pointer-events-none"
+          />
+
+          <!-- Scrollable track -->
+          <div
+            ref="carouselRef"
+            class="related-carousel flex gap-5 overflow-x-auto lg:overflow-x-hidden scroll-smooth px-6 lg:px-20 pb-2"
+          >
             <NuxtLink
-              to="/products"
-              class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-[#0D6E6E] border border-[#0D6E6E]/30 rounded-xl hover:bg-[#0D6E6E]/5 transition-colors"
+              v-for="rp in relatedProducts"
+              :key="rp.id"
+              :to="`/products/${rp.id}`"
+              class="related-card group flex-none w-[180px] sm:w-[210px] lg:w-[240px] bg-white rounded-2xl overflow-hidden border border-[#E5E5E5] hover:border-[#0D6E6E]/30 hover:shadow-lg transition-all duration-300"
             >
-              Xem tất cả sản phẩm
-              <Icon name="solar:arrow-right-outline" size="16" aria-hidden="true" />
+              <!-- Image -->
+              <div class="relative aspect-square overflow-hidden bg-[#F5F5F5]">
+                <NuxtImg
+                  :src="rp.image"
+                  :alt="rp.name"
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="400"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <span
+                  v-if="rp.badge"
+                  class="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold"
+                  :class="rp.badge === 'Mới' ? 'bg-[#0D6E6E] text-white' : 'bg-[#DC2626] text-white'"
+                >
+                  <Icon :name="rp.badge === 'Mới' ? 'solar:star-bold' : 'solar:tag-price-bold'" size="10" aria-hidden="true" />
+                  {{ rp.badge }}
+                </span>
+              </div>
+              <!-- Info -->
+              <div class="p-4 space-y-2">
+                <h3 class="text-sm font-medium text-[#1A1A1A] leading-snug line-clamp-2 group-hover:text-[#0D6E6E] transition-colors">
+                  {{ rp.name }}
+                </h3>
+                <div class="flex items-center gap-1">
+                  <div class="flex items-center gap-0.5">
+                    <Icon
+                      v-for="star in 5"
+                      :key="star"
+                      name="solar:star-bold"
+                      size="12"
+                      :class="star <= rp.rating ? 'text-amber-400' : 'text-gray-200'"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <span class="text-xs text-[#999]">({{ rp.reviews }})</span>
+                </div>
+              </div>
             </NuxtLink>
           </div>
+        </div>
+
+        <!-- Mobile: View all link -->
+        <div class="flex justify-center mt-6 sm:hidden">
+          <NuxtLink
+            to="/products"
+            class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-[#0D6E6E] border border-[#0D6E6E]/30 rounded-xl hover:bg-[#0D6E6E]/5 transition-colors"
+          >
+            Xem tất cả sản phẩm
+            <Icon name="solar:arrow-right-outline" size="16" aria-hidden="true" />
+          </NuxtLink>
         </div>
       </section>
     </div>
