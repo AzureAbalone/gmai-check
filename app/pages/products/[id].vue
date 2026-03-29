@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useScrollReveal } from '~/composables/useScrollReveal'
 
 useScrollReveal()
@@ -48,19 +48,51 @@ const { data: allProducts } = await useFetch<ProductSummary[]>('/api/products', 
   default: () => [],
 })
 
-// Related products: same category first, then others, exclude current, limit to 4
+// Related products: same category first, then others, exclude current, limit to 10
 const relatedProducts = computed(() => {
   if (!allProducts.value || !product.value) return []
   const others = allProducts.value.filter(p => p.id !== productId)
   const sameCategory = others.filter(p => p.category === product.value!.category)
   const diffCategory = others.filter(p => p.category !== product.value!.category)
-  return [...sameCategory, ...diffCategory].slice(0, 4)
+  return [...sameCategory, ...diffCategory].slice(0, 10)
 })
 
 
 // ─── Reactive state ───
 const selectedColorIndex = ref(0)
 const activeImageIndex = ref(0)
+
+// ─── Related Products Carousel ───
+const carouselRef = ref<HTMLElement | null>(null)
+const canScrollLeft = ref(false)
+const canScrollRight = ref(true)
+
+function updateScrollState() {
+  const el = carouselRef.value
+  if (!el) return
+  canScrollLeft.value = el.scrollLeft > 4
+  canScrollRight.value = el.scrollLeft < el.scrollWidth - el.clientWidth - 4
+}
+
+function scrollCarousel(direction: 'left' | 'right') {
+  const el = carouselRef.value
+  if (!el) return
+  // Scroll by ~2 card widths on desktop
+  const amount = el.clientWidth * 0.7
+  el.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' })
+}
+
+onMounted(() => {
+  const el = carouselRef.value
+  if (!el) return
+  el.addEventListener('scroll', updateScrollState, { passive: true })
+  // Initial check after images load
+  setTimeout(updateScrollState, 100)
+})
+
+onBeforeUnmount(() => {
+  carouselRef.value?.removeEventListener('scroll', updateScrollState)
+})
 
 
 // ─── Computed ───
@@ -360,72 +392,116 @@ useHead({
       <!-- ═══════════════════════ RELATED PRODUCTS ═══════════════════════ -->
       <section v-if="relatedProducts.length" class="py-16 px-6 lg:px-20 bg-[#FAFAFA] border-t border-[#E5E5E5]" aria-labelledby="related-heading">
         <div class="max-w-7xl mx-auto">
+          <!-- Header with nav arrows -->
           <div class="flex items-center justify-between mb-8">
             <h2 id="related-heading" class="font-['Newsreader'] text-2xl lg:text-3xl font-medium text-[#1A1A1A]">
               Sản phẩm liên quan
             </h2>
-            <NuxtLink
-              to="/products"
-              class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-[#0D6E6E] hover:text-[#0A5858] transition-colors"
-            >
-              Xem tất cả
-              <Icon name="solar:arrow-right-outline" size="16" aria-hidden="true" />
-            </NuxtLink>
+            <div class="flex items-center gap-3">
+              <!-- Desktop nav arrows -->
+              <button
+                class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-200"
+                :class="canScrollLeft
+                  ? 'border-[#E5E5E5] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] cursor-pointer'
+                  : 'border-[#E5E5E5] text-[#CCC] cursor-not-allowed'"
+                :disabled="!canScrollLeft"
+                aria-label="Cuộn sang trái"
+                @click="scrollCarousel('left')"
+              >
+                <Icon name="solar:arrow-left-outline" size="18" aria-hidden="true" />
+              </button>
+              <button
+                class="hidden lg:flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-200"
+                :class="canScrollRight
+                  ? 'border-[#E5E5E5] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] cursor-pointer'
+                  : 'border-[#E5E5E5] text-[#CCC] cursor-not-allowed'"
+                :disabled="!canScrollRight"
+                aria-label="Cuộn sang phải"
+                @click="scrollCarousel('right')"
+              >
+                <Icon name="solar:arrow-right-outline" size="18" aria-hidden="true" />
+              </button>
+              <!-- View all link -->
+              <NuxtLink
+                to="/products"
+                class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-[#0D6E6E] hover:text-[#0A5858] transition-colors"
+              >
+                Xem tất cả
+                <Icon name="solar:arrow-right-outline" size="16" aria-hidden="true" />
+              </NuxtLink>
+            </div>
           </div>
 
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-            <NuxtLink
-              v-for="rp in relatedProducts"
-              :key="rp.id"
-              :to="`/products/${rp.id}`"
-              class="group bg-white rounded-2xl overflow-hidden border border-[#E5E5E5] hover:border-[#0D6E6E]/30 hover:shadow-lg transition-all duration-300"
+          <!-- Carousel container -->
+          <div class="relative">
+            <!-- Fade edges (desktop only) -->
+            <div
+              v-if="canScrollLeft"
+              class="hidden lg:block absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10 pointer-events-none"
+            />
+            <div
+              v-if="canScrollRight"
+              class="hidden lg:block absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10 pointer-events-none"
+            />
+
+            <!-- Scrollable track -->
+            <div
+              ref="carouselRef"
+              class="related-carousel flex gap-4 overflow-x-auto scroll-smooth pb-4 -mx-2 px-2"
             >
-              <!-- Image -->
-              <div class="relative aspect-square overflow-hidden bg-[#F5F5F5]">
-                <NuxtImg
-                  :src="rp.image"
-                  :alt="rp.name"
-                  loading="lazy"
-                  decoding="async"
-                  width="400"
-                  height="400"
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <!-- Badge -->
-                <span
-                  v-if="rp.badge"
-                  class="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold"
-                  :class="rp.badge === 'Mới' ? 'bg-[#0D6E6E] text-white' : 'bg-[#DC2626] text-white'"
-                >
-                  <Icon :name="rp.badge === 'Mới' ? 'solar:star-bold' : 'solar:tag-price-bold'" size="10" aria-hidden="true" />
-                  {{ rp.badge }}
-                </span>
-              </div>
-              <!-- Info -->
-              <div class="p-4 space-y-2">
-                <h3 class="text-sm font-medium text-[#1A1A1A] leading-snug line-clamp-2 group-hover:text-[#0D6E6E] transition-colors">
-                  {{ rp.name }}
-                </h3>
-                <!-- Rating -->
-                <div class="flex items-center gap-1">
-                  <div class="flex items-center gap-0.5">
-                    <Icon
-                      v-for="star in 5"
-                      :key="star"
-                      name="solar:star-bold"
-                      size="12"
-                      :class="star <= rp.rating ? 'text-amber-400' : 'text-gray-200'"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <span class="text-xs text-[#999]">({{ rp.reviews }})</span>
+              <NuxtLink
+                v-for="rp in relatedProducts"
+                :key="rp.id"
+                :to="`/products/${rp.id}`"
+                class="related-card group flex-shrink-0 w-[160px] sm:w-[200px] lg:w-[220px] bg-white rounded-2xl overflow-hidden border border-[#E5E5E5] hover:border-[#0D6E6E]/30 hover:shadow-lg transition-all duration-300"
+              >
+                <!-- Image -->
+                <div class="relative aspect-square overflow-hidden bg-[#F5F5F5]">
+                  <NuxtImg
+                    :src="rp.image"
+                    :alt="rp.name"
+                    loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="400"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <!-- Badge -->
+                  <span
+                    v-if="rp.badge"
+                    class="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold"
+                    :class="rp.badge === 'Mới' ? 'bg-[#0D6E6E] text-white' : 'bg-[#DC2626] text-white'"
+                  >
+                    <Icon :name="rp.badge === 'Mới' ? 'solar:star-bold' : 'solar:tag-price-bold'" size="10" aria-hidden="true" />
+                    {{ rp.badge }}
+                  </span>
                 </div>
-              </div>
-            </NuxtLink>
+                <!-- Info -->
+                <div class="p-4 space-y-2">
+                  <h3 class="text-sm font-medium text-[#1A1A1A] leading-snug line-clamp-2 group-hover:text-[#0D6E6E] transition-colors">
+                    {{ rp.name }}
+                  </h3>
+                  <!-- Rating -->
+                  <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-0.5">
+                      <Icon
+                        v-for="star in 5"
+                        :key="star"
+                        name="solar:star-bold"
+                        size="12"
+                        :class="star <= rp.rating ? 'text-amber-400' : 'text-gray-200'"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <span class="text-xs text-[#999]">({{ rp.reviews }})</span>
+                  </div>
+                </div>
+              </NuxtLink>
+            </div>
           </div>
 
           <!-- Mobile: View all link -->
-          <div class="flex justify-center mt-8 sm:hidden">
+          <div class="flex justify-center mt-6 sm:hidden">
             <NuxtLink
               to="/products"
               class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-[#0D6E6E] border border-[#0D6E6E]/30 rounded-xl hover:bg-[#0D6E6E]/5 transition-colors"
@@ -453,3 +529,21 @@ useHead({
     </div>
   </div>
 </template>
+
+<style scoped>
+/* ─── Related Products Carousel ─── */
+.related-carousel {
+  /* Hide scrollbar for clean swipe on mobile */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* CSS snap for consistent card alignment */
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 8px;
+}
+.related-carousel::-webkit-scrollbar {
+  display: none;
+}
+.related-card {
+  scroll-snap-align: start;
+}
+</style>
