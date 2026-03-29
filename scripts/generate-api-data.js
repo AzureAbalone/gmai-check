@@ -54,6 +54,15 @@ function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
+// Seeded random — deterministic per product id
+function seededRandom(seed) {
+  let s = seed;
+  return function () {
+    s = (s * 1103515245 + 12345) & 0x7fffffff;
+    return s / 0x7fffffff;
+  };
+}
+
 // Main
 const cats = fs.readdirSync(DETAIL_DIR)
   .filter(f => fs.statSync(path.join(DETAIL_DIR, f)).isDirectory())
@@ -67,6 +76,9 @@ for (const cat of cats) {
   for (const file of files.sort()) {
     try {
       const raw = JSON.parse(fs.readFileSync(path.join(DETAIL_DIR, cat, file), 'utf8'));
+      const rng = seededRandom(id * 31 + 7);
+      const rating = rng() > 0.3 ? 5 : 4;           // ~70% get 5★, 30% get 4★
+      const reviews = Math.floor(rng() * 280) + 12;  // 12–291
       allProducts.push({
         id: id++,
         name: raw.name || file.replace('.json', ''),
@@ -76,6 +88,8 @@ for (const cat of cats) {
         images: raw.images || [],
         thumbnail: raw.thumbnail || '',
         badge: raw.badge || null,
+        rating,
+        reviews,
         colors: (raw.colors || []).map(hex => ({ name: hexToName(hex), hex })),
         dimensions: raw.dimensions || '',
         material: raw.material || '',

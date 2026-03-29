@@ -117,6 +117,8 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: [
         'lenis',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
       ],
     },
     build: {
@@ -135,7 +137,8 @@ export default defineNuxtConfig({
 
   // ─── Experimental features ───
   experimental: {
-    payloadExtraction: true,
+    // Upstream fs-backed payload cache collides on root ('') vs nested ('products') keys in dev/prerender.
+    payloadExtraction: false,
     renderJsonPayloads: true,
     viewTransition: true,
   },

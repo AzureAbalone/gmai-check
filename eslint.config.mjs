@@ -2,6 +2,8 @@
 import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt({
+  ignores: ['scripts/**'],
+}, {
   rules: {
     // ─── Style ───
     'no-console': 'warn',
