@@ -50,6 +50,11 @@ export default defineNuxtConfig({
     sitemap: '/sitemap.xml',
   },
 
+  // ─── Sitemap ───
+  sitemap: {
+    zeroRuntime: true,
+  },
+
   // ─── App Head / SEO ───
   app: {
     head: {

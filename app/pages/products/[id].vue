@@ -66,6 +66,7 @@ const activeImageIndex = ref(0)
 const carouselRef = ref<HTMLElement | null>(null)
 const canScrollLeft = ref(false)
 const canScrollRight = ref(true)
+let scrollRafId: number | null = null
 
 function updateScrollState() {
   const el = carouselRef.value
@@ -74,24 +75,46 @@ function updateScrollState() {
   canScrollRight.value = el.scrollLeft < el.scrollWidth - el.clientWidth - 4
 }
 
+function onScroll() {
+  // Debounce with rAF — prevents rapid state flicker during smooth scroll
+  if (scrollRafId) cancelAnimationFrame(scrollRafId)
+  scrollRafId = requestAnimationFrame(updateScrollState)
+}
+
 function scrollCarousel(direction: 'left' | 'right') {
   const el = carouselRef.value
   if (!el) return
-  // Scroll by ~2 card widths on desktop
-  const amount = el.clientWidth * 0.7
-  el.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' })
+  const step = el.clientWidth * 0.7
+  if (direction === 'left') {
+    // Always snap fully to start when going left
+    const target = Math.max(0, el.scrollLeft - step)
+    // If we'd be within one card width of start, just go to 0
+    el.scrollTo({ left: target < 260 ? 0 : target, behavior: 'smooth' })
+  } else {
+    const maxScroll = el.scrollWidth - el.clientWidth
+    const target = el.scrollLeft + step
+    el.scrollTo({ left: target >= maxScroll - 260 ? maxScroll : target, behavior: 'smooth' })
+  }
+  setTimeout(updateScrollState, 500)
+}
+
+// Block mouse wheel scroll on desktop (nav buttons only)
+function preventDesktopScroll(e: WheelEvent) {
+  if (window.innerWidth >= 1024) e.preventDefault()
 }
 
 onMounted(() => {
   const el = carouselRef.value
   if (!el) return
-  el.addEventListener('scroll', updateScrollState, { passive: true })
-  // Initial check after images load
+  el.addEventListener('scroll', onScroll, { passive: true })
+  el.addEventListener('wheel', preventDesktopScroll, { passive: false })
   setTimeout(updateScrollState, 100)
 })
 
 onBeforeUnmount(() => {
-  carouselRef.value?.removeEventListener('scroll', updateScrollState)
+  carouselRef.value?.removeEventListener('scroll', onScroll)
+  carouselRef.value?.removeEventListener('wheel', preventDesktopScroll)
+  if (scrollRafId) cancelAnimationFrame(scrollRafId)
 })
 
 
@@ -409,7 +432,7 @@ useHead({
         <div class="relative max-w-7xl mx-auto">
           <!-- ◀ Left nav button (desktop) — floats on left side -->
           <button
-            v-if="canScrollLeft"
+            v-show="canScrollLeft"
             class="related-nav-btn hidden lg:flex items-center justify-center absolute left-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E5E5] shadow-lg shadow-black/8 text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-all duration-200 cursor-pointer"
             aria-label="Cuộn sang trái"
             @click="scrollCarousel('left')"
@@ -419,7 +442,7 @@ useHead({
 
           <!-- ▶ Right nav button (desktop) — floats on right side -->
           <button
-            v-if="canScrollRight"
+            v-show="canScrollRight"
             class="related-nav-btn hidden lg:flex items-center justify-center absolute right-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E5E5] shadow-lg shadow-black/8 text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-all duration-200 cursor-pointer"
             aria-label="Cuộn sang phải"
             @click="scrollCarousel('right')"
@@ -427,19 +450,21 @@ useHead({
             <Icon name="solar:alt-arrow-right-outline" size="20" aria-hidden="true" />
           </button>
 
-          <!-- Left fade gradient (always visible) -->
+          <!-- Left fade gradient — only when scrolled past start -->
           <div
-            class="absolute left-0 top-0 bottom-0 w-16 lg:w-24 bg-gradient-to-r from-[#FAFAFA] via-[#FAFAFA]/70 to-transparent z-10 pointer-events-none"
+            v-show="canScrollLeft"
+            class="absolute left-0 top-0 bottom-0 w-16 lg:w-24 bg-gradient-to-r from-[#FAFAFA] via-[#FAFAFA]/70 to-transparent z-10 pointer-events-none transition-opacity duration-300"
           />
-          <!-- Right fade gradient (always visible) -->
+          <!-- Right fade gradient — only when more content to the right -->
           <div
-            class="absolute right-0 top-0 bottom-0 w-16 lg:w-24 bg-gradient-to-l from-[#FAFAFA] via-[#FAFAFA]/70 to-transparent z-10 pointer-events-none"
+            v-show="canScrollRight"
+            class="absolute right-0 top-0 bottom-0 w-16 lg:w-24 bg-gradient-to-l from-[#FAFAFA] via-[#FAFAFA]/70 to-transparent z-10 pointer-events-none transition-opacity duration-300"
           />
 
           <!-- Scrollable track -->
           <div
             ref="carouselRef"
-            class="related-carousel flex gap-5 overflow-x-auto lg:overflow-x-hidden scroll-smooth px-6 lg:px-20 pb-2"
+            class="related-carousel flex gap-5 overflow-x-auto scroll-smooth px-6 lg:px-20 pb-2"
           >
             <NuxtLink
               v-for="rp in relatedProducts"
@@ -522,12 +547,17 @@ useHead({
 <style scoped>
 /* ─── Related Products Carousel ─── */
 .related-carousel {
-  /* Hide scrollbar for clean swipe on mobile */
   scrollbar-width: none;
   -ms-overflow-style: none;
-  /* CSS snap for consistent card alignment */
+  /* Snap only on mobile for touch swipe */
   scroll-snap-type: x mandatory;
-  scroll-padding-left: 8px;
+  scroll-padding-left: 24px;
+}
+@media (min-width: 1024px) {
+  .related-carousel {
+    /* No snap on desktop — let nav buttons scroll freely and smoothly */
+    scroll-snap-type: none;
+  }
 }
 .related-carousel::-webkit-scrollbar {
   display: none;
