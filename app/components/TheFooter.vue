@@ -15,7 +15,7 @@ const footerLinks = {
   ],
   support: [
     { label: 'Liên hệ', to: '/#contact' },
-    { label: 'Đổi trả', to: '#' },
+    { label: 'Hướng dẫn', to: '#' },
     { label: 'FAQ', to: '#' },
   ],
 }

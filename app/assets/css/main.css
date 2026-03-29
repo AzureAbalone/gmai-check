@@ -303,6 +303,207 @@ iconify-icon,
   color: #1A1A1A;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   SUBTLE ANIMATIONS & HOVER EFFECTS
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Hero badge float ─── */
+.hero-badge {
+  animation: badge-float 3s ease-in-out infinite;
+}
+
+@keyframes badge-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ─── Gradient text shimmer (for section subtitles) ─── */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #0D6E6E 0%,
+    #14B8A6 40%,
+    #0D6E6E 80%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes text-shimmer {
+  0%, 100% { background-position: 200% center; }
+  50% { background-position: 0% center; }
+}
+
+/* ─── Feature card glowing border on hover ─── */
+.feature-card {
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.5px solid transparent;
+  background: linear-gradient(135deg, rgba(13, 110, 110, 0), rgba(13, 110, 110, 0)) padding-box,
+              linear-gradient(135deg, rgba(13, 110, 110, 0), rgba(13, 110, 110, 0)) border-box;
+  pointer-events: none;
+  transition: background 0.4s ease;
+}
+
+.feature-card:hover::before {
+  background: linear-gradient(135deg, transparent, transparent) padding-box,
+              linear-gradient(135deg, #0D6E6E, #14B8A6, #0D6E6E) border-box;
+}
+
+.feature-card:hover {
+  box-shadow: 0 8px 32px rgba(13, 110, 110, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Product card image shine sweep on hover ─── */
+.product-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.product-shine:hover::after {
+  left: 150%;
+  transition: left 0.7s ease;
+}
+
+/* ─── CTA section pulse glow ─── */
+.cta-glow {
+  position: relative;
+}
+
+.cta-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(13, 110, 110, 0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: cta-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes cta-pulse {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+/* ─── Button arrow slide on hover ─── */
+.btn-arrow-slide .arrow-icon {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-arrow-slide:hover .arrow-icon {
+  transform: translateX(4px);
+}
+
+/* ─── Product badge subtle pulse ─── */
+.badge-pulse {
+  animation: badge-subtle-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes badge-subtle-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ─── Animated underline for links ─── */
+.animated-underline {
+  position: relative;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 1.5px;
+  background: #0D6E6E;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ─── Section indicator dot pulse ─── */
+.section-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0D6E6E;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ─── Stagger reveal from left/right ─── */
+.reveal-left {
+  opacity: 0;
+  transform: translate3d(-40px, 0, 0);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translate3d(40px, 0, 0);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left.visible,
+.reveal-right.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* ─── Icon bounce on feature card hover ─── */
+.icon-bounce {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.group:hover .icon-bounce {
+  transform: scale(1.15) rotate(-5deg);
+}
+
 /* ─── Reduced motion preference ─── */
 @media (prefers-reduced-motion: reduce) {
 
@@ -315,7 +516,9 @@ iconify-icon,
     scroll-behavior: auto !important;
   }
 
-  .reveal {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
     opacity: 1;
     transform: none;
     transition: none;

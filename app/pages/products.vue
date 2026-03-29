@@ -90,7 +90,7 @@ const filteredProducts = computed(() => {
 useHead({
   title: 'Sản phẩm — Duyên Phượng',
   meta: [
-    { name: 'description', content: 'Khám phá bộ sưu tập đồ gia dụng chất lượng cao cho nhà bếp, phòng tắm, phòng khách. Giá tốt nhất, giao hàng toàn quốc.' },
+    { name: 'description', content: 'Khám phá bộ sưu tập đồ gia dụng chất lượng cao cho nhà bếp, phòng tắm, phòng khách. Liên hệ để được tư vấn và báo giá.' },
   ],
   script: [
     {
@@ -308,7 +308,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
           :class="['reveal', `reveal-delay-${(i % 3) + 1}`, 'group bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300']"
         >
           <!-- Image -->
-          <div class="relative h-56 overflow-hidden bg-[#F5F5F5]">
+          <div class="product-shine relative h-56 overflow-hidden bg-[#F5F5F5]">
             <NuxtImg
               :src="product.image"
               :alt="product.name"
@@ -321,7 +321,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
             />
             <span
               v-if="product.badge"
-              class="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
+              class="badge-pulse absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
               :class="product.badge === 'Mới' ? 'bg-[#0D6E6E] text-white' : 'bg-[#DC2626] text-white'"
             >
               <Icon :name="product.badge === 'Mới' ? 'solar:star-bold' : 'solar:tag-price-bold'" size="12" aria-hidden="true" />
@@ -349,10 +349,10 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
             </div>
             <button
               class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1A1A1A] text-white text-[13px] font-medium rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-sm transition-all w-full justify-center sm:w-auto"
-              :aria-label="'Thêm ' + product.name + ' vào giỏ hàng'"
+              :aria-label="'Xem chi tiết ' + product.name"
             >
-              <Icon name="solar:cart-plus-outline" size="16" aria-hidden="true" />
-              Thêm giỏ hàng
+              <Icon name="solar:info-circle-outline" size="16" aria-hidden="true" />
+              Xem chi tiết
             </button>
           </div>
         </article>

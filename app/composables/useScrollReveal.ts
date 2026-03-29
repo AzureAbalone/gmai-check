@@ -15,7 +15,12 @@ export function useScrollReveal(rootMargin = '0px 0px -60px 0px') {
   }
 
   function observeElement(element: Element) {
-    if (!element.classList.contains('reveal') || observedElements.has(element)) {
+    if (
+      (!element.classList.contains('reveal')
+        && !element.classList.contains('reveal-left')
+        && !element.classList.contains('reveal-right'))
+      || observedElements.has(element)
+    ) {
       return
     }
 
@@ -28,7 +33,7 @@ export function useScrollReveal(rootMargin = '0px 0px -60px 0px') {
       observeElement(root)
     }
 
-    root.querySelectorAll('.reveal').forEach((element) => {
+    root.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((element) => {
       observeElement(element)
     })
   }
@@ -37,7 +42,7 @@ export function useScrollReveal(rootMargin = '0px 0px -60px 0px') {
     // Respect user's motion preferences
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) {
-      document.querySelectorAll('.reveal').forEach((el) => {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) => {
         revealElement(el)
       })
       return

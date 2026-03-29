@@ -42,7 +42,7 @@ watch(isMobileOpen, (open) => {
 })
 
 const navLinks = [
-  { label: 'Sản phẩm', to: '/products', icon: 'solar:bag-4-outline' },
+  { label: 'Sản phẩm', to: '/products', icon: 'solar:widget-2-outline' },
   { label: 'Về chúng tôi', to: '/#about', icon: 'solar:info-circle-outline' },
   { label: 'Liên hệ', to: '/#contact', icon: 'solar:phone-outline' },
 ]
@@ -83,8 +83,8 @@ const navLinks = [
         to="/products"
         class="inline-flex items-center gap-2 px-6 py-2.5 bg-[#0D6E6E] text-white text-sm font-semibold rounded-lg hover:bg-[#0A5858] hover:-translate-y-0.5 active:translate-y-0 transition-all"
       >
-        <Icon name="solar:cart-large-2-bold" size="16" aria-hidden="true" />
-        Mua ngay
+        <Icon name="solar:eye-bold" size="16" aria-hidden="true" />
+        Xem sản phẩm
       </NuxtLink>
     </nav>
 
@@ -129,8 +129,8 @@ const navLinks = [
           to="/products"
           class="flex items-center justify-center gap-2 px-6 py-3 bg-[#0D6E6E] text-white text-sm font-semibold rounded-lg active:bg-[#0A5858] transition-colors"
         >
-          <Icon name="solar:cart-large-2-bold" size="16" aria-hidden="true" />
-          Mua ngay
+          <Icon name="solar:eye-bold" size="16" aria-hidden="true" />
+          Xem sản phẩm
         </NuxtLink>
       </nav>
     </Transition>

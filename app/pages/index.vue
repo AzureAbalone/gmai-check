@@ -28,7 +28,7 @@ const features = [
 const heroImages = [
   { src: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80', alt: 'Nhà bếp hiện đại', label: 'Nhà bếp' },
   { src: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80', alt: 'Phòng khách tinh tế', label: 'Phòng khách' },
-  { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80', alt: 'Phòng tắm gọn gàng', label: 'Phòng tắm', objectPosition: 'center 70%' },
+  { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=520&fit=crop&crop=center&q=80', alt: 'Phòng tắm gọn gàng', label: 'Phòng tắm' },
   { src: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80', alt: 'Phòng ngủ ấm cúng', label: 'Phòng ngủ' },
   { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', alt: 'Ngoại thất hiện đại', label: 'Ngoại thất' },
 ]
@@ -45,7 +45,7 @@ const trustBrands = [
 useHead({
   title: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống',
   meta: [
-    { name: 'description', content: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm. Giao hàng toàn quốc, đổi trả dễ dàng.' },
+    { name: 'description', content: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm. Xem chi tiết và liên hệ ngay.' },
   ],
   script: [
     {
@@ -97,7 +97,7 @@ useHead({
       class="flex flex-col items-center gap-8 py-20 lg:py-24 px-6 lg:px-[120px] bg-[#FAFAFA] text-center"
       aria-labelledby="hero-heading"
     >
-      <span class="reveal inline-flex items-center gap-2 px-4 py-1.5 bg-[#F0F0F0] border border-[#E5E5E5] rounded-full text-[13px] font-medium text-[#666]">
+      <span class="reveal hero-badge inline-flex items-center gap-2 px-4 py-1.5 bg-[#F0F0F0] border border-[#E5E5E5] rounded-full text-[13px] font-medium text-[#666]">
         <Icon name="solar:star-bold" size="14" class="text-amber-500" aria-hidden="true" />
         Đồ gia dụng cho mọi gia đình Việt
       </span>
@@ -111,7 +111,7 @@ useHead({
 
       <p class="reveal text-lg text-[#666] max-w-[600px] leading-relaxed">
         Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.<br class="hidden md:block"/>
-        Giao hàng toàn quốc, đổi trả dễ dàng.
+        Xem chi tiết sản phẩm và liên hệ ngay.
       </p>
 
       <div class="reveal flex flex-col sm:flex-row items-center gap-4">
@@ -119,8 +119,8 @@ useHead({
           to="/products"
           class="inline-flex items-center gap-2 px-8 py-4 bg-[#1A1A1A] text-white text-base font-semibold rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-lg transition-all"
         >
-          <Icon name="solar:bag-4-outline" size="18" aria-hidden="true" />
-          Khám phá sản phẩm
+          <Icon name="solar:eye-outline" size="18" aria-hidden="true" />
+          Xem sản phẩm
         </NuxtLink>
         <a
           href="#features"
@@ -191,7 +191,7 @@ useHead({
     <section id="features" class="py-20 px-6 lg:px-[120px] bg-white" aria-labelledby="features-heading">
       <div class="reveal flex flex-col items-center gap-4 text-center mb-16">
         <span class="font-mono text-[11px] font-semibold tracking-[2px] text-[#0D6E6E] uppercase">
-          SẢN PHẨM NỔI BẬT
+          <span class="section-dot mr-2" aria-hidden="true" />SẢN PHẨM NỔI BẬT
         </span>
         <h2 id="features-heading" class="font-['Newsreader'] text-3xl lg:text-[40px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[700px]">
           Mọi tiện ích cho ngôi nhà của bạn,<br/>tất cả ở một nơi.
@@ -206,9 +206,9 @@ useHead({
           v-for="(feature, i) in features"
           :key="feature.title"
           role="listitem"
-          :class="['reveal', `reveal-delay-${i + 1}`, 'flex flex-col gap-5 p-8 bg-[#FAFAFA] border border-[#E5E5E5] rounded-2xl hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group']"
+          :class="['reveal', `reveal-delay-${i + 1}`, 'feature-card flex flex-col gap-5 p-8 bg-[#FAFAFA] border border-[#E5E5E5] rounded-2xl hover:-translate-y-1 transition-all duration-300 group']"
         >
-          <div :class="[feature.color, 'w-12 h-12 rounded-xl flex items-center justify-center text-white group-hover:scale-110 transition-transform']" aria-hidden="true">
+          <div :class="[feature.color, 'icon-bounce w-12 h-12 rounded-xl flex items-center justify-center text-white']" aria-hidden="true">
             <Icon :name="feature.icon" size="22" />
           </div>
           <h3 class="font-['Newsreader'] text-[22px] font-medium text-[#1A1A1A]">{{ feature.title }}</h3>
@@ -218,10 +218,10 @@ useHead({
     </section>
 
     <!-- ═══════════════════════ SHOWCASE ═══════════════════════ -->
-    <section id="about" class="reveal flex flex-col lg:flex-row items-center gap-12 lg:gap-16 py-16 px-6 lg:px-[120px] bg-[#FAFAFA]" aria-labelledby="showcase-heading">
-      <div class="flex-1 space-y-6">
+    <section id="about" class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 py-16 px-6 lg:px-[120px] bg-[#FAFAFA]" aria-labelledby="showcase-heading">
+      <div class="reveal-left flex-1 space-y-6">
         <span class="font-mono text-[11px] font-semibold tracking-[2px] text-[#0D6E6E] uppercase">
-          CHẤT LƯỢNG ĐẢM BẢO
+          <span class="section-dot mr-2" aria-hidden="true" />CHẤT LƯỢNG ĐẢM BẢO
         </span>
         <h2 id="showcase-heading" class="font-['Newsreader'] text-3xl lg:text-4xl font-medium leading-[1.15] text-[#1A1A1A]">
           Sản phẩm bền đẹp,<br/>giá cả hợp lý.
@@ -231,13 +231,13 @@ useHead({
         </p>
         <NuxtLink
           to="/products"
-          class="inline-flex items-center gap-2 px-6 py-2.5 bg-[#1A1A1A] text-white text-sm font-semibold rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-md transition-all"
+          class="btn-arrow-slide inline-flex items-center gap-2 px-6 py-2.5 bg-[#1A1A1A] text-white text-sm font-semibold rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-md transition-all"
         >
           Xem sản phẩm
-          <Icon name="solar:arrow-right-bold" size="16" aria-hidden="true" />
+          <Icon name="solar:arrow-right-bold" size="16" aria-hidden="true" class="arrow-icon" />
         </NuxtLink>
       </div>
-      <div class="flex-[1.2] rounded-2xl overflow-hidden h-[320px] lg:h-[380px] group">
+      <div class="reveal-right flex-[1.2] rounded-2xl overflow-hidden h-[320px] lg:h-[380px] group">
         <NuxtImg
           src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&q=80"
           alt="Bộ sưu tập đồ gia dụng Duyên Phượng chất lượng cao"
@@ -252,20 +252,20 @@ useHead({
     </section>
 
     <!-- ═══════════════════════ FINAL CTA ═══════════════════════ -->
-    <section id="contact" class="reveal flex flex-col items-center gap-8 py-24 px-6 lg:px-[120px] bg-[#0F172A] text-center" aria-labelledby="cta-heading">
+    <section id="contact" class="reveal cta-glow flex flex-col items-center gap-8 py-24 px-6 lg:px-[120px] bg-[#0F172A] text-center overflow-hidden" aria-labelledby="cta-heading">
       <h2 id="cta-heading" class="font-['Newsreader'] text-3xl lg:text-5xl font-medium leading-[1.1] text-white max-w-[700px]">
-        Mua sắm thông minh.<br/>Giao hàng tận nơi.
+        Sản phẩm chất lượng.<br/>Giá cả hợp lý.
       </h2>
       <p class="text-base text-[#94A3B8] max-w-[500px]">
-        Bắt đầu mua sắm ngay hôm nay — miễn phí giao hàng cho đơn từ 300.000đ
+        Khám phá bộ sưu tập sản phẩm gia dụng — liên hệ để được tư vấn và báo giá tốt nhất.
       </p>
       <div class="flex flex-col sm:flex-row gap-4">
         <NuxtLink
           to="/products"
           class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0F172A] text-base font-semibold rounded-lg hover:bg-gray-100 hover:-translate-y-0.5 active:translate-y-0 transition-all"
         >
-          <Icon name="solar:bag-4-outline" size="18" aria-hidden="true" />
-          Bắt đầu mua sắm
+          <Icon name="solar:eye-outline" size="18" aria-hidden="true" />
+          Xem bộ sưu tập
         </NuxtLink>
         <a
           href="tel:+84123456789"
