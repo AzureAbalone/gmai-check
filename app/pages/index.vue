@@ -132,8 +132,9 @@ useHead({
       </div>
     </section>
 
-    <!-- ═══════════════════════ HERO — DIAGONAL ACCORDION ═══════════════════════ -->
+    <!-- ═══════════════════════ HERO — DIAGONAL ACCORDION (desktop) / SLIDESHOW (mobile) ═══════════════════════ -->
     <section class="reveal" aria-label="Bộ sưu tập không gian sống">
+      <!-- Desktop: diagonal accordion -->
       <div class="diagonal-accordion">
         <div
           v-for="(img, i) in heroImages"
@@ -150,12 +151,32 @@ useHead({
             width="800"
             height="600"
             class="diagonal-panel__img"
-            :style="img.objectPosition ? { objectPosition: img.objectPosition } : undefined"
           />
-          <!-- Overlay gradient + label -->
           <div class="diagonal-panel__overlay">
             <span class="diagonal-panel__label">{{ img.label }}</span>
           </div>
+        </div>
+      </div>
+
+      <!-- Mobile: infinite slideshow -->
+      <div class="hero-slideshow" aria-label="Không gian sống slideshow">
+        <div class="hero-slideshow__track">
+          <!-- 2x slides for seamless loop -->
+          <template v-for="n in 2" :key="'set-' + n">
+            <div v-for="img in heroImages" :key="n + '-' + img.label" class="hero-slideshow__slide">
+              <NuxtImg
+                :src="img.src"
+                :alt="img.alt"
+                loading="lazy"
+                decoding="async"
+                width="800"
+                height="600"
+              />
+              <div class="hero-slideshow__slide-overlay">
+                <span class="hero-slideshow__slide-label">{{ img.label }}</span>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
     </section>
@@ -206,7 +227,7 @@ useHead({
           v-for="(feature, i) in features"
           :key="feature.title"
           role="listitem"
-          :class="['reveal', `reveal-delay-${i + 1}`, 'feature-card flex flex-col gap-5 p-8 bg-[#FAFAFA] border border-[#E5E5E5] rounded-2xl hover:-translate-y-1 transition-all duration-300 group']"
+          :class="['reveal', `reveal-delay-${i + 1}`, 'feature-card flex flex-col gap-5 p-8 bg-[#FAFAFA] rounded-2xl hover:-translate-y-1 transition-all duration-300 group']"
         >
           <div :class="[feature.color, 'icon-bounce w-12 h-12 rounded-xl flex items-center justify-center text-white']" aria-hidden="true">
             <Icon :name="feature.icon" size="22" />

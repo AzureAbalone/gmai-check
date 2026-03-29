@@ -225,27 +225,78 @@ iconify-icon,
   transform: translateY(0);
 }
 
-/* Mobile: reduce diagonal skew */
+/* Mobile: slideshow replaces accordion */
 @media (max-width: 767px) {
-  .diagonal-panel {
-    clip-path: polygon(4% 0%, 100% 0%, 96% 100%, 0% 100%);
-    margin-left: -1%;
-  }
-
-  .diagonal-panel--first {
-    clip-path: polygon(0% 0%, 100% 0%, 96% 100%, 0% 100%);
-  }
-
-  .diagonal-panel--last {
-    clip-path: polygon(4% 0%, 100% 0%, 100% 100%, 0% 100%);
+  .diagonal-accordion {
+    display: none;
   }
 
   .diagonal-panel__label {
     font-size: 14px;
   }
+}
 
-  .diagonal-panel__overlay {
-    padding-bottom: 16px;
+/* ─── Mobile Hero Slideshow (infinite) ─── */
+.hero-slideshow {
+  display: none;
+  overflow: hidden;
+  height: 280px;
+  background: #111;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .hero-slideshow {
+    display: block;
+  }
+}
+
+.hero-slideshow__track {
+  display: flex;
+  height: 100%;
+  /* width set by number of slides — 2x for seamless loop */
+  animation: hero-slide 20s linear infinite;
+}
+
+.hero-slideshow__slide {
+  position: relative;
+  flex: 0 0 85vw;
+  height: 100%;
+  margin-right: 12px;
+}
+
+.hero-slideshow__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.hero-slideshow__slide-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 20px;
+}
+
+.hero-slideshow__slide-label {
+  color: #fff;
+  font-family: 'Newsreader', serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+@keyframes hero-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Scroll exactly half (the first set) so the duplicate takes over seamlessly */
+    transform: translateX(-50%);
   }
 }
 
@@ -337,31 +388,16 @@ iconify-icon,
   50% { background-position: 0% center; }
 }
 
-/* ─── Feature card glowing border on hover ─── */
+/* ─── Feature card hover ─── */
 .feature-card {
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border: 1.5px solid transparent;
-  background: linear-gradient(135deg, rgba(13, 110, 110, 0), rgba(13, 110, 110, 0)) padding-box,
-              linear-gradient(135deg, rgba(13, 110, 110, 0), rgba(13, 110, 110, 0)) border-box;
-  pointer-events: none;
-  transition: background 0.4s ease;
-}
-
-.feature-card:hover::before {
-  background: linear-gradient(135deg, transparent, transparent) padding-box,
-              linear-gradient(135deg, #0D6E6E, #14B8A6, #0D6E6E) border-box;
+  border: 1px solid #E5E5E5;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .feature-card:hover {
-  box-shadow: 0 8px 32px rgba(13, 110, 110, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-color: #0D6E6E;
+  box-shadow: 0 8px 30px rgba(13, 110, 110, 0.10), 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* ─── Product card image shine sweep on hover ─── */
