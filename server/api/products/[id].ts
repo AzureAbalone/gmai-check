@@ -1,5 +1,4 @@
 // Product detail API — serves full Việt Nhật product data by ID
-import productsRaw from '../../data/products.json' with { type: 'json' }
 
 interface ProductDetail {
   id: number
@@ -18,11 +17,17 @@ interface ProductDetail {
   url: string
 }
 
-const productsData = productsRaw as ProductDetail[]
+let productsMap: Map<number, ProductDetail> | null = null
 
-const productsMap = new Map<number, ProductDetail>()
-for (const p of productsData) {
-  productsMap.set(p.id, p)
+async function loadProductsMap(): Promise<Map<number, ProductDetail>> {
+  if (productsMap) return productsMap
+  const storage = useStorage('assets:data')
+  const raw = await storage.getItem<ProductDetail[]>('products.json')
+  productsMap = new Map()
+  for (const p of (raw || [])) {
+    productsMap.set(p.id, p)
+  }
+  return productsMap
 }
 
 // Seeded random per product ID — consistent ratings across requests
@@ -45,7 +50,8 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid product ID' })
   }
 
-  const product = productsMap.get(id)
+  const map = await loadProductsMap()
+  const product = map.get(id)
 
   if (!product) {
     throw createError({ statusCode: 404, statusMessage: 'Product not found' })

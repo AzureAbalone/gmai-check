@@ -98,6 +98,10 @@ export default defineNuxtConfig({
   // ─── Nitro (Server) optimization ───
   nitro: {
     compressPublicAssets: { gzip: true, brotli: true },
+    serverAssets: [{
+      baseName: 'data',
+      dir: './server/data',
+    }],
     prerender: {
       crawlLinks: true,
       routes: ['/', '/products', '/products/1', '/products/2', '/products/3', '/products/4'],
@@ -117,6 +121,8 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: [
         'lenis',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
       ],
     },
     build: {
@@ -131,12 +137,5 @@ export default defineNuxtConfig({
       // Enable CSS code splitting
       cssCodeSplit: true,
     },
-  },
-
-  // ─── Experimental features ───
-  experimental: {
-    payloadExtraction: true,
-    renderJsonPayloads: true,
-    viewTransition: true,
   },
 })

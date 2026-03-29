@@ -1,5 +1,4 @@
 // Products list API — serves real Việt Nhật data
-import productsRaw from '../data/products.json' with { type: 'json' }
 
 // Seeded random per product ID — consistent ratings across requests
 function seededRating(id: number): { rating: number; reviews: number } {
@@ -21,13 +20,23 @@ interface Product {
   material: string
 }
 
-const productsData = productsRaw as Product[]
+let cachedProducts: Product[] | null = null
+
+async function loadProducts(): Promise<Product[]> {
+  if (cachedProducts) return cachedProducts
+  const storage = useStorage('assets:data')
+  const raw = await storage.getItem<Product[]>('products.json')
+  cachedProducts = raw || []
+  return cachedProducts
+}
 
 export default defineEventHandler(async (event) => {
   setResponseHeaders(event, {
     'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
     'Content-Type': 'application/json',
   })
+
+  const productsData = await loadProducts()
 
   return productsData.map((p) => {
     const { rating, reviews } = seededRating(p.id)
