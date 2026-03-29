@@ -60,7 +60,7 @@ const relatedProducts = computed(() => {
 // ─── Reactive state ───
 const selectedColorIndex = ref(0)
 const activeImageIndex = ref(0)
-const openAccordions = reactive(new Set<string>(['specs']))
+
 
 // ─── Computed ───
 const selectedColor = computed(() => product.value?.colors?.[selectedColorIndex.value])
@@ -86,13 +86,7 @@ function selectColor(index: number) {
   selectedColorIndex.value = index
 }
 
-function toggleAccordion(key: string) {
-  if (openAccordions.has(key)) {
-    openAccordions.delete(key)
-  } else {
-    openAccordions.add(key)
-  }
-}
+
 
 // ─── SEO ───
 useHead({
@@ -292,185 +286,75 @@ useHead({
             <!-- Divider -->
             <div class="border-t border-[#E5E5E5]" />
 
-            <!-- Accordions -->
+            <!-- Product Detail Sections (always visible) -->
             <div class="space-y-0">
               <!-- Product Specs -->
-              <div class="border-b border-[#E5E5E5]">
-                <button
-                  class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordions.has('specs')"
-                  @click="toggleAccordion('specs')"
-                >
-                  <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
-                    <Icon name="solar:document-text-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
-                    Thông số kỹ thuật
-                  </span>
-                  <Icon
-                    name="solar:alt-arrow-down-outline"
-                    size="16"
-                    class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordions.has('specs') }"
-                    aria-hidden="true"
-                  />
-                </button>
-                <Transition
-                  enter-active-class="pdp-accordion-enter-active"
-                  leave-active-class="pdp-accordion-leave-active"
-                  enter-from-class="pdp-accordion-enter-from"
-                  leave-to-class="pdp-accordion-leave-to"
-                >
-                  <div v-if="openAccordions.has('specs')" class="pb-4">
-                    <div class="space-y-2">
-                      <div
-                        v-for="spec in product.specs"
-                        :key="spec.label"
-                        class="flex items-start gap-4 text-sm py-1.5"
-                      >
-                        <span class="text-[#888] min-w-[120px]">{{ spec.label }}</span>
-                        <span class="text-[#1A1A1A] font-medium">{{ spec.value }}</span>
-                      </div>
-                    </div>
+              <div class="border-b border-[#E5E5E5] py-4">
+                <h3 class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2 mb-3">
+                  <Icon name="solar:document-text-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
+                  Thông số kỹ thuật
+                </h3>
+                <div class="space-y-2">
+                  <div
+                    v-for="spec in product.specs"
+                    :key="spec.label"
+                    class="flex items-start gap-4 text-sm py-1.5"
+                  >
+                    <span class="text-[#888] min-w-[120px]">{{ spec.label }}</span>
+                    <span class="text-[#1A1A1A] font-medium">{{ spec.value }}</span>
                   </div>
-                </Transition>
+                </div>
               </div>
 
-              <!-- Mô tả / Thông tin sản phẩm -->
-              <div class="border-b border-[#E5E5E5]">
-                <button
-                  class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordions.has('info')"
-                  @click="toggleAccordion('info')"
-                >
-                  <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
-                    <Icon name="solar:info-circle-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
-                    Mô tả sản phẩm
-                  </span>
-                  <Icon
-                    name="solar:alt-arrow-down-outline"
-                    size="16"
-                    class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordions.has('info') }"
-                    aria-hidden="true"
-                  />
-                </button>
-                <Transition
-                  enter-active-class="pdp-accordion-enter-active"
-                  leave-active-class="pdp-accordion-leave-active"
-                  enter-from-class="pdp-accordion-enter-from"
-                  leave-to-class="pdp-accordion-leave-to"
-                >
-                  <div v-if="openAccordions.has('info')" class="pb-4">
-                    <p class="text-sm leading-relaxed text-[#666]">{{ product.productInfo }}</p>
-                  </div>
-                </Transition>
+              <!-- Mô tả sản phẩm -->
+              <div class="border-b border-[#E5E5E5] py-4">
+                <h3 class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2 mb-3">
+                  <Icon name="solar:info-circle-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
+                  Mô tả sản phẩm
+                </h3>
+                <p class="text-sm leading-relaxed text-[#666]">{{ product.productInfo }}</p>
               </div>
 
               <!-- Ưu điểm -->
-              <div v-if="product.advantages?.length" class="border-b border-[#E5E5E5]">
-                <button
-                  class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordions.has('advantages')"
-                  @click="toggleAccordion('advantages')"
-                >
-                  <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
-                    <Icon name="solar:star-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
-                    Ưu điểm
-                  </span>
-                  <Icon
-                    name="solar:alt-arrow-down-outline"
-                    size="16"
-                    class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordions.has('advantages') }"
-                    aria-hidden="true"
-                  />
-                </button>
-                <Transition
-                  enter-active-class="pdp-accordion-enter-active"
-                  leave-active-class="pdp-accordion-leave-active"
-                  enter-from-class="pdp-accordion-enter-from"
-                  leave-to-class="pdp-accordion-leave-to"
-                >
-                  <div v-if="openAccordions.has('advantages')" class="pb-4">
-                    <ul class="space-y-2">
-                      <li v-for="(item, i) in product.advantages" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
-                        <Icon name="solar:check-circle-bold" size="16" class="text-[#0D6E6E] mt-0.5 flex-shrink-0" aria-hidden="true" />
-                        <span>{{ item }}</span>
-                      </li>
-                    </ul>
-                  </div>
-                </Transition>
+              <div v-if="product.advantages?.length" class="border-b border-[#E5E5E5] py-4">
+                <h3 class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2 mb-3">
+                  <Icon name="solar:star-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
+                  Ưu điểm
+                </h3>
+                <ul class="space-y-2">
+                  <li v-for="(item, i) in product.advantages" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
+                    <Icon name="solar:check-circle-bold" size="16" class="text-[#0D6E6E] mt-0.5 flex-shrink-0" aria-hidden="true" />
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
               </div>
 
               <!-- Hướng dẫn sử dụng -->
-              <div v-if="product.usage?.length" class="border-b border-[#E5E5E5]">
-                <button
-                  class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordions.has('usage')"
-                  @click="toggleAccordion('usage')"
-                >
-                  <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
-                    <Icon name="solar:hand-stars-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
-                    Hướng dẫn sử dụng
-                  </span>
-                  <Icon
-                    name="solar:alt-arrow-down-outline"
-                    size="16"
-                    class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordions.has('usage') }"
-                    aria-hidden="true"
-                  />
-                </button>
-                <Transition
-                  enter-active-class="pdp-accordion-enter-active"
-                  leave-active-class="pdp-accordion-leave-active"
-                  enter-from-class="pdp-accordion-enter-from"
-                  leave-to-class="pdp-accordion-leave-to"
-                >
-                  <div v-if="openAccordions.has('usage')" class="pb-4">
-                    <ul class="space-y-2">
-                      <li v-for="(item, i) in product.usage" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
-                        <span class="text-[#0D6E6E] font-medium">•</span>
-                        <span>{{ item }}</span>
-                      </li>
-                    </ul>
-                  </div>
-                </Transition>
+              <div v-if="product.usage?.length" class="border-b border-[#E5E5E5] py-4">
+                <h3 class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2 mb-3">
+                  <Icon name="solar:hand-stars-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
+                  Hướng dẫn sử dụng
+                </h3>
+                <ul class="space-y-2">
+                  <li v-for="(item, i) in product.usage" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
+                    <span class="text-[#0D6E6E] font-medium">•</span>
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
               </div>
 
               <!-- Bảo quản -->
-              <div v-if="product.storage?.length" class="border-b border-[#E5E5E5]">
-                <button
-                  class="pdp-accordion-trigger flex items-center justify-between w-full py-4 text-left transition-colors"
-                  :aria-expanded="openAccordions.has('storage')"
-                  @click="toggleAccordion('storage')"
-                >
-                  <span class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
-                    <Icon name="solar:shield-check-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
-                    Bảo quản
-                  </span>
-                  <Icon
-                    name="solar:alt-arrow-down-outline"
-                    size="16"
-                    class="text-[#999] transition-transform duration-300"
-                    :class="{ 'rotate-180': openAccordions.has('storage') }"
-                    aria-hidden="true"
-                  />
-                </button>
-                <Transition
-                  enter-active-class="pdp-accordion-enter-active"
-                  leave-active-class="pdp-accordion-leave-active"
-                  enter-from-class="pdp-accordion-enter-from"
-                  leave-to-class="pdp-accordion-leave-to"
-                >
-                  <div v-if="openAccordions.has('storage')" class="pb-4">
-                    <ul class="space-y-2">
-                      <li v-for="(item, i) in product.storage" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
-                        <span class="text-[#0D6E6E] font-medium">•</span>
-                        <span>{{ item }}</span>
-                      </li>
-                    </ul>
-                  </div>
-                </Transition>
+              <div v-if="product.storage?.length" class="border-b border-[#E5E5E5] py-4">
+                <h3 class="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2 mb-3">
+                  <Icon name="solar:shield-check-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
+                  Bảo quản
+                </h3>
+                <ul class="space-y-2">
+                  <li v-for="(item, i) in product.storage" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
+                    <span class="text-[#0D6E6E] font-medium">•</span>
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
