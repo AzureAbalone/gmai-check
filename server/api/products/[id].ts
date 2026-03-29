@@ -20,6 +20,10 @@ interface ProductData {
   packaging: string
   url: string
   description: string
+  productInfo: string
+  advantages: string[]
+  usage: string[]
+  storage: string[]
 }
 
 // Read once at startup
@@ -73,12 +77,10 @@ export default defineEventHandler((event) => {
     reviews: p.reviews,
     colors: p.colors,
     specs,
-    // ── Undecided fields — raw description for now ──
-    description: p.description,
-    productInfo: '',
-    advantages: [] as string[],
-    usage: [] as string[],
-    storage: [] as string[],
-    url: p.url,
+    description: p.productInfo || p.description,
+    productInfo: p.productInfo || p.description,
+    advantages: p.advantages || [],
+    usage: p.usage || [],
+    storage: p.storage || [],
   }
 })

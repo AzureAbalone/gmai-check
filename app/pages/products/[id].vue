@@ -303,13 +303,6 @@ useHead({
 
 
 
-            <!-- Description -->
-            <p class="text-[15px] leading-relaxed text-[#666]">
-              {{ product.description }}
-            </p>
-
-            <!-- Divider -->
-            <div class="border-t border-[#E5E5E5]" />
 
             <!-- Color Swatches -->
             <div class="space-y-3">
