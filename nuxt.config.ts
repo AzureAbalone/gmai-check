@@ -76,7 +76,7 @@ export default defineNuxtConfig({
       ],
       link: [
         // Favicon
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        { rel: 'icon', type: 'image/png', href: '/favicon.png?v=3' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         // Font preconnect + swap
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
