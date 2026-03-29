@@ -5,14 +5,16 @@ import { useScrollReveal } from '~/composables/useScrollReveal'
 
 useScrollReveal()
 
+// Track if initial reveal animation has completed — after that, skip animation on filter changes
+const hasRevealed = ref(false)
+onMounted(() => {
+  setTimeout(() => { hasRevealed.value = true }, 1200)
+})
+
 interface Product {
   id: number
   name: string
   category: string
-  price: number
-  priceFormatted: string
-  originalPrice: number | null
-  originalPriceFormatted: string | null
   image: string
   rating: number
   reviews: number
@@ -68,6 +70,9 @@ watch(activeCategory, (category) => {
     delete nextQuery.category
   }
 
+  // Reset to page 1 when category changes
+  currentPage.value = 1
+
   router.replace({ query: nextQuery })
 })
 
@@ -76,14 +81,93 @@ const filteredProducts = computed(() => {
   if (activeCategory.value !== 'all') {
     items = items.filter((p) => p.category === activeCategory.value)
   }
-  if (sortOrder.value === 'price-asc') {
-    items = [...items].sort((a, b) => a.price - b.price)
-  } else if (sortOrder.value === 'price-desc') {
-    items = [...items].sort((a, b) => b.price - a.price)
-  } else if (sortOrder.value === 'rating') {
+  if (sortOrder.value === 'rating') {
     items = [...items].sort((a, b) => b.rating - a.rating)
   }
   return items
+})
+
+// ─── Pagination ───
+const ITEMS_PER_PAGE = 6
+
+// Initialize from URL but keep it local to prevent re-renders on page change
+const initialPage = Number(route.query.page)
+const currentPage = ref((initialPage > 0 && Number.isInteger(initialPage)) ? initialPage : 1)
+
+const totalPages = computed(() => {
+  return Math.max(1, Math.ceil(filteredProducts.value.length / ITEMS_PER_PAGE))
+})
+
+// Clamp page when filters change and reduce total pages
+watch(totalPages, (newTotal) => {
+  if (currentPage.value > newTotal) {
+    currentPage.value = newTotal
+  }
+})
+
+const paginatedProducts = computed(() => {
+  const start = (currentPage.value - 1) * ITEMS_PER_PAGE
+  return filteredProducts.value.slice(start, start + ITEMS_PER_PAGE)
+})
+
+// Visible page numbers (window of 5 around current)
+const visiblePages = computed(() => {
+  const total = totalPages.value
+  if (total <= 5) return Array.from({ length: total }, (_, i) => i + 1)
+
+  const current = currentPage.value
+  let start = Math.max(1, current - 2)
+  let end = Math.min(total, current + 2)
+
+  // Adjust window if near edges
+  if (current <= 3) {
+    end = 5
+  } else if (current >= total - 2) {
+    start = total - 4
+  }
+
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i)
+})
+
+const firstVisiblePage = computed(() => visiblePages.value[0] ?? 1)
+const lastVisiblePage = computed(() => visiblePages.value[visiblePages.value.length - 1] ?? totalPages.value)
+
+function goToPage(page: number) {
+  if (page < 1 || page > totalPages.value || page === currentPage.value) return
+
+  currentPage.value = page
+
+  // Update URL without triggering Nuxt re-render
+  const nextQuery = new URLSearchParams(window.location.search)
+  if (page === 1) nextQuery.delete('page')
+  else nextQuery.set('page', String(page))
+  
+  const newUrl = window.location.pathname + (nextQuery.toString() ? `?${nextQuery.toString()}` : '')
+  window.history.replaceState({}, '', newUrl)
+}
+
+// ─── Hide mobile pagination when footer is visible ───
+const isFooterVisible = ref(false)
+
+onMounted(() => {
+  const footer = document.querySelector('footer')
+  if (!footer) return
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0]
+      if (entry) isFooterVisible.value = entry.isIntersecting
+    },
+    { threshold: 0 }
+  )
+  observer.observe(footer)
+
+  onBeforeUnmount(() => observer.disconnect())
+})
+
+// Reset page when category/sort changes
+watch([activeCategory, sortOrder], () => {
+  currentPage.value = 1
 })
 
 // ─── SEO ───
@@ -121,8 +205,6 @@ const activeCategoryIcon = computed(() => {
 
 const sortOptions = [
   { value: 'default', label: 'Mặc định' },
-  { value: 'price-asc', label: 'Giá: thấp → cao' },
-  { value: 'price-desc', label: 'Giá: cao → thấp' },
   { value: 'rating', label: 'Đánh giá cao nhất' },
 ]
 
@@ -285,7 +367,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
     </section>
 
     <!-- Product Grid -->
-    <section class="py-12 px-6 lg:px-20" aria-label="Danh sách sản phẩm">
+    <section class="py-12 px-6 lg:px-20 pb-28 lg:pb-12" aria-label="Danh sách sản phẩm">
       <!-- Loading skeleton -->
       <div v-if="status === 'pending'" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div v-for="n in 6" :key="n" class="bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden">
@@ -300,12 +382,17 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
       </div>
 
       <!-- Products loaded -->
-      <div v-else-if="filteredProducts?.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
+      <div v-else-if="paginatedProducts?.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
         <article
-          v-for="(product, i) in filteredProducts"
+          v-for="(product, i) in paginatedProducts"
           :key="product.id"
           role="listitem"
-          :class="['reveal', `reveal-delay-${(i % 3) + 1}`, 'group bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300']"
+          :class="[
+            'reveal',
+            `reveal-delay-${(i % 3) + 1}`,
+            { 'visible': hasRevealed },
+            'group bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300',
+          ]"
         >
           <!-- Image -->
           <div class="product-shine relative h-56 overflow-hidden bg-[#F5F5F5]">
@@ -343,17 +430,14 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
               <span class="text-xs text-[#888] ml-1">({{ product.reviews }})</span>
             </div>
             <h3 class="font-medium text-[#1A1A1A] text-base line-clamp-2">{{ product.name }}</h3>
-            <div class="flex items-center gap-2">
-              <span class="text-lg font-bold text-[#1A1A1A]">{{ product.priceFormatted }}</span>
-              <span v-if="product.originalPrice" class="text-sm line-through text-[#CCC]">{{ product.originalPriceFormatted }}</span>
-            </div>
-            <button
+            <NuxtLink
+              :to="`/products/${product.id}`"
               class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1A1A1A] text-white text-[13px] font-medium rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-sm transition-all w-full justify-center sm:w-auto"
               :aria-label="'Xem chi tiết ' + product.name"
             >
               <Icon name="solar:info-circle-outline" size="16" aria-hidden="true" />
               Xem chi tiết
-            </button>
+            </NuxtLink>
           </div>
         </article>
       </div>
@@ -370,6 +454,120 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
           Xem tất cả sản phẩm
         </button>
       </div>
+
+      <!-- Desktop Pagination (hidden on mobile) -->
+      <nav
+        v-if="totalPages > 1 && paginatedProducts?.length"
+        class="hidden lg:flex items-center justify-center gap-2 mt-12"
+        aria-label="Phân trang sản phẩm"
+      >
+        <!-- Previous -->
+        <button
+          :disabled="currentPage === 1"
+          class="pagination-btn pagination-nav"
+          :class="{ 'pagination-disabled': currentPage === 1 }"
+          aria-label="Trang trước"
+          @click="goToPage(currentPage - 1)"
+        >
+          <Icon name="solar:alt-arrow-left-outline" size="16" aria-hidden="true" />
+        </button>
+
+        <!-- First + ellipsis -->
+        <template v-if="firstVisiblePage > 1">
+          <button class="pagination-btn" @click="goToPage(1)">1</button>
+          <span v-if="firstVisiblePage > 2" class="pagination-ellipsis">…</span>
+        </template>
+
+        <!-- Page numbers -->
+        <button
+          v-for="page in visiblePages"
+          :key="page"
+          class="pagination-btn"
+          :class="{ 'pagination-active': page === currentPage }"
+          :aria-current="page === currentPage ? 'page' : undefined"
+          :aria-label="`Trang ${page}`"
+          @click="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+
+        <!-- Last + ellipsis -->
+        <template v-if="lastVisiblePage < totalPages">
+          <span v-if="lastVisiblePage < totalPages - 1" class="pagination-ellipsis">…</span>
+          <button class="pagination-btn" @click="goToPage(totalPages)">{{ totalPages }}</button>
+        </template>
+
+        <!-- Next -->
+        <button
+          :disabled="currentPage === totalPages"
+          class="pagination-btn pagination-nav"
+          :class="{ 'pagination-disabled': currentPage === totalPages }"
+          aria-label="Trang sau"
+          @click="goToPage(currentPage + 1)"
+        >
+          <Icon name="solar:alt-arrow-right-outline" size="16" aria-hidden="true" />
+        </button>
+      </nav>
+
+      <!-- Result count -->
+      <p v-if="filteredProducts?.length" class="hidden lg:block text-center text-xs text-[#999] mt-4">
+        Hiển thị {{ (currentPage - 1) * ITEMS_PER_PAGE + 1 }}–{{ Math.min(currentPage * ITEMS_PER_PAGE, filteredProducts.length) }}
+        trên {{ filteredProducts.length }} sản phẩm
+      </p>
     </section>
+
+    <!-- Mobile Sticky Pagination (visible only on mobile/tablet) -->
+    <Transition name="fade-slide">
+    <nav
+      v-if="totalPages > 1 && paginatedProducts?.length && !isFooterVisible"
+      class="pagination-mobile-sticky lg:hidden"
+      aria-label="Phân trang sản phẩm"
+    >
+      <div class="pagination-mobile-inner">
+        <!-- Previous -->
+        <button
+          :disabled="currentPage === 1"
+          class="pagination-btn pagination-nav"
+          :class="{ 'pagination-disabled': currentPage === 1 }"
+          aria-label="Trang trước"
+          @click="goToPage(currentPage - 1)"
+        >
+          <Icon name="solar:alt-arrow-left-outline" size="16" aria-hidden="true" />
+        </button>
+
+        <!-- Page info -->
+        <div class="flex items-center gap-1.5">
+          <button
+            v-for="page in visiblePages"
+            :key="page"
+            class="pagination-btn pagination-btn-sm"
+            :class="{ 'pagination-active': page === currentPage }"
+            :aria-current="page === currentPage ? 'page' : undefined"
+            :aria-label="`Trang ${page}`"
+            @click="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        </div>
+
+        <!-- Next -->
+        <button
+          :disabled="currentPage === totalPages"
+          class="pagination-btn pagination-nav"
+          :class="{ 'pagination-disabled': currentPage === totalPages }"
+          aria-label="Trang sau"
+          @click="goToPage(currentPage + 1)"
+        >
+          <Icon name="solar:alt-arrow-right-outline" size="16" aria-hidden="true" />
+        </button>
+      </div>
+
+      <!-- Result count mobile -->
+      <p class="text-center text-[11px] text-[#999] mt-1">
+        {{ (currentPage - 1) * ITEMS_PER_PAGE + 1 }}–{{ Math.min(currentPage * ITEMS_PER_PAGE, filteredProducts.length) }}
+        / {{ filteredProducts.length }}
+      </p>
+    </nav>
+    </Transition>
   </div>
 </template>

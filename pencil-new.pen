@@ -1,0 +1,3805 @@
+{
+  "version": "2.9",
+  "children": [
+    {
+      "type": "frame",
+      "id": "XhtLh",
+      "x": 0,
+      "y": 0,
+      "name": "Landing Page",
+      "width": 1440,
+      "fill": "#FAFAFA",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "HWe35",
+          "name": "Header",
+          "width": "fill_container",
+          "fill": "#FAFAFA",
+          "padding": [
+            20,
+            80
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "kzSMy",
+              "name": "logo",
+              "fill": "#1A1A1A",
+              "content": "VINA HOME",
+              "fontFamily": "Inter",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "QE52S",
+              "name": "nav",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "CB6AI",
+                  "name": "nav1",
+                  "fill": "#666666",
+                  "content": "Sản phẩm",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "qYUiG",
+                  "name": "nav2",
+                  "fill": "#666666",
+                  "content": "Về chúng tôi",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "uF4QL",
+                  "name": "nav3",
+                  "fill": "#666666",
+                  "content": "Liên hệ",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "TIsBw",
+                  "name": "ctaNav",
+                  "fill": "#0D6E6E",
+                  "cornerRadius": 8,
+                  "padding": [
+                    10,
+                    24
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "oyxUK",
+                      "name": "ctaNavText",
+                      "fill": "#FFFFFF",
+                      "content": "Mua ngay",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "iMFxC",
+          "name": "Hero Section",
+          "width": "fill_container",
+          "fill": "#FAFAFA",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            80,
+            120
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "q6Nmg",
+              "name": "badge",
+              "fill": "#F0F0F0",
+              "cornerRadius": 32,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#E5E5E5"
+              },
+              "padding": [
+                6,
+                16
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "TVrGX",
+                  "name": "badgeText",
+                  "fill": "#666666",
+                  "content": "✨ Đồ gia dụng cho mọi gia đình Việt",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "kyn5E",
+              "name": "headline",
+              "fill": "#1A1A1A",
+              "textGrowth": "fixed-width",
+              "width": 800,
+              "content": "Tiện ích thông minh,\nnâng tầm cuộc sống.",
+              "lineHeight": 1.1,
+              "textAlign": "center",
+              "fontFamily": "Newsreader",
+              "fontSize": 56,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "P0y56",
+              "name": "subline",
+              "fill": "#666666",
+              "textGrowth": "fixed-width",
+              "width": 600,
+              "content": "Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.\nGiao hàng toàn quốc, đổi trả dễ dàng.",
+              "lineHeight": 1.5,
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "e0hYK",
+              "name": "ctaRow",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "MRMyC",
+                  "name": "ctaPrimary",
+                  "fill": "#1A1A1A",
+                  "cornerRadius": 8,
+                  "padding": [
+                    16,
+                    32
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "C7EsW",
+                      "name": "ctaPrimaryText",
+                      "fill": "#FFFFFF",
+                      "content": "Khám phá sản phẩm",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zR64e",
+                  "name": "ctaSecondary",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 8,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E5E5"
+                  },
+                  "padding": [
+                    16,
+                    32
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "8AvLE",
+                      "name": "ctaSecondaryText",
+                      "fill": "#1A1A1A",
+                      "content": "Tìm hiểu thêm →",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "CYfkl",
+          "name": "Hero Images",
+          "clip": true,
+          "width": "fill_container",
+          "height": 400,
+          "gap": 16,
+          "padding": [
+            0,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "tgtrM",
+              "name": "Image 1",
+              "metadata": {
+                "type": "unsplash",
+                "username": "mrkheu",
+                "link": "https://unsplash.com/@mrkheu",
+                "author": "Le Quan"
+              },
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1708358977332-84e95c0083a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ2OTgyMDB8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "fill"
+              },
+              "cornerRadius": 16
+            },
+            {
+              "type": "frame",
+              "id": "yXxtP",
+              "name": "Image 2",
+              "metadata": {
+                "type": "unsplash",
+                "username": "geraltyichen",
+                "link": "https://unsplash.com/@geraltyichen",
+                "author": "烧不酥在上海 老的"
+              },
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1713840087931-c4f9114be56b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ2OTgyMDB8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "fill"
+              },
+              "cornerRadius": 16
+            },
+            {
+              "type": "frame",
+              "id": "QGnGb",
+              "name": "Image 3",
+              "metadata": {
+                "type": "unsplash",
+                "username": "gabrielalenius",
+                "link": "https://unsplash.com/@gabrielalenius",
+                "author": "Gabriel Alenius"
+              },
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1632454672044-db96fe310ad0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ2OTgyMDJ8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "fill"
+              },
+              "cornerRadius": 16
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "1pHM3",
+          "name": "Trust Logos",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "gap": 48,
+          "padding": [
+            40,
+            120
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Bu9dM",
+              "name": "t1",
+              "fill": "#CCCCCC",
+              "content": "LOCK&LOCK",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "text",
+              "id": "cxwns",
+              "name": "t2",
+              "fill": "#CCCCCC",
+              "content": "DAIKIN",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "text",
+              "id": "b2jFp",
+              "name": "t3",
+              "fill": "#CCCCCC",
+              "content": "SUNHOUSE",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "text",
+              "id": "lyk22",
+              "name": "t4",
+              "fill": "#CCCCCC",
+              "content": "KANGAROO",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "text",
+              "id": "E6Q35",
+              "name": "t5",
+              "fill": "#CCCCCC",
+              "content": "TUPPERWARE",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "iLMXA",
+          "name": "Feature Section",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 64,
+          "padding": [
+            80,
+            120
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "lYbkl",
+              "name": "featureHeader",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rhWfj",
+                  "name": "featureLabel",
+                  "fill": "#0D6E6E",
+                  "content": "SẢN PHẨM NỔI BẬT",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "iUAb9",
+                  "name": "featureTitle",
+                  "fill": "#1A1A1A",
+                  "textGrowth": "fixed-width",
+                  "width": 700,
+                  "content": "Mọi tiện ích cho ngôi nhà của bạn,\ntất cả ở một nơi.",
+                  "lineHeight": 1.1,
+                  "textAlign": "center",
+                  "fontFamily": "Newsreader",
+                  "fontSize": 40,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "FgxHz",
+                  "name": "featureDesc",
+                  "fill": "#888888",
+                  "textGrowth": "fixed-width",
+                  "width": 560,
+                  "content": "Từ nhà bếp gọn gàng đến phòng tắm sạch sẽ — chúng tôi mang đến sản phẩm chất lượng với giá phải chăng nhất.",
+                  "lineHeight": 1.5,
+                  "textAlign": "center",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "fc2uc",
+              "name": "Feature Cards",
+              "width": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "lKN3C",
+                  "name": "Card Kitchen",
+                  "width": "fill_container",
+                  "fill": "#FAFAFA",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E5E5"
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "M8l42",
+                      "name": "icon1",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#0D6E6E",
+                      "cornerRadius": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "nLGDw",
+                          "name": "iconText1",
+                          "width": 24,
+                          "height": 24,
+                          "iconFontName": "chef-hat",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "E3dCk",
+                      "name": "cardTitle1",
+                      "fill": "#1A1A1A",
+                      "content": "Nhà Bếp",
+                      "fontFamily": "Newsreader",
+                      "fontSize": 22,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "G4lqW",
+                      "name": "cardDesc1",
+                      "fill": "#888888",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Rổ rá, hộp đựng thực phẩm, kệ gia vị, dụng cụ nấu ăn — tất cả để căn bếp gọn gàng hơn.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "hWw4m",
+                  "name": "Card Bathroom",
+                  "width": "fill_container",
+                  "fill": "#FAFAFA",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E5E5"
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "QQSuh",
+                      "name": "icon2",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#E07B54",
+                      "cornerRadius": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "gBNAP",
+                          "name": "iconText2",
+                          "width": 24,
+                          "height": 24,
+                          "iconFontName": "bath",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "a8vF6",
+                      "name": "cardTitle2",
+                      "fill": "#1A1A1A",
+                      "content": "Phòng Tắm",
+                      "fontFamily": "Newsreader",
+                      "fontSize": 22,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "wTVLk",
+                      "name": "cardDesc2",
+                      "fill": "#888888",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Kệ nhà tắm, giá treo, hộp xà phòng, rèm cửa — sạch sẽ và tiện nghi mỗi ngày.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "oDKjE",
+                  "name": "Card Living",
+                  "width": "fill_container",
+                  "fill": "#FAFAFA",
+                  "cornerRadius": 16,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E5E5"
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "2qfKg",
+                      "name": "icon3",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#1A1A1A",
+                      "cornerRadius": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "w4Y9s",
+                          "name": "iconText3",
+                          "width": 24,
+                          "height": 24,
+                          "iconFontName": "sofa",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "uKuSm",
+                      "name": "cardTitle3",
+                      "fill": "#1A1A1A",
+                      "content": "Phòng Khách",
+                      "fontFamily": "Newsreader",
+                      "fontSize": 22,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "dAWid",
+                      "name": "cardDesc3",
+                      "fill": "#888888",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Thùng rác phân loại, hộp lưu trữ, ghế nhựa, kệ đa năng — ngôi nhà ngăn nắp hơn.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "s8lef",
+          "name": "Showcase Section",
+          "width": "fill_container",
+          "height": 500,
+          "fill": "#FAFAFA",
+          "gap": 64,
+          "padding": [
+            60,
+            120
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Cnm0d",
+              "name": "showcaseText",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "x38jE",
+                  "name": "showcaseLabel",
+                  "fill": "#0D6E6E",
+                  "content": "CHẤT LƯỢNG ĐẢM BẢO",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "TU4NI",
+                  "name": "showcaseH",
+                  "fill": "#1A1A1A",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Sản phẩm bền đẹp,\ngiá cả hợp lý.",
+                  "lineHeight": 1.15,
+                  "fontFamily": "Newsreader",
+                  "fontSize": 36,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "N91Xk",
+                  "name": "showcaseP",
+                  "fill": "#888888",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Chúng tôi hợp tác trực tiếp với các nhà sản xuất hàng đầu Việt Nam và Nhật Bản để mang đến sản phẩm chất lượng cao nhất với mức giá tốt nhất cho người tiêu dùng.",
+                  "lineHeight": 1.6,
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "2F5eH",
+                  "name": "showcaseBtn",
+                  "fill": "#1A1A1A",
+                  "cornerRadius": 8,
+                  "padding": [
+                    14,
+                    28
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "KAjvk",
+                      "name": "showcaseBtnT",
+                      "fill": "#FFFFFF",
+                      "content": "Xem sản phẩm →",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "6XSKy",
+              "name": "Showcase Image",
+              "metadata": {
+                "type": "unsplash",
+                "username": "anniespratt",
+                "link": "https://unsplash.com/@anniespratt",
+                "author": "Annie Spratt"
+              },
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1758366278809-2d23888eea4f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ2OTgyNjR8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "fill"
+              },
+              "cornerRadius": 16
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "l0R6e",
+          "name": "Final CTA",
+          "width": "fill_container",
+          "fill": "#0F172A",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            100,
+            120
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "EKlO3",
+              "name": "ctaFinalH",
+              "fill": "#FFFFFF",
+              "textGrowth": "fixed-width",
+              "width": 700,
+              "content": "Mua sắm thông minh.\nGiao hàng tận nơi.",
+              "lineHeight": 1.1,
+              "textAlign": "center",
+              "fontFamily": "Newsreader",
+              "fontSize": 48,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "4aQps",
+              "name": "ctaFinalP",
+              "fill": "#94A3B8",
+              "textGrowth": "fixed-width",
+              "width": 500,
+              "content": "Bắt đầu mua sắm ngay hôm nay — miễn phí giao hàng cho đơn từ 300.000đ",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "obe6Q",
+              "name": "ctaFinalRow",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "4YfSp",
+                  "name": "ctaFinalBtn",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 8,
+                  "padding": [
+                    16,
+                    32
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gieEq",
+                      "name": "ctaFinalBtnT",
+                      "fill": "#0F172A",
+                      "content": "Bắt đầu mua sắm",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "y43Oh",
+                  "name": "ctaFinalBtn2",
+                  "cornerRadius": 8,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#334155"
+                  },
+                  "padding": [
+                    16,
+                    32
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "tQraq",
+                      "name": "ctaFinalBtn2T",
+                      "fill": "#FFFFFF",
+                      "content": "Liên hệ tư vấn",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "9Fh1P",
+          "name": "Footer",
+          "width": "fill_container",
+          "fill": "#0F172A",
+          "gap": 80,
+          "padding": [
+            60,
+            120
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "oaeVe",
+              "name": "footerBrand",
+              "width": 300,
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "O2EPV",
+                  "name": "footerLogo",
+                  "fill": "#FFFFFF",
+                  "content": "VINA HOME",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "tvSGD",
+                  "name": "footerTagline",
+                  "fill": "#64748B",
+                  "textGrowth": "fixed-width",
+                  "width": 260,
+                  "content": "Đồ gia dụng thông minh cho mọi gia đình Việt. Chất lượng cao — giá phải chăng.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Xg2ry",
+              "name": "footerCol1",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "LVvgb",
+                  "name": "footerCol1H",
+                  "fill": "#94A3B8",
+                  "content": "Sản phẩm",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "OkR2O",
+                  "name": "footerCol1a",
+                  "fill": "#64748B",
+                  "content": "Nhà bếp",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "kXpep",
+                  "name": "footerCol1b",
+                  "fill": "#64748B",
+                  "content": "Phòng tắm",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "LkpDA",
+                  "name": "footerCol1c",
+                  "fill": "#64748B",
+                  "content": "Phòng khách",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "ugIO2",
+                  "name": "footerCol1d",
+                  "fill": "#64748B",
+                  "content": "Ngoài trời",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DbJTQ",
+              "name": "footerCol2",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rCrO4",
+                  "name": "footerCol2H",
+                  "fill": "#94A3B8",
+                  "content": "Công ty",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "YRMTd",
+                  "name": "footerCol2a",
+                  "fill": "#64748B",
+                  "content": "Về chúng tôi",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "sVKL3",
+                  "name": "footerCol2b",
+                  "fill": "#64748B",
+                  "content": "Blog",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "8rGjF",
+                  "name": "footerCol2c",
+                  "fill": "#64748B",
+                  "content": "Tuyển dụng",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "7lx7Q",
+              "name": "footerCol3",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "fwcBO",
+                  "name": "footerCol3H",
+                  "fill": "#94A3B8",
+                  "content": "Hỗ trợ",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "vPqeE",
+                  "name": "footerCol3a",
+                  "fill": "#64748B",
+                  "content": "Liên hệ",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "Frujj",
+                  "name": "footerCol3b",
+                  "fill": "#64748B",
+                  "content": "Đổi trả",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "NehCZ",
+                  "name": "footerCol3c",
+                  "fill": "#64748B",
+                  "content": "FAQ",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "nmbVW",
+      "x": 1540,
+      "y": 0,
+      "name": "Products Page",
+      "width": 1440,
+      "fill": "#FAFAFA",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Xy8lc",
+          "name": "Header",
+          "width": "fill_container",
+          "fill": "#FAFAFA",
+          "padding": [
+            20,
+            80
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "SEM6q",
+              "name": "logo2",
+              "fill": "#1A1A1A",
+              "content": "VINA HOME",
+              "fontFamily": "Inter",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "5KAyy",
+              "name": "nav2",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "SVN7Q",
+                  "name": "nav2a",
+                  "fill": "#0D6E6E",
+                  "content": "Sản phẩm",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "OuHe1",
+                  "name": "nav2b",
+                  "fill": "#666666",
+                  "content": "Về chúng tôi",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "BkOJi",
+                  "name": "nav2c",
+                  "fill": "#666666",
+                  "content": "Liên hệ",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "V5p20",
+                  "name": "ctaNav2",
+                  "fill": "#0D6E6E",
+                  "cornerRadius": 8,
+                  "padding": [
+                    10,
+                    24
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "eeEkg",
+                      "name": "ctaNav2T",
+                      "fill": "#FFFFFF",
+                      "content": "Mua ngay",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "B15iS",
+          "name": "Page Title Section",
+          "width": "fill_container",
+          "fill": "#FAFAFA",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            60,
+            80,
+            40,
+            80
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Zijlq",
+              "name": "breadcrumbs",
+              "fill": "#888888",
+              "content": "Trang chủ / Sản phẩm / Tất cả sản phẩm",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "hKctJ",
+              "name": "ptLabel",
+              "fill": "#0D6E6E",
+              "content": "BỘ SƯU TẬP",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 11,
+              "fontWeight": "600",
+              "letterSpacing": 2
+            },
+            {
+              "type": "text",
+              "id": "nZTDN",
+              "name": "ptTitle",
+              "fill": "#1A1A1A",
+              "content": "Tất cả sản phẩm",
+              "fontFamily": "Newsreader",
+              "fontSize": 40,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "uSVSR",
+              "name": "ptDesc",
+              "fill": "#888888",
+              "textGrowth": "fixed-width",
+              "width": 500,
+              "content": "Khám phá bộ sưu tập đồ gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.",
+              "lineHeight": 1.5,
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DwJbw",
+          "name": "Filter Bar",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "stroke": {
+            "thickness": {
+              "bottom": 1
+            },
+            "fill": "#E5E5E5"
+          },
+          "gap": 12,
+          "padding": [
+            16,
+            80
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "OhMda",
+              "name": "f1",
+              "fill": "#1A1A1A",
+              "cornerRadius": 32,
+              "padding": [
+                8,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "6L7NF",
+                  "name": "f1t",
+                  "fill": "#FFFFFF",
+                  "content": "Tất cả",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "6ocDE",
+              "name": "f2",
+              "cornerRadius": 32,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#E5E5E5"
+              },
+              "padding": [
+                8,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "jhN14",
+                  "name": "f2t",
+                  "fill": "#666666",
+                  "content": "Nhà bếp",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "d2yYT",
+              "name": "f3",
+              "cornerRadius": 32,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#E5E5E5"
+              },
+              "padding": [
+                8,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "depSo",
+                  "name": "f3t",
+                  "fill": "#666666",
+                  "content": "Phòng tắm",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "70zVV",
+              "name": "f4",
+              "cornerRadius": 32,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#E5E5E5"
+              },
+              "padding": [
+                8,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vCsmQ",
+                  "name": "f4t",
+                  "fill": "#666666",
+                  "content": "Phòng khách",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Q2YZ3",
+              "name": "f5",
+              "cornerRadius": 32,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#E5E5E5"
+              },
+              "padding": [
+                8,
+                20
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "04naX",
+                  "name": "f5t",
+                  "fill": "#666666",
+                  "content": "Ngoài trời",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "iGJri",
+              "name": "spacer",
+              "width": "fill_container",
+              "height": "fit_content(0)"
+            },
+            {
+              "type": "frame",
+              "id": "k1us8",
+              "name": "sortBtn",
+              "cornerRadius": 32,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#E5E5E5"
+              },
+              "gap": 8,
+              "padding": [
+                8,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "xCvAJ",
+                  "name": "sortText",
+                  "fill": "#1A1A1A",
+                  "content": "Sắp xếp: Mới nhất",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "lFi87",
+                  "name": "sortIcon",
+                  "fill": "#1A1A1A",
+                  "content": "▾",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "9L2Bw",
+          "name": "Main Layout",
+          "width": "fill_container",
+          "fill": "#FAFAFA",
+          "gap": 48,
+          "padding": [
+            0,
+            80,
+            80,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "40aAu",
+              "name": "Sidebar",
+              "width": 240,
+              "layout": "vertical",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "HuWDA",
+                  "name": "catGroup",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "9Ipln",
+                      "fill": "#1A1A1A",
+                      "content": "DANH MỤC",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "F0qz0",
+                      "name": "cl1",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jlXrY",
+                          "fill": "#0D6E6E",
+                          "content": "Nấu ăn",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LEZdJ",
+                          "fill": "#888888",
+                          "content": "(24)",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ol8lm",
+                      "name": "cl2",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "DIAEi",
+                          "fill": "#666666",
+                          "content": "Làm bánh",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "q9meu",
+                          "fill": "#888888",
+                          "content": "(12)",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xjhSL",
+                      "name": "cl3",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "wdyqW",
+                          "fill": "#666666",
+                          "content": "Đựng thực phẩm",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "okAEv",
+                          "fill": "#888888",
+                          "content": "(45)",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "6XykQ",
+                      "name": "cl4",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Biohu",
+                          "fill": "#666666",
+                          "content": "Dụng cụ khác",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "3pXiy",
+                          "fill": "#888888",
+                          "content": "(8)",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "1xHKY",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "#E5E5E5"
+                },
+                {
+                  "type": "frame",
+                  "id": "3fI07",
+                  "name": "priceGroup",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "qna4F",
+                      "fill": "#1A1A1A",
+                      "content": "MỨC GIÁ",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qUb7X",
+                      "name": "sliderBg",
+                      "width": "fill_container",
+                      "height": 4,
+                      "fill": "#E5E5E5",
+                      "cornerRadius": 2,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "8wYXk",
+                          "width": 120,
+                          "height": 4,
+                          "fill": "#0D6E6E",
+                          "cornerRadius": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9Yjlz",
+                      "name": "priceLabels",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "sE6Rl",
+                          "fill": "#888888",
+                          "content": "0đ",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "viI4D",
+                          "fill": "#888888",
+                          "content": "2.000.000đ+",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "B6rv9",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "#E5E5E5"
+                },
+                {
+                  "type": "frame",
+                  "id": "QeCss",
+                  "name": "colorGroup",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "sbPqL",
+                      "fill": "#1A1A1A",
+                      "content": "MÀU SẮC",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FMH16",
+                      "name": "cgWrap",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "HGITc",
+                          "width": 24,
+                          "height": 24,
+                          "fill": "#1A1A1A",
+                          "cornerRadius": 12,
+                          "stroke": {
+                            "thickness": 2,
+                            "fill": "#E5E5E5"
+                          }
+                        },
+                        {
+                          "type": "frame",
+                          "id": "H8HPA",
+                          "width": 24,
+                          "height": 24,
+                          "fill": "#FFFFFF",
+                          "cornerRadius": 12,
+                          "stroke": {
+                            "thickness": 1,
+                            "fill": "#E5E5E5"
+                          }
+                        },
+                        {
+                          "type": "frame",
+                          "id": "yERDj",
+                          "width": 24,
+                          "height": 24,
+                          "fill": "#E5A88B",
+                          "cornerRadius": 12
+                        },
+                        {
+                          "type": "frame",
+                          "id": "TbGSd",
+                          "width": 24,
+                          "height": 24,
+                          "fill": "#888888",
+                          "cornerRadius": 12
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "KYkxY",
+              "name": "Product Grid",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "layout": "vertical",
+              "gap": 48,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "T2wGG",
+                  "name": "Row 1",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "JUXnO",
+                      "name": "Product 1",
+                      "clip": true,
+                      "width": "fill_container",
+                      "cornerRadius": 16,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "A4oZO",
+                          "name": "p1img",
+                          "metadata": {
+                            "type": "unsplash",
+                            "username": "bkkdavidg",
+                            "link": "https://unsplash.com/@bkkdavidg",
+                            "author": "David Gardiner"
+                          },
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 280,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1596622678000-e55d2266ed7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ2OTkyNjZ8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 12,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "cJcqa",
+                              "name": "p1b",
+                              "fill": "#0D6E6E",
+                              "cornerRadius": 4,
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "b73bl",
+                                  "fill": "#FFFFFF",
+                                  "content": "Mới",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 11,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "6UdH5",
+                          "name": "p1info",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            8,
+                            4
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "WJJTq",
+                              "name": "p1name",
+                              "fill": "#1A1A1A",
+                              "content": "Nồi Inox 3 Lớp Đáy",
+                              "fontFamily": "Newsreader",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "FAW2y",
+                              "name": "p1rate",
+                              "fill": "#F5A623",
+                              "content": "★★★★★ (12)",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "zD0dS",
+                              "name": "p1cat",
+                              "fill": "#888888",
+                              "content": "Nhà Bếp",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "30sbw",
+                              "name": "p1price",
+                              "fill": "#0D6E6E",
+                              "content": "450.000₫",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 14,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "AR2Ji",
+                              "name": "p1btn",
+                              "width": "fill_container",
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 8,
+                              "padding": [
+                                10,
+                                0
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "07ONM",
+                                  "fill": "#1A1A1A",
+                                  "content": "Thêm vào giỏ",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ixfZk",
+                      "name": "Product 2",
+                      "clip": true,
+                      "width": "fill_container",
+                      "cornerRadius": 16,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "gDv6s",
+                          "name": "p2img",
+                          "metadata": {
+                            "type": "unsplash",
+                            "username": "fotoinshadows",
+                            "link": "https://unsplash.com/@fotoinshadows",
+                            "author": "Monika Borys"
+                          },
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 280,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1715690999086-4981aaaf4a8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ2OTkyNjd8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 12,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "16Fh9",
+                              "name": "p2b",
+                              "fill": "#D9534F",
+                              "cornerRadius": 4,
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "SlJI7",
+                                  "fill": "#FFFFFF",
+                                  "content": "-15%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 11,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "g3c5R",
+                          "name": "p2info",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            8,
+                            4
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "cQoWJ",
+                              "name": "p2name",
+                              "fill": "#1A1A1A",
+                              "content": "Bộ Hộp Đựng Thực Phẩm",
+                              "fontFamily": "Newsreader",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "TD5Mk",
+                              "name": "p2rate",
+                              "fill": "#F5A623",
+                              "content": "★★★★☆ (8)",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "TWuz7",
+                              "name": "p2cat",
+                              "fill": "#888888",
+                              "content": "Nhà Bếp",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "8VjU4",
+                              "name": "p2price",
+                              "fill": "#0D6E6E",
+                              "content": "280.000₫",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 14,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "lWYvg",
+                              "name": "p2btn",
+                              "width": "fill_container",
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 8,
+                              "padding": [
+                                10,
+                                0
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "shvkX",
+                                  "fill": "#1A1A1A",
+                                  "content": "Thêm vào giỏ",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "v9G9s",
+                      "name": "Product 3",
+                      "clip": true,
+                      "width": "fill_container",
+                      "cornerRadius": 16,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "f1CeB",
+                          "name": "p3img",
+                          "metadata": {
+                            "type": "unsplash",
+                            "username": "chernus_tr",
+                            "link": "https://unsplash.com/@chernus_tr",
+                            "author": "Taras Chernus"
+                          },
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 280,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1753814996482-bae118b75d1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ2OTkyNzF8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 12
+                        },
+                        {
+                          "type": "frame",
+                          "id": "kjGQg",
+                          "name": "p3info",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            8,
+                            4
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ZrvJN",
+                              "name": "p3name",
+                              "fill": "#1A1A1A",
+                              "content": "Bộ Phụ Kiện Phòng Tắm",
+                              "fontFamily": "Newsreader",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "AsJpz",
+                              "name": "p3rate",
+                              "fill": "#F5A623",
+                              "content": "★★★★★ (3)",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "JRXzV",
+                              "name": "p3cat",
+                              "fill": "#888888",
+                              "content": "Phòng Tắm",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "uDecH",
+                              "name": "p3price",
+                              "fill": "#0D6E6E",
+                              "content": "195.000₫",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 14,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "2jEtv",
+                              "name": "p3btn",
+                              "width": "fill_container",
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 8,
+                              "padding": [
+                                10,
+                                0
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "vLQoy",
+                                  "fill": "#1A1A1A",
+                                  "content": "Thêm vào giỏ",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "tkVU7",
+                  "name": "Row 2",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "h5mVI",
+                      "name": "Product 4",
+                      "clip": true,
+                      "width": "fill_container",
+                      "cornerRadius": 16,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Dx3eQ",
+                          "name": "p4img",
+                          "metadata": {
+                            "type": "unsplash",
+                            "username": "sboyle",
+                            "link": "https://unsplash.com/@sboyle",
+                            "author": "Sarah Boyle"
+                          },
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 280,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1462619345832-fc4b027e3bf6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ2OTkyNzJ8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 12,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "2hi38",
+                              "name": "p4b",
+                              "fill": "#0D6E6E",
+                              "cornerRadius": 4,
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "AN2aS",
+                                  "fill": "#FFFFFF",
+                                  "content": "Mới",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 11,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "wskRz",
+                          "name": "p4info",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            8,
+                            4
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "4DObN",
+                              "name": "p4name",
+                              "fill": "#1A1A1A",
+                              "content": "Thùng Rác Phân Loại",
+                              "fontFamily": "Newsreader",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "cAprA",
+                              "name": "p4rate",
+                              "fill": "#F5A623",
+                              "content": "★★★★★ (21)",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ikkph",
+                              "name": "p4cat",
+                              "fill": "#888888",
+                              "content": "Phòng Khách",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "hcX1a",
+                              "name": "p4price",
+                              "fill": "#0D6E6E",
+                              "content": "320.000₫",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 14,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "RaUZx",
+                              "name": "p4btn",
+                              "width": "fill_container",
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 8,
+                              "padding": [
+                                10,
+                                0
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jqonz",
+                                  "fill": "#1A1A1A",
+                                  "content": "Thêm vào giỏ",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DOKAx",
+                      "name": "Product 5",
+                      "clip": true,
+                      "width": "fill_container",
+                      "cornerRadius": 16,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "3twOs",
+                          "name": "p5img",
+                          "metadata": {
+                            "type": "unsplash",
+                            "username": "gabrielrana",
+                            "link": "https://unsplash.com/@gabrielrana",
+                            "author": "Gabriel Tovar"
+                          },
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 280,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1774699282232.png",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 12
+                        },
+                        {
+                          "type": "frame",
+                          "id": "e29J7",
+                          "name": "p5info",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            8,
+                            4
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "34zxK",
+                              "name": "p5name",
+                              "fill": "#1A1A1A",
+                              "content": "Thớt Gỗ Tre Tự Nhiên",
+                              "fontFamily": "Newsreader",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "04wtt",
+                              "name": "p5rate",
+                              "fill": "#F5A623",
+                              "content": "★★★★☆ (17)",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "U9X38",
+                              "name": "p5cat",
+                              "fill": "#888888",
+                              "content": "Nhà Bếp",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "5qWMB",
+                              "name": "p5price",
+                              "fill": "#0D6E6E",
+                              "content": "175.000₫",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 14,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "L0UBN",
+                              "name": "p5btn",
+                              "width": "fill_container",
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 8,
+                              "padding": [
+                                10,
+                                0
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "JwaP0",
+                                  "fill": "#1A1A1A",
+                                  "content": "Thêm vào giỏ",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "nZpac",
+                      "name": "Product 6",
+                      "clip": true,
+                      "width": "fill_container",
+                      "cornerRadius": 16,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "f62TR",
+                          "name": "p6img",
+                          "metadata": {
+                            "type": "unsplash",
+                            "username": "mikbutcher",
+                            "link": "https://unsplash.com/@mikbutcher",
+                            "author": "Michal Balog"
+                          },
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 280,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1774699298884.png",
+                            "mode": "fill"
+                          },
+                          "cornerRadius": 12,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "G7O6K",
+                              "name": "p6b",
+                              "fill": "#D9534F",
+                              "cornerRadius": 4,
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "8b0gP",
+                                  "fill": "#FFFFFF",
+                                  "content": "-10%",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 11,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iqupm",
+                          "name": "p6info",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            8,
+                            4
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "o3j1P",
+                              "name": "p6name",
+                              "fill": "#1A1A1A",
+                              "content": "Giá Treo Khăn Inox",
+                              "fontFamily": "Newsreader",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "FyviB",
+                              "name": "p6rate",
+                              "fill": "#F5A623",
+                              "content": "★★★☆☆ (4)",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "wabuM",
+                              "name": "p6cat",
+                              "fill": "#888888",
+                              "content": "Phòng Tắm",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "QbA1k",
+                              "name": "p6price",
+                              "fill": "#0D6E6E",
+                              "content": "220.000₫",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 14,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "l3RBM",
+                              "name": "p6btn",
+                              "width": "fill_container",
+                              "fill": "#F0F0F0",
+                              "cornerRadius": 8,
+                              "padding": [
+                                10,
+                                0
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "9LYXz",
+                                  "fill": "#1A1A1A",
+                                  "content": "Thêm vào giỏ",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gFJEk",
+                  "name": "pag",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "padding": [
+                    40,
+                    0,
+                    0,
+                    0
+                  ],
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "URPuV",
+                      "name": "pag1",
+                      "width": 36,
+                      "height": 36,
+                      "fill": "#0D6E6E",
+                      "cornerRadius": 18,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VWOxU",
+                          "fill": "#FFFFFF",
+                          "content": "1",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "PWsy4",
+                      "name": "pag2",
+                      "width": 36,
+                      "height": 36,
+                      "fill": "#FAFAFA",
+                      "cornerRadius": 18,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E5E5"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "7DCTs",
+                          "fill": "#666666",
+                          "content": "2",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "GHsth",
+                      "name": "pag3",
+                      "width": 36,
+                      "height": 36,
+                      "fill": "#FAFAFA",
+                      "cornerRadius": 18,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E5E5"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "CdQxI",
+                          "fill": "#666666",
+                          "content": "3",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "0Ltbp",
+                      "name": "pag4",
+                      "width": 36,
+                      "height": 36,
+                      "fill": "#00000000",
+                      "cornerRadius": 18,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "B6QC9",
+                          "fill": "#666666",
+                          "content": "→",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "sM4Hu",
+          "name": "Footer",
+          "width": "fill_container",
+          "fill": "#1A1A1A",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            80,
+            80,
+            40,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "qItre",
+              "name": "f_top",
+              "width": "fill_container",
+              "gap": 48,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "CUxa7",
+                  "name": "f_col1",
+                  "width": 300,
+                  "layout": "vertical",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "quaUk",
+                      "fill": "#FFFFFF",
+                      "content": "CULINARY",
+                      "fontFamily": "Inter",
+                      "fontSize": 24,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "WaaYF",
+                      "fill": "#A3A3A3",
+                      "content": "Khơi nguồn cảm hứng nấu nướng với những dụng cụ bếp chất lượng cao, thiết kế tối giản và tinh tế.",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ulcNK",
+                      "name": "f_social",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "nENoY",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#333333",
+                          "cornerRadius": 20
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ll28b",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#333333",
+                          "cornerRadius": 20
+                        },
+                        {
+                          "type": "frame",
+                          "id": "0wSo6",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#333333",
+                          "cornerRadius": 20
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "h1nnS",
+                  "name": "f_col2",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "I1WqQ",
+                      "fill": "#FFFFFF",
+                      "content": "Sản phẩm",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "cSbVt",
+                      "fill": "#A3A3A3",
+                      "content": "Nấu ăn",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Fyovc",
+                      "fill": "#A3A3A3",
+                      "content": "Làm bánh",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "8hK8T",
+                      "fill": "#A3A3A3",
+                      "content": "Đựng thực phẩm",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "36lLO",
+                  "name": "f_col3",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BWWm1",
+                      "fill": "#FFFFFF",
+                      "content": "Hỗ trợ",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "IxDD5",
+                      "fill": "#A3A3A3",
+                      "content": "Vận chuyển",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "VLvIp",
+                      "fill": "#A3A3A3",
+                      "content": "Đổi trả",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ZTHRS",
+                      "fill": "#A3A3A3",
+                      "content": "FAQ",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "7X5Fy",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "#333333"
+            },
+            {
+              "type": "text",
+              "id": "nT34y",
+              "fill": "#666666",
+              "content": "© 2026 Culinary. All rights reserved.",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "1ixIb",
+      "x": 3080,
+      "y": 0,
+      "name": "Product Detail Page",
+      "width": 1440,
+      "fill": "#FAFAFA",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "qM894",
+          "name": "header",
+          "width": "fill_container",
+          "fill": "#FAFAFA",
+          "padding": [
+            20,
+            80
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "S4jUy",
+              "name": "logo2",
+              "fill": "#1A1A1A",
+              "content": "VINA HOME",
+              "fontFamily": "Inter",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "DKh6L",
+              "name": "nav2",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "KWbfY",
+                  "name": "nav2a",
+                  "fill": "#0D6E6E",
+                  "content": "Sản phẩm",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "qx9OD",
+                  "name": "nav2b",
+                  "fill": "#666666",
+                  "content": "Về chúng tôi",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "eAMDh",
+                  "name": "nav2c",
+                  "fill": "#666666",
+                  "content": "Liên hệ",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "8NRog",
+                  "name": "ctaNav2",
+                  "fill": "#0D6E6E",
+                  "cornerRadius": 8,
+                  "padding": [
+                    10,
+                    24
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "OaIQx",
+                      "name": "ctaNav2T",
+                      "fill": "#FFFFFF",
+                      "content": "Mua ngay",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "UiJQu",
+          "name": "contentContainer",
+          "width": "fill_container",
+          "gap": 64,
+          "padding": [
+            40,
+            80,
+            120,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "OHilH",
+              "name": "leftCol",
+              "width": 720,
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "YCwFX",
+                  "name": "Main Image",
+                  "width": "fill_container",
+                  "height": 800,
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "./images/generated-1774777149611.png",
+                    "mode": "fill"
+                  },
+                  "cornerRadius": 12
+                },
+                {
+                  "type": "frame",
+                  "id": "omxVr",
+                  "name": "thumbnailRow",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "0vIfh",
+                      "name": "thumb1",
+                      "width": 120,
+                      "height": 120,
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "./images/generated-1774777170675.png",
+                        "mode": "fill"
+                      },
+                      "cornerRadius": 8
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Kf7pc",
+                      "name": "thumb2",
+                      "width": 120,
+                      "height": 120,
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "./images/generated-1774777195330.png",
+                        "mode": "fill"
+                      },
+                      "cornerRadius": 8
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DygBC",
+                      "name": "thumb3",
+                      "width": 120,
+                      "height": 120,
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "./images/generated-1774777218112.png",
+                        "mode": "fill"
+                      },
+                      "cornerRadius": 8
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "BmQJq",
+              "name": "rightCol",
+              "width": "fill_container",
+              "height": "fit_content(0)",
+              "layout": "vertical",
+              "gap": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "bnoBw",
+      "x": 3080,
+      "y": 0,
+      "name": "Product Detail Page",
+      "width": 1440,
+      "fill": "#FAFAFA",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "ilbZt",
+          "name": "header",
+          "width": "fill_container",
+          "fill": "#FAFAFA",
+          "padding": [
+            20,
+            80
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "s7LNR",
+              "name": "logo2",
+              "fill": "#1A1A1A",
+              "content": "VINA HOME",
+              "fontFamily": "Inter",
+              "fontSize": 20,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "DEHzw",
+              "name": "nav2",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "BhWWC",
+                  "name": "nav2a",
+                  "fill": "#0D6E6E",
+                  "content": "Sản phẩm",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "DPmi1",
+                  "name": "nav2b",
+                  "fill": "#666666",
+                  "content": "Về chúng tôi",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "JQsVs",
+                  "name": "nav2c",
+                  "fill": "#666666",
+                  "content": "Liên hệ",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "o63O1",
+                  "name": "ctaNav2",
+                  "fill": "#0D6E6E",
+                  "cornerRadius": 8,
+                  "padding": [
+                    10,
+                    24
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "tdflw",
+                      "name": "ctaNav2T",
+                      "fill": "#FFFFFF",
+                      "content": "Mua ngay",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "1lbWE",
+          "name": "contentContainer",
+          "width": "fill_container",
+          "gap": 64,
+          "padding": [
+            40,
+            80,
+            120,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "cegNq",
+              "name": "leftCol",
+              "width": 720,
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "XMlnl",
+                  "name": "mainImgSlot",
+                  "width": "fill_container",
+                  "height": 800,
+                  "fill": "#E5E5E5",
+                  "cornerRadius": 12
+                },
+                {
+                  "type": "frame",
+                  "id": "97BLH",
+                  "name": "thumbnailRow",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "6LDIX",
+                      "name": "thumb1",
+                      "width": 120,
+                      "height": 120,
+                      "fill": "#E5E5E5",
+                      "cornerRadius": 8
+                    },
+                    {
+                      "type": "frame",
+                      "id": "izBqC",
+                      "name": "thumb2",
+                      "width": 120,
+                      "height": 120,
+                      "fill": "#E5E5E5",
+                      "cornerRadius": 8
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZZdgk",
+                      "name": "thumb3",
+                      "width": 120,
+                      "height": 120,
+                      "fill": "#E5E5E5",
+                      "cornerRadius": 8
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "p0vE7",
+              "name": "rightCol",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 40,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "mMRaU",
+                  "name": "breadcrumbs",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "6ZukI",
+                      "name": "crumb1",
+                      "fill": "#666666",
+                      "content": "Home / Premium Audio /",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "7MX8H",
+                      "name": "crumb2",
+                      "fill": "#1A1A1A",
+                      "content": "VINA ANC Headphones",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "qtBcz",
+                  "name": "titleSection",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "LhmUF",
+                      "name": "titleText",
+                      "fill": "#1A1A1A",
+                      "content": "VINA ANC Headphones Pro",
+                      "fontFamily": "Inter",
+                      "fontSize": 48,
+                      "fontWeight": "800",
+                      "letterSpacing": -1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9MpQv",
+                      "name": "reviews",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VHV0u",
+                          "name": "stars",
+                          "fill": "#F59E0B",
+                          "content": "★★★★★",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LO1qU",
+                          "name": "reviewCount",
+                          "fill": "#666666",
+                          "content": "4.9 (128 reviews)",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "AMEJy",
+                  "name": "priceText",
+                  "fill": "#1A1A1A",
+                  "content": "$349.00",
+                  "fontFamily": "Inter",
+                  "fontSize": 32,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "FBHLX",
+                  "name": "descText",
+                  "fill": "#4B5563",
+                  "content": "Experience the ultimate in premium audio with advanced active noise cancellation. The VINA Pro delivers uncompromising sound quality wrapped in luxury materials, designed for your sophisticated lifestyle.",
+                  "fontFamily": "Inter",
+                  "fontSize": 16
+                },
+                {
+                  "type": "frame",
+                  "id": "lvJy0",
+                  "name": "colorsSection",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BIJnO",
+                      "name": "colorTitle",
+                      "fill": "#1A1A1A",
+                      "content": "Color - Midnight Black",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UeKE0",
+                      "name": "swatchRow",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "9RERd",
+                          "name": "swatch1",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#1A1A1A",
+                          "cornerRadius": 20,
+                          "stroke": {
+                            "thickness": 2,
+                            "fill": "#0D6E6E"
+                          }
+                        },
+                        {
+                          "type": "frame",
+                          "id": "B3wKN",
+                          "name": "swatch2",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#E5E5E5",
+                          "cornerRadius": 20,
+                          "stroke": {
+                            "thickness": 1,
+                            "fill": "#E5E5E5"
+                          }
+                        },
+                        {
+                          "type": "frame",
+                          "id": "78UZQ",
+                          "name": "swatch3",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#9CA3AF",
+                          "cornerRadius": 20,
+                          "stroke": {
+                            "thickness": 1,
+                            "fill": "#E5E5E5"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "AEcde",
+                  "name": "actions",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "4dPPB",
+                      "name": "qty",
+                      "width": 120,
+                      "height": 56,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E5E5"
+                      },
+                      "padding": [
+                        0,
+                        16
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "f87By",
+                          "name": "qtyMinus",
+                          "fill": "#1A1A1A",
+                          "content": "-",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hAf8n",
+                          "name": "qtyNum",
+                          "fill": "#1A1A1A",
+                          "content": "1",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "5rszN",
+                          "name": "qtyPlus",
+                          "fill": "#1A1A1A",
+                          "content": "+",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9cHx3",
+                      "name": "addToCart",
+                      "width": "fill_container",
+                      "height": 56,
+                      "fill": "#0D6E6E",
+                      "cornerRadius": 8,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "GqoGb",
+                          "name": "addToCartText",
+                          "fill": "#FFFFFF",
+                          "content": "Add to Cart",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "PZIad",
+                  "name": "featureFlags",
+                  "gap": 32,
+                  "padding": [
+                    32,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "92itA",
+                      "name": "flag1",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "deoEW",
+                          "name": "flag1i",
+                          "content": "🚚",
+                          "fontFamily": "Inter",
+                          "fontSize": 24,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hLGh5",
+                          "name": "flag1t",
+                          "fill": "#1A1A1A",
+                          "content": "Free Shipping",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "WbmcB",
+                      "name": "flag2",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MbF1N",
+                          "name": "flag2i",
+                          "content": "🔄",
+                          "fontFamily": "Inter",
+                          "fontSize": 24,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "FsdYp",
+                          "name": "flag2t",
+                          "fill": "#1A1A1A",
+                          "content": "30-Day Returns",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Y22hx",
+                      "name": "flag3",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "HlqP5",
+                          "name": "flag3i",
+                          "content": "🛡️",
+                          "fontFamily": "Inter",
+                          "fontSize": 24,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "eK1wt",
+                          "name": "flag3t",
+                          "fill": "#1A1A1A",
+                          "content": "2 Year Warranty",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "kpRaw",
+                  "name": "accordion1",
+                  "width": "fill_container",
+                  "stroke": {
+                    "thickness": {
+                      "top": 1,
+                      "bottom": 1
+                    },
+                    "fill": "#E5E5E5"
+                  },
+                  "padding": [
+                    24,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ksBvN",
+                      "name": "acc1t",
+                      "fill": "#1A1A1A",
+                      "content": "Product Specifications",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "yhKq9",
+                      "name": "acc1p",
+                      "fill": "#1A1A1A",
+                      "content": "+",
+                      "fontFamily": "Inter",
+                      "fontSize": 20,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "aNXHg",
+                  "name": "accordion2",
+                  "width": "fill_container",
+                  "stroke": {
+                    "thickness": {
+                      "bottom": 1
+                    },
+                    "fill": "#E5E5E5"
+                  },
+                  "padding": [
+                    24,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "vqNHB",
+                      "name": "acc2t",
+                      "fill": "#1A1A1A",
+                      "content": "In the Box",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "0cKFR",
+                      "name": "acc2p",
+                      "fill": "#1A1A1A",
+                      "content": "+",
+                      "fontFamily": "Inter",
+                      "fontSize": 20,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "On1wS",
+          "name": "footer",
+          "width": "fill_container",
+          "fill": "#1A1A1A",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            80,
+            80,
+            40,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "M5QMx",
+              "name": "f_top",
+              "width": "fill_container",
+              "gap": 48,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "0jirk",
+                  "name": "f_col1",
+                  "width": 300,
+                  "layout": "vertical",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "pH09s",
+                      "fill": "#FFFFFF",
+                      "content": "CULINARY",
+                      "fontFamily": "Inter",
+                      "fontSize": 24,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "WPWzw",
+                      "fill": "#A3A3A3",
+                      "content": "Khơi nguồn cảm hứng nấu nướng với những dụng cụ bếp chất lượng cao, thiết kế tối giản và tinh tế.",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xWdA6",
+                      "name": "f_social",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "pKdbC",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#333333",
+                          "cornerRadius": 20
+                        },
+                        {
+                          "type": "frame",
+                          "id": "2eQg8",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#333333",
+                          "cornerRadius": 20
+                        },
+                        {
+                          "type": "frame",
+                          "id": "02IMu",
+                          "width": 40,
+                          "height": 40,
+                          "fill": "#333333",
+                          "cornerRadius": 20
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "c1F4Y",
+                  "name": "f_col2",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "IsYPx",
+                      "fill": "#FFFFFF",
+                      "content": "Sản phẩm",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "CM72v",
+                      "fill": "#A3A3A3",
+                      "content": "Nấu ăn",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ebLrb",
+                      "fill": "#A3A3A3",
+                      "content": "Làm bánh",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "I7cD5",
+                      "fill": "#A3A3A3",
+                      "content": "Đựng thực phẩm",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "TWEue",
+                  "name": "f_col3",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "jX2ZG",
+                      "fill": "#FFFFFF",
+                      "content": "Hỗ trợ",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "62kkL",
+                      "fill": "#A3A3A3",
+                      "content": "Vận chuyển",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "g1338",
+                      "fill": "#A3A3A3",
+                      "content": "Đổi trả",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "jWVb4",
+                      "fill": "#A3A3A3",
+                      "content": "FAQ",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mjORD",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "#333333"
+            },
+            {
+              "type": "text",
+              "id": "5iHvA",
+              "fill": "#666666",
+              "content": "© 2026 Culinary. All rights reserved.",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

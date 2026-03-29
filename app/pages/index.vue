@@ -1,27 +1,77 @@
 <script setup lang="ts">
-import { useHead } from '#imports'
+import { useHead, ref, onMounted, onUnmounted } from '#imports'
 import { useScrollReveal } from '~/composables/useScrollReveal'
 
 useScrollReveal()
 
+// ─── Mobile hero carousel ───
+const activeSlide = ref(0)
+let autoplayTimer: ReturnType<typeof setInterval> | null = null
+let touchStartX = 0
+let touchEndX = 0
+
+const startAutoplay = () => {
+  stopAutoplay()
+  autoplayTimer = setInterval(() => {
+    activeSlide.value = (activeSlide.value + 1) % heroImages.length
+  }, 4000)
+}
+
+const stopAutoplay = () => {
+  if (autoplayTimer) {
+    clearInterval(autoplayTimer)
+    autoplayTimer = null
+  }
+}
+
+const goToSlide = (i: number) => {
+  activeSlide.value = i
+  startAutoplay() // reset timer on manual navigation
+}
+
+const onTouchStart = (e: TouchEvent) => {
+  touchStartX = e.changedTouches[0]!.clientX
+  stopAutoplay()
+}
+
+const onTouchEnd = (e: TouchEvent) => {
+  touchEndX = e.changedTouches[0]!.clientX
+  const diff = touchStartX - touchEndX
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) {
+      // swipe left → next
+      activeSlide.value = (activeSlide.value + 1) % heroImages.length
+    } else {
+      // swipe right → prev
+      activeSlide.value = (activeSlide.value - 1 + heroImages.length) % heroImages.length
+    }
+  }
+  startAutoplay()
+}
+
+onMounted(() => startAutoplay())
+onUnmounted(() => stopAutoplay())
 const features = [
   {
     icon: 'solar:chef-hat-heart-bold',
     title: 'Nhà Bếp',
     desc: 'Rổ rá, hộp đựng thực phẩm, kệ gia vị, dụng cụ nấu ăn — tất cả để căn bếp gọn gàng hơn.',
     color: 'bg-[#0D6E6E]',
+    accent: '#0D6E6E',
   },
   {
     icon: 'solar:bath-bold',
     title: 'Phòng Tắm',
     desc: 'Kệ nhà tắm, giá treo, hộp xà phòng, rèm cửa — sạch sẽ và tiện nghi mỗi ngày.',
     color: 'bg-[#E07B54]',
+    accent: '#E07B54',
   },
   {
     icon: 'solar:sofa-2-bold',
     title: 'Phòng Khách',
     desc: 'Thùng rác phân loại, hộp lưu trữ, ghế nhựa, kệ đa năng — ngôi nhà ngăn nắp hơn.',
     color: 'bg-[#1A1A1A]',
+    accent: '#1A1A1A',
   },
 ]
 
@@ -158,25 +208,40 @@ useHead({
         </div>
       </div>
 
-      <!-- Mobile: infinite slideshow -->
-      <div class="hero-slideshow" aria-label="Không gian sống slideshow">
-        <div class="hero-slideshow__track">
-          <!-- 2x slides for seamless loop -->
-          <template v-for="n in 2" :key="'set-' + n">
-            <div v-for="img in heroImages" :key="n + '-' + img.label" class="hero-slideshow__slide">
-              <NuxtImg
-                :src="img.src"
-                :alt="img.alt"
-                loading="lazy"
-                decoding="async"
-                width="800"
-                height="600"
-              />
-              <div class="hero-slideshow__slide-overlay">
-                <span class="hero-slideshow__slide-label">{{ img.label }}</span>
-              </div>
+      <!-- Mobile: swipeable + auto-sliding carousel -->
+      <div
+        class="hero-slideshow"
+        aria-label="Không gian sống slideshow"
+        @touchstart.passive="onTouchStart"
+        @touchend.passive="onTouchEnd"
+      >
+        <div
+          class="hero-slideshow__track"
+          :style="{ transform: `translateX(-${activeSlide * 100}%)` }"
+        >
+          <div v-for="img in heroImages" :key="img.label" class="hero-slideshow__slide">
+            <NuxtImg
+              :src="img.src"
+              :alt="img.alt"
+              loading="lazy"
+              decoding="async"
+              width="800"
+              height="600"
+            />
+            <div class="hero-slideshow__slide-overlay">
+              <span class="hero-slideshow__slide-label">{{ img.label }}</span>
             </div>
-          </template>
+          </div>
+        </div>
+        <!-- Dot indicators -->
+        <div class="hero-slideshow__dots">
+          <button
+            v-for="(img, i) in heroImages"
+            :key="'dot-' + img.label"
+            :class="['hero-slideshow__dot', { 'hero-slideshow__dot--active': i === activeSlide }]"
+            :aria-label="`Xem ${img.label}`"
+            @click="goToSlide(i)"
+          />
         </div>
       </div>
     </section>
@@ -228,6 +293,7 @@ useHead({
           :key="feature.title"
           role="listitem"
           :class="['reveal', `reveal-delay-${i + 1}`, 'feature-card flex flex-col gap-5 p-8 bg-[#FAFAFA] rounded-2xl hover:-translate-y-1 transition-all duration-300 group']"
+          :style="{ '--card-accent': feature.accent }"
         >
           <div :class="[feature.color, 'icon-bounce w-12 h-12 rounded-xl flex items-center justify-center text-white']" aria-hidden="true">
             <Icon :name="feature.icon" size="22" />
@@ -258,7 +324,7 @@ useHead({
           <Icon name="solar:arrow-right-bold" size="16" aria-hidden="true" class="arrow-icon" />
         </NuxtLink>
       </div>
-      <div class="reveal-right flex-[1.2] rounded-2xl overflow-hidden h-[320px] lg:h-[380px] group">
+      <div class="reveal-right flex-[1.2] -mx-6 lg:mx-0 rounded-none lg:rounded-2xl overflow-hidden h-[280px] lg:h-[380px] w-[calc(100%+48px)] lg:w-auto group">
         <NuxtImg
           src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&q=80"
           alt="Bộ sưu tập đồ gia dụng Duyên Phượng chất lượng cao"

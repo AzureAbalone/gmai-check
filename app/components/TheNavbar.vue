@@ -46,6 +46,8 @@ const navLinks = [
   { label: 'Về chúng tôi', to: '/#about', icon: 'solar:info-circle-outline' },
   { label: 'Liên hệ', to: '/#contact', icon: 'solar:phone-outline' },
 ]
+
+const isProductsPage = computed(() => route.path === '/products')
 </script>
 
 <template>
@@ -80,59 +82,141 @@ const navLinks = [
       </NuxtLink>
 
       <NuxtLink
-        to="/products"
+        :to="isProductsPage ? '/' : '/products'"
         class="inline-flex items-center gap-2 px-6 py-2.5 bg-[#0D6E6E] text-white text-sm font-semibold rounded-lg hover:bg-[#0A5858] hover:-translate-y-0.5 active:translate-y-0 transition-all"
       >
-        <Icon name="solar:eye-bold" size="16" aria-hidden="true" />
-        Xem sản phẩm
+        <Icon :name="isProductsPage ? 'solar:home-2-bold' : 'solar:eye-bold'" size="16" aria-hidden="true" />
+        {{ isProductsPage ? 'Về trang chủ' : 'Xem sản phẩm' }}
       </NuxtLink>
     </nav>
 
-    <!-- Mobile Menu Toggle -->
+    <!-- Mobile Menu Toggle — Animated Hamburger/X -->
     <button
-      class="md:hidden p-2 text-[#1A1A1A] hover:text-[#0D6E6E] transition-colors"
+      class="md:hidden relative w-10 h-10 flex items-center justify-center text-[#1A1A1A] hover:text-[#0D6E6E] transition-colors"
       :aria-label="isMobileOpen ? 'Đóng menu' : 'Mở menu'"
       :aria-expanded="isMobileOpen"
       aria-controls="mobile-nav"
       @click="isMobileOpen = !isMobileOpen"
     >
-      <Icon
-        :name="isMobileOpen ? 'solar:close-circle-outline' : 'solar:hamburger-menu-outline'"
-        size="24"
-        aria-hidden="true"
-      />
+      <div class="hamburger-bars" :class="{ 'is-active': isMobileOpen }">
+        <span />
+        <span />
+        <span />
+      </div>
     </button>
 
-    <!-- Mobile Menu (overlay) -->
+    <!-- Mobile Menu (overlay) with slide animation -->
     <Transition
-      enter-active-class="transition-all duration-300 ease-out"
-      leave-active-class="transition-all duration-200 ease-in"
-      enter-from-class="opacity-0 -translate-y-2"
-      leave-to-class="opacity-0 -translate-y-2"
+      enter-active-class="mobile-menu-enter-active"
+      leave-active-class="mobile-menu-leave-active"
+      enter-from-class="mobile-menu-enter-from"
+      leave-to-class="mobile-menu-leave-to"
     >
       <nav
         v-if="isMobileOpen"
         id="mobile-nav"
         aria-label="Menu di động"
-        class="absolute top-full left-0 right-0 bg-white shadow-xl border-t border-gray-100 p-6 flex flex-col gap-4 md:hidden"
+        class="absolute top-full left-0 right-0 bg-white shadow-xl border-t border-gray-100 p-6 flex flex-col gap-1 md:hidden origin-top"
       >
         <NuxtLink
-          v-for="link in navLinks"
+          v-for="(link, i) in navLinks"
           :key="link.to"
           :to="link.to"
-          class="flex items-center gap-3 text-base font-medium text-[#666] hover:text-[#0D6E6E] py-2 transition-colors"
+          class="mobile-nav-item flex items-center gap-3 text-base font-medium text-[#666] hover:text-[#0D6E6E] hover:bg-[#F0FAF9] rounded-xl py-3 px-3 transition-all duration-200"
+          :style="{ animationDelay: `${(i + 1) * 60}ms` }"
         >
           <Icon :name="link.icon" size="20" aria-hidden="true" />
           {{ link.label }}
         </NuxtLink>
         <NuxtLink
-          to="/products"
-          class="flex items-center justify-center gap-2 px-6 py-3 bg-[#0D6E6E] text-white text-sm font-semibold rounded-lg active:bg-[#0A5858] transition-colors"
+          :to="isProductsPage ? '/' : '/products'"
+          class="mobile-nav-item flex items-center justify-center gap-2 px-6 py-3.5 mt-2 bg-[#0D6E6E] text-white text-sm font-semibold rounded-xl active:bg-[#0A5858] transition-colors"
+          :style="{ animationDelay: `${(navLinks.length + 1) * 60}ms` }"
         >
-          <Icon name="solar:eye-bold" size="16" aria-hidden="true" />
-          Xem sản phẩm
+          <Icon :name="isProductsPage ? 'solar:home-2-bold' : 'solar:eye-bold'" size="16" aria-hidden="true" />
+          {{ isProductsPage ? 'Về trang chủ' : 'Xem sản phẩm' }}
         </NuxtLink>
       </nav>
     </Transition>
   </header>
 </template>
+
+<style scoped>
+/* ─── Animated Hamburger → X ─── */
+.hamburger-bars {
+  width: 22px;
+  height: 16px;
+  position: relative;
+}
+
+.hamburger-bars span {
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.hamburger-bars span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger-bars span:nth-child(2) {
+  top: 7px;
+}
+
+.hamburger-bars span:nth-child(3) {
+  top: 14px;
+}
+
+/* Active state → X */
+.hamburger-bars.is-active span:nth-child(1) {
+  top: 7px;
+  transform: rotate(45deg);
+}
+
+.hamburger-bars.is-active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-bars.is-active span:nth-child(3) {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
+/* ─── Mobile menu slide animation ─── */
+.mobile-menu-enter-active {
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease-in;
+}
+
+.mobile-menu-enter-from,
+.mobile-menu-leave-to {
+  opacity: 0;
+  transform: translateY(-8px) scaleY(0.96);
+}
+
+/* ─── Staggered item animation ─── */
+.mobile-nav-item {
+  animation: nav-item-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes nav-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

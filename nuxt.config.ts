@@ -97,14 +97,13 @@ export default defineNuxtConfig({
     compressPublicAssets: { gzip: true, brotli: true },
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/products'],
+      routes: ['/', '/products', '/products/1', '/products/2', '/products/3', '/products/4'],
     },
     routeRules: {
       // Cache API responses for 60 seconds
       '/api/**': { cache: { maxAge: 60 } },
-      // ISR for pages — revalidate every 5 minutes
+      // SWR/ISR for pages
       '/': { isr: 300 },
-      '/products': { isr: 300 },
       // Long cache for static assets
       '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     },
