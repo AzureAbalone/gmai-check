@@ -44,7 +44,7 @@ watch(isMobileOpen, (open) => {
 const navLinks = [
   { label: 'Sản phẩm', to: '/products', icon: 'solar:widget-2-outline' },
   { label: 'Về chúng tôi', to: '/#about', icon: 'solar:info-circle-outline' },
-  { label: 'Liên hệ', to: '/#contact', icon: 'solar:phone-outline' },
+  { label: 'Liên hệ', to: 'https://zalo.me/0968164783', icon: 'solar:chat-round-dots-outline', external: true },
 ]
 
 const isProductsPage = computed(() => route.path === '/products')
@@ -69,17 +69,30 @@ const isProductsPage = computed(() => route.path === '/products')
 
     <!-- Desktop Nav -->
     <nav class="hidden md:flex items-center gap-8" aria-label="Menu chính">
-      <NuxtLink
-        v-for="link in navLinks"
-        :key="link.to"
-        :to="link.to"
-        class="group flex items-center gap-1.5 text-sm font-medium text-[#666] relative py-1 hover:text-[#0D6E6E] transition-colors"
-        :aria-label="link.label"
-      >
-        <Icon :name="link.icon" size="16" class="opacity-50 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-        {{ link.label }}
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0D6E6E] group-hover:w-full transition-all duration-300" aria-hidden="true" />
-      </NuxtLink>
+      <template v-for="link in navLinks" :key="link.to">
+        <a
+          v-if="link.external"
+          :href="link.to"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-1.5 text-sm font-medium text-[#666] relative py-1 hover:text-[#0D6E6E] transition-colors"
+          :aria-label="link.label"
+        >
+          <Icon :name="link.icon" size="16" class="opacity-50 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+          {{ link.label }}
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0D6E6E] group-hover:w-full transition-all duration-300" aria-hidden="true" />
+        </a>
+        <NuxtLink
+          v-else
+          :to="link.to"
+          class="group flex items-center gap-1.5 text-sm font-medium text-[#666] relative py-1 hover:text-[#0D6E6E] transition-colors"
+          :aria-label="link.label"
+        >
+          <Icon :name="link.icon" size="16" class="opacity-50 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+          {{ link.label }}
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0D6E6E] group-hover:w-full transition-all duration-300" aria-hidden="true" />
+        </NuxtLink>
+      </template>
 
       <NuxtLink
         :to="isProductsPage ? '/' : '/products'"
@@ -118,16 +131,28 @@ const isProductsPage = computed(() => route.path === '/products')
         aria-label="Menu di động"
         class="absolute top-full left-0 right-0 bg-white shadow-xl border-t border-gray-100 p-6 flex flex-col gap-1 md:hidden origin-top"
       >
-        <NuxtLink
-          v-for="(link, i) in navLinks"
-          :key="link.to"
-          :to="link.to"
-          class="mobile-nav-item flex items-center gap-3 text-base font-medium text-[#666] hover:text-[#0D6E6E] hover:bg-[#F0FAF9] rounded-xl py-3 px-3 transition-all duration-200"
-          :style="{ animationDelay: `${(i + 1) * 60}ms` }"
-        >
-          <Icon :name="link.icon" size="20" aria-hidden="true" />
-          {{ link.label }}
-        </NuxtLink>
+        <template v-for="(link, i) in navLinks" :key="link.to">
+          <a
+            v-if="link.external"
+            :href="link.to"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mobile-nav-item flex items-center gap-3 text-base font-medium text-[#666] hover:text-[#0D6E6E] hover:bg-[#F0FAF9] rounded-xl py-3 px-3 transition-all duration-200"
+            :style="{ animationDelay: `${(i + 1) * 60}ms` }"
+          >
+            <Icon :name="link.icon" size="20" aria-hidden="true" />
+            {{ link.label }}
+          </a>
+          <NuxtLink
+            v-else
+            :to="link.to"
+            class="mobile-nav-item flex items-center gap-3 text-base font-medium text-[#666] hover:text-[#0D6E6E] hover:bg-[#F0FAF9] rounded-xl py-3 px-3 transition-all duration-200"
+            :style="{ animationDelay: `${(i + 1) * 60}ms` }"
+          >
+            <Icon :name="link.icon" size="20" aria-hidden="true" />
+            {{ link.label }}
+          </NuxtLink>
+        </template>
         <NuxtLink
           :to="isProductsPage ? '/' : '/products'"
           class="mobile-nav-item flex items-center justify-center gap-2 px-6 py-3.5 mt-2 bg-[#0D6E6E] text-white text-sm font-semibold rounded-xl active:bg-[#0A5858] transition-colors"

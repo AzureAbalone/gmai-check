@@ -355,11 +355,13 @@ useHead({
           Xem bộ sưu tập
         </NuxtLink>
         <a
-          href="tel:+84123456789"
+          href="https://zalo.me/0968164783"
+          target="_blank"
+          rel="noopener noreferrer"
           class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white text-base font-semibold rounded-lg border border-[#334155] hover:bg-white/[0.08] hover:border-white/40 hover:-translate-y-0.5 active:translate-y-0 transition-all"
         >
-          <Icon name="solar:phone-outline" size="18" aria-hidden="true" />
-          Liên hệ tư vấn
+          <Icon name="solar:chat-round-dots-outline" size="18" aria-hidden="true" />
+          Liên hệ qua Zalo
         </a>
       </div>
     </section>

@@ -14,7 +14,7 @@ const footerLinks = {
     { label: 'Tuyển dụng', to: '#' },
   ],
   support: [
-    { label: 'Liên hệ', to: '/#contact' },
+    { label: 'Liên hệ', to: 'https://zalo.me/0968164783', external: true },
     { label: 'Hướng dẫn', to: '#' },
     { label: 'FAQ', to: '#' },
   ],
@@ -41,7 +41,7 @@ const footerLinks = {
             <a href="#" role="listitem" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Instagram">
               <Icon name="solar:camera-outline" size="18" aria-hidden="true" />
             </a>
-            <a href="#" role="listitem" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Zalo">
+            <a href="https://zalo.me/0968164783" target="_blank" rel="noopener noreferrer" role="listitem" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Zalo">
               <Icon name="solar:chat-round-dots-outline" size="18" aria-hidden="true" />
             </a>
           </div>
@@ -67,9 +67,14 @@ const footerLinks = {
         <nav class="space-y-4" aria-label="Hỗ trợ">
           <span class="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">Hỗ trợ</span>
           <div class="flex flex-col gap-3">
-            <NuxtLink v-for="link in footerLinks.support" :key="link.label" :to="link.to" class="text-sm text-[#64748B] hover:text-white transition-colors">
-              {{ link.label }}
-            </NuxtLink>
+            <template v-for="link in footerLinks.support" :key="link.label">
+              <a v-if="link.external" :href="link.to" target="_blank" rel="noopener noreferrer" class="text-sm text-[#64748B] hover:text-white transition-colors">
+                {{ link.label }}
+              </a>
+              <NuxtLink v-else :to="link.to" class="text-sm text-[#64748B] hover:text-white transition-colors">
+                {{ link.label }}
+              </NuxtLink>
+            </template>
           </div>
         </nav>
       </div>

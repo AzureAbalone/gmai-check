@@ -88,7 +88,7 @@ const filteredProducts = computed(() => {
 })
 
 // ─── Pagination ───
-const ITEMS_PER_PAGE = 6
+const ITEMS_PER_PAGE = 9
 
 // Initialize from URL but keep it local to prevent re-renders on page change
 const initialPage = Number(route.query.page)
@@ -253,7 +253,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
     </section>
 
     <!-- Filter Bar -->
-    <section class="sticky top-[72px] z-40 flex items-center gap-3 px-6 lg:px-20 py-4 bg-white border-b border-[#E5E5E5]" aria-label="Bộ lọc sản phẩm">
+    <section class="sticky top-[72px] z-40 flex items-center gap-3 px-6 lg:px-20 py-4 bg-white border-b border-[#E5E5E5] relative" aria-label="Bộ lọc sản phẩm">
       <!-- Category Dropdown -->
       <div ref="categoryDropdownRef" class="relative">
         <button
@@ -308,6 +308,11 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
             </button>
           </div>
         </Transition>
+      </div>
+
+      <!-- ★ Center: Expanding Search Magnifier ★ -->
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        <SearchOverlay />
       </div>
 
       <!-- Sort Dropdown -->
