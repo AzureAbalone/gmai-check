@@ -1,16 +1,11 @@
 // Products list API — serves real Việt Nhật data
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
-
-const productsData = JSON.parse(
-  readFileSync(resolve('./server/data/products.json'), 'utf-8'),
-)
+import productsRaw from '../data/products.json' with { type: 'json' }
 
 // Seeded random per product ID — consistent ratings across requests
 function seededRating(id: number): { rating: number; reviews: number } {
-  const seed = id * 2654435761 >>> 0 // Knuth multiplicative hash
-  const rating = 3.5 + ((seed % 15) / 10) // 3.5 – 4.9
-  const reviews = 5 + (seed % 196) // 5 – 200
+  const seed = id * 2654435761 >>> 0
+  const rating = 3.5 + ((seed % 15) / 10)
+  const reviews = 5 + (seed % 196)
   return { rating: Math.round(rating * 10) / 10, reviews }
 }
 
@@ -26,13 +21,15 @@ interface Product {
   material: string
 }
 
+const productsData = productsRaw as Product[]
+
 export default defineEventHandler(async (event) => {
   setResponseHeaders(event, {
     'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
     'Content-Type': 'application/json',
   })
 
-  return productsData.map((p: Product) => {
+  return productsData.map((p) => {
     const { rating, reviews } = seededRating(p.id)
     return {
       id: p.id,

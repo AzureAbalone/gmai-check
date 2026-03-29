@@ -1,6 +1,5 @@
 // Product detail API — serves full Việt Nhật product data by ID
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import productsRaw from '../../data/products.json' with { type: 'json' }
 
 interface ProductDetail {
   id: number
@@ -19,9 +18,7 @@ interface ProductDetail {
   url: string
 }
 
-const productsData: ProductDetail[] = JSON.parse(
-  readFileSync(resolve('./server/data/products.json'), 'utf-8'),
-)
+const productsData = productsRaw as ProductDetail[]
 
 const productsMap = new Map<number, ProductDetail>()
 for (const p of productsData) {
