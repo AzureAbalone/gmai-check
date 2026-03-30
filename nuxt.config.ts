@@ -3,6 +3,14 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  // ─── PostHog Analytics ───
+  runtimeConfig: {
+    public: {
+      posthogKey: 'phc_CFd1tUTIfsFzpOaE2sFVaPl97ITYjgcjog4g80oeBm9',
+      posthogHost: 'https://us.i.posthog.com',
+    },
+  },
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/icon',
@@ -48,6 +56,9 @@ export default defineNuxtConfig({
       },
     ],
     sitemap: '/sitemap.xml',
+    // Disable Content-Signal — PageSpeed flags it as "Unknown directive"
+    // @ts-expect-error — valid runtime option, types not yet updated in @nuxtjs/robots
+    contentSignal: [],
   },
 
   // ─── Sitemap ───

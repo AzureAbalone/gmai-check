@@ -198,12 +198,12 @@ useHead({
       <!-- Breadcrumb -->
       <section class="bg-[#FAFAFA] border-b border-[#E5E5E5]" aria-label="Breadcrumb">
         <div class="max-w-7xl mx-auto px-6 lg:px-20 py-4">
-          <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-[#888]">
+          <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-[#666]">
             <NuxtLink to="/" class="hover:text-[#0D6E6E] transition-colors">Trang chủ</NuxtLink>
             <Icon name="solar:alt-arrow-right-linear" size="14" aria-hidden="true" />
             <NuxtLink to="/products" class="hover:text-[#0D6E6E] transition-colors">Sản phẩm</NuxtLink>
             <Icon name="solar:alt-arrow-right-linear" size="14" aria-hidden="true" />
-            <span class="text-[#666] font-medium">{{ categoryLabel }}</span>
+            <span class="text-[#555] font-medium">{{ categoryLabel }}</span>
             <Icon name="solar:alt-arrow-right-linear" size="14" aria-hidden="true" class="hidden sm:block" />
             <span class="text-[#1A1A1A] font-medium hidden sm:block line-clamp-1">{{ product.name }}</span>
           </nav>
@@ -269,7 +269,7 @@ useHead({
             <!-- Back to products -->
             <NuxtLink
               to="/products"
-              class="inline-flex items-center gap-2 text-sm font-medium text-[#888] hover:text-[#0D6E6E] transition-colors"
+              class="inline-flex items-center gap-2 text-sm font-medium text-[#666] hover:text-[#0D6E6E] transition-colors"
             >
               <Icon name="solar:arrow-left-outline" size="16" aria-hidden="true" />
               Xem tất cả sản phẩm
@@ -297,8 +297,8 @@ useHead({
                   aria-hidden="true"
                 />
               </div>
-              <span class="text-sm text-[#666]">{{ product.rating }}.0</span>
-              <span class="text-sm text-[#999]">({{ product.reviews }} đánh giá)</span>
+              <span class="text-sm text-[#555]">{{ product.rating }}.0</span>
+              <span class="text-sm text-[#777]">({{ product.reviews }} đánh giá)</span>
             </div>
 
 
@@ -307,7 +307,7 @@ useHead({
             <!-- Color Swatches -->
             <div class="space-y-3">
               <p class="text-sm font-medium text-[#1A1A1A]">
-                Màu sắc: <span class="font-normal text-[#666]">{{ selectedColor?.name }}</span>
+                Màu sắc: <span class="font-normal text-[#555]">{{ selectedColor?.name }}</span>
               </p>
               <div class="flex items-center gap-3">
                 <button
@@ -344,7 +344,7 @@ useHead({
                     :key="spec.label"
                     class="flex items-start gap-4 text-sm py-1.5"
                   >
-                    <span class="text-[#888] min-w-[120px]">{{ spec.label }}</span>
+                    <span class="text-[#666] min-w-[120px]">{{ spec.label }}</span>
                     <span class="text-[#1A1A1A] font-medium">{{ spec.value }}</span>
                   </div>
                 </div>
@@ -356,7 +356,7 @@ useHead({
                   <Icon name="solar:info-circle-outline" size="16" class="text-[#0D6E6E]" aria-hidden="true" />
                   Mô tả sản phẩm
                 </h3>
-                <p class="text-sm leading-relaxed text-[#666]">{{ product.productInfo }}</p>
+                <p class="text-sm leading-relaxed text-[#555]">{{ product.productInfo }}</p>
               </div>
 
               <!-- Ưu điểm -->
@@ -366,7 +366,7 @@ useHead({
                   Ưu điểm
                 </h3>
                 <ul class="space-y-2">
-                  <li v-for="(item, i) in product.advantages" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
+                  <li v-for="(item, i) in product.advantages" :key="i" class="flex items-start gap-2 text-sm text-[#555]">
                     <Icon name="solar:check-circle-bold" size="16" class="text-[#0D6E6E] mt-0.5 flex-shrink-0" aria-hidden="true" />
                     <span>{{ item }}</span>
                   </li>
@@ -380,7 +380,7 @@ useHead({
                   Hướng dẫn sử dụng
                 </h3>
                 <ul class="space-y-2">
-                  <li v-for="(item, i) in product.usage" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
+                  <li v-for="(item, i) in product.usage" :key="i" class="flex items-start gap-2 text-sm text-[#555]">
                     <span class="text-[#0D6E6E] font-medium">•</span>
                     <span>{{ item }}</span>
                   </li>
@@ -394,7 +394,7 @@ useHead({
                   Bảo quản
                 </h3>
                 <ul class="space-y-2">
-                  <li v-for="(item, i) in product.storage" :key="i" class="flex items-start gap-2 text-sm text-[#666]">
+                  <li v-for="(item, i) in product.storage" :key="i" class="flex items-start gap-2 text-sm text-[#555]">
                     <span class="text-[#0D6E6E] font-medium">•</span>
                     <span>{{ item }}</span>
                   </li>
@@ -526,7 +526,7 @@ useHead({
     <div v-else class="flex flex-col items-center justify-center py-32 px-6 text-center">
       <Icon name="solar:box-minimalistic-outline" size="64" class="text-[#E5E5E5] mb-6" aria-hidden="true" />
       <h1 class="font-['Newsreader'] text-2xl font-medium text-[#1A1A1A] mb-2">Không tìm thấy sản phẩm</h1>
-      <p class="text-[#888] mb-6">Sản phẩm này không tồn tại hoặc đã bị xóa.</p>
+      <p class="text-[#666] mb-6">Sản phẩm này không tồn tại hoặc đã bị xóa.</p>
       <NuxtLink
         to="/products"
         class="inline-flex items-center gap-2 px-6 py-3 bg-[#0D6E6E] text-white text-sm font-semibold rounded-xl hover:bg-[#0A5858] transition-colors"

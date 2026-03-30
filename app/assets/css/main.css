@@ -298,6 +298,7 @@ iconify-icon,
 }
 
 .hero-slideshow__dot {
+  position: relative;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -306,6 +307,17 @@ iconify-icon,
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
+}
+
+/* Expand touch target to 44×44px without changing visual size */
+.hero-slideshow__dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
 }
 
 .hero-slideshow__dot--active {

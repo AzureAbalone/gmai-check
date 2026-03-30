@@ -147,7 +147,7 @@ useHead({
       class="flex flex-col items-center gap-8 py-20 lg:py-24 px-6 lg:px-[120px] bg-[#FAFAFA] text-center"
       aria-labelledby="hero-heading"
     >
-      <span class="reveal hero-badge inline-flex items-center gap-2 px-4 py-1.5 bg-[#F0F0F0] border border-[#E5E5E5] rounded-full text-[13px] font-medium text-[#666]">
+      <span class="reveal hero-badge inline-flex items-center gap-2 px-4 py-1.5 bg-[#F0F0F0] border border-[#E5E5E5] rounded-full text-[13px] font-medium text-[#555]">
         <Icon name="solar:star-bold" size="14" class="text-amber-500" aria-hidden="true" />
         Đồ gia dụng cho mọi gia đình Việt
       </span>
@@ -159,7 +159,7 @@ useHead({
         Tiện ích thông minh,<br/>nâng tầm cuộc sống.
       </h1>
 
-      <p class="reveal text-lg text-[#666] max-w-[600px] leading-relaxed">
+      <p class="reveal text-lg text-[#555] max-w-[600px] leading-relaxed">
         Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.<br class="hidden md:block"/>
         Xem chi tiết sản phẩm và liên hệ ngay.
       </p>
@@ -258,7 +258,7 @@ useHead({
           <span
             v-for="brand in trustBrands"
             :key="n + '-' + brand.name"
-            class="shrink-0 text-[#C0C0C0] hover:text-[#666] transition-colors duration-300 cursor-default select-none whitespace-nowrap"
+            class="shrink-0 text-[#8B8B8B] hover:text-[#444] transition-colors duration-300 cursor-default select-none whitespace-nowrap"
             :style="{
               fontWeight: brand.fontWeight,
               letterSpacing: brand.letterSpacing + 'px',
@@ -282,7 +282,7 @@ useHead({
         <h2 id="features-heading" class="font-['Newsreader'] text-3xl lg:text-[40px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[700px]">
           Mọi tiện ích cho ngôi nhà của bạn,<br/>tất cả ở một nơi.
         </h2>
-        <p class="text-base text-[#888] max-w-[560px]">
+        <p class="text-base text-[#666] max-w-[560px]">
           Từ nhà bếp gọn gàng đến phòng tắm sạch sẽ — chúng tôi mang đến sản phẩm chất lượng với giá phải chăng nhất.
         </p>
       </div>
@@ -299,7 +299,7 @@ useHead({
             <Icon :name="feature.icon" size="22" />
           </div>
           <h3 class="font-['Newsreader'] text-[22px] font-medium text-[#1A1A1A]">{{ feature.title }}</h3>
-          <p class="text-sm leading-relaxed text-[#888]">{{ feature.desc }}</p>
+          <p class="text-sm leading-relaxed text-[#666]">{{ feature.desc }}</p>
         </article>
       </div>
     </section>
@@ -313,7 +313,7 @@ useHead({
         <h2 id="showcase-heading" class="font-['Newsreader'] text-3xl lg:text-4xl font-medium leading-[1.15] text-[#1A1A1A]">
           Sản phẩm bền đẹp,<br/>giá cả hợp lý.
         </h2>
-        <p class="text-[15px] leading-relaxed text-[#888]">
+        <p class="text-[15px] leading-relaxed text-[#666]">
           Chúng tôi hợp tác trực tiếp với các nhà sản xuất hàng đầu Việt Nam và Nhật Bản để mang đến sản phẩm chất lượng cao nhất với mức giá tốt nhất cho người tiêu dùng.
         </p>
         <NuxtLink
@@ -343,7 +343,7 @@ useHead({
       <h2 id="cta-heading" class="font-['Newsreader'] text-3xl lg:text-5xl font-medium leading-[1.1] text-white max-w-[700px]">
         Sản phẩm chất lượng.<br/>Giá cả hợp lý.
       </h2>
-      <p class="text-base text-[#94A3B8] max-w-[500px]">
+      <p class="text-base text-[#CBD5E1] max-w-[500px]">
         Khám phá bộ sưu tập sản phẩm gia dụng — liên hệ để được tư vấn và báo giá tốt nhất.
       </p>
       <div class="flex flex-col sm:flex-row gap-4">

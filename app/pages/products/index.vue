@@ -284,7 +284,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
   <div>
     <!-- Page Title -->
     <section class="flex flex-col items-center gap-4 py-16 px-6 bg-[#FAFAFA] text-center" aria-labelledby="products-heading">
-      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-[#888]">
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-[#666]">
         <NuxtLink to="/" class="hover:text-[#0D6E6E] transition-colors">Trang chủ</NuxtLink>
         <Icon name="solar:alt-arrow-right-linear" size="14" aria-hidden="true" />
         <span class="text-[#1A1A1A] font-medium" aria-current="page">Sản phẩm</span>
@@ -292,7 +292,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
       <h1 id="products-heading" class="font-['Newsreader'] text-3xl lg:text-[40px] font-medium text-[#1A1A1A]">
         Sản phẩm gia dụng
       </h1>
-      <p class="text-base text-[#888] max-w-md">
+      <p class="text-base text-[#666] max-w-md">
         Khám phá bộ sưu tập sản phẩm chất lượng cao cho mọi ngóc ngách trong ngôi nhà của bạn.
       </p>
     </section>
@@ -307,7 +307,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
             ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
             : activeCategory !== 'all'
               ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
-              : 'bg-transparent text-[#666] border-[#E5E5E5] hover:border-[#1A1A1A]'"
+              : 'bg-transparent text-[#555] border-[#E5E5E5] hover:border-[#1A1A1A]'"
           @click.stop="showCategoryDropdown = !showCategoryDropdown; showSortDropdown = false"
         >
           <Icon name="solar:widget-2-outline" size="14" aria-hidden="true" />
@@ -338,7 +338,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
               class="flex items-center gap-2.5 w-full px-4 py-2.5 text-[13px] font-medium text-left transition-colors"
               :class="activeCategory === cat.value
                 ? 'bg-[#F5F5F5] text-[#1A1A1A]'
-                : 'text-[#666] hover:bg-[#FAFAFA] hover:text-[#1A1A1A]'"
+                : 'text-[#555] hover:bg-[#FAFAFA] hover:text-[#1A1A1A]'"
               @click.stop="selectCategory(cat.value)"
             >
               {{ cat.label }}
@@ -367,7 +367,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
             ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
             : sortOrder !== 'default'
               ? 'bg-[#0D6E6E]/10 text-[#0D6E6E] border-[#0D6E6E]/30'
-              : 'bg-transparent text-[#666] border-[#E5E5E5] hover:border-[#1A1A1A]'"
+              : 'bg-transparent text-[#555] border-[#E5E5E5] hover:border-[#1A1A1A]'"
           @click.stop="showSortDropdown = !showSortDropdown; showCategoryDropdown = false"
         >
           <Icon name="solar:sort-from-top-to-bottom-outline" size="14" aria-hidden="true" />
@@ -398,7 +398,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
               class="flex items-center gap-2.5 w-full px-4 py-2.5 text-[13px] font-medium text-left transition-colors"
               :class="sortOrder === opt.value
                 ? 'bg-[#F5F5F5] text-[#1A1A1A]'
-                : 'text-[#666] hover:bg-[#FAFAFA] hover:text-[#1A1A1A]'"
+                : 'text-[#555] hover:bg-[#FAFAFA] hover:text-[#1A1A1A]'"
               @click.stop="selectSort(opt.value)"
             >
               {{ opt.label }}
@@ -476,7 +476,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
                 :class="star <= product.rating ? 'text-amber-400' : 'text-gray-200'"
                 aria-hidden="true"
               />
-              <span class="text-xs text-[#888] ml-1">({{ product.reviews }})</span>
+              <span class="text-xs text-[#666] ml-1">({{ product.reviews }})</span>
             </div>
             <h3 class="font-medium text-[#1A1A1A] text-base line-clamp-2">{{ product.name }}</h3>
             <NuxtLink
@@ -493,7 +493,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
       </div>
 
       <!-- Empty state -->
-      <div v-else class="text-center py-20 text-[#888]" role="status">
+      <div v-else class="text-center py-20 text-[#666]" role="status">
         <Icon name="solar:box-minimalistic-outline" size="48" class="mx-auto mb-4 opacity-30" aria-hidden="true" />
         <p class="text-lg font-medium mb-2">Không tìm thấy sản phẩm nào.</p>
         <p class="text-sm">Hãy thử chọn danh mục khác hoặc bỏ bộ lọc.</p>

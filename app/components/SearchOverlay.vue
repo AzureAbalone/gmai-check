@@ -340,7 +340,7 @@ const categoryMap: Record<string, string> = {
        MOBILE: Magnifier icon → full-screen overlay
        ═══════════════════════════════════════════ -->
   <button
-    class="md:hidden flex items-center justify-center w-9 h-9 rounded-full border border-[#E5E5E5] text-[#888] hover:text-[#0D6E6E] hover:border-[#0D6E6E] transition-all"
+    class="md:hidden flex items-center justify-center w-9 h-9 rounded-full border border-[#E5E5E5] text-[#666] hover:text-[#0D6E6E] hover:border-[#0D6E6E] transition-all"
     aria-label="Tìm kiếm sản phẩm"
     @click="openMobile"
   >
@@ -404,8 +404,8 @@ const categoryMap: Record<string, string> = {
                     <div class="flex-1 min-w-0">
                       <p class="text-sm font-medium text-[#1A1A1A] truncate">{{ product.name }}</p>
                       <div class="flex items-center gap-2 mt-0.5">
-                        <span class="text-[11px] text-[#888] bg-[#F0F0F0] px-2 py-0.5 rounded-full">{{ categoryMap[product.category] || product.category }}</span>
-                        <span class="flex items-center gap-0.5 text-[11px] text-[#888]">
+                        <span class="text-[11px] text-[#666] bg-[#F0F0F0] px-2 py-0.5 rounded-full">{{ categoryMap[product.category] || product.category }}</span>
+                        <span class="flex items-center gap-0.5 text-[11px] text-[#666]">
                           <Icon name="solar:star-bold" size="10" class="text-amber-400" aria-hidden="true" />
                           {{ product.rating }}
                         </span>
@@ -437,8 +437,8 @@ const categoryMap: Record<string, string> = {
                     <!-- eslint-disable-next-line vue/no-v-html -->
                     <p class="text-sm font-medium text-[#1A1A1A] truncate" v-html="highlightMatch(product.name)" />
                     <div class="flex items-center gap-2 mt-0.5">
-                      <span class="text-[11px] text-[#888] bg-[#F0F0F0] px-2 py-0.5 rounded-full">{{ categoryMap[product.category] || product.category }}</span>
-                      <span class="flex items-center gap-0.5 text-[11px] text-[#888]">
+                      <span class="text-[11px] text-[#666] bg-[#F0F0F0] px-2 py-0.5 rounded-full">{{ categoryMap[product.category] || product.category }}</span>
+                      <span class="flex items-center gap-0.5 text-[11px] text-[#666]">
                         <Icon name="solar:star-bold" size="10" class="text-amber-400" aria-hidden="true" />
                         {{ product.rating }}
                       </span>
@@ -451,7 +451,7 @@ const categoryMap: Record<string, string> = {
 
             <div v-else class="flex flex-col items-center justify-center py-20 text-center px-6">
               <Icon name="lucide:search-x" size="32" class="text-[#DDD] mb-3" aria-hidden="true" />
-              <p class="text-sm font-medium text-[#666]">Không tìm thấy sản phẩm</p>
+              <p class="text-sm font-medium text-[#555]">Không tìm thấy sản phẩm</p>
               <p class="text-xs text-[#AAA] mt-1">Thử từ khóa khác</p>
             </div>
           </template>

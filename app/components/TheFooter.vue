@@ -31,7 +31,7 @@ const footerLinks = {
           <NuxtLink to="/" class="hover:opacity-80 transition-opacity" aria-label="Về trang chủ">
             <DuyenPhuongLogo variant="light" size="sm" />
           </NuxtLink>
-          <p class="text-sm leading-relaxed text-[#64748B] max-w-xs">
+          <p class="text-sm leading-relaxed text-[#94A3B8] max-w-xs">
             Đồ gia dụng thông minh cho mọi gia đình Việt. Chất lượng cao — giá phải chăng.
           </p>
           <div class="flex gap-3 pt-2" role="list" aria-label="Mạng xã hội">
@@ -49,29 +49,29 @@ const footerLinks = {
 
         <!-- Link Columns -->
         <nav class="space-y-4" aria-label="Sản phẩm">
-          <span class="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">Sản phẩm</span>
+          <span class="text-xs font-semibold text-[#B0BEC5] uppercase tracking-wider">Sản phẩm</span>
           <div class="flex flex-col gap-3">
-            <NuxtLink v-for="link in footerLinks.products" :key="link.label" :to="link.to" class="text-sm text-[#64748B] hover:text-white transition-colors">
+            <NuxtLink v-for="link in footerLinks.products" :key="link.label" :to="link.to" class="text-sm text-[#94A3B8] hover:text-white transition-colors">
               {{ link.label }}
             </NuxtLink>
           </div>
         </nav>
         <nav class="space-y-4" aria-label="Công ty">
-          <span class="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">Công ty</span>
+          <span class="text-xs font-semibold text-[#B0BEC5] uppercase tracking-wider">Công ty</span>
           <div class="flex flex-col gap-3">
-            <NuxtLink v-for="link in footerLinks.company" :key="link.label" :to="link.to" class="text-sm text-[#64748B] hover:text-white transition-colors">
+            <NuxtLink v-for="link in footerLinks.company" :key="link.label" :to="link.to" class="text-sm text-[#94A3B8] hover:text-white transition-colors">
               {{ link.label }}
             </NuxtLink>
           </div>
         </nav>
         <nav class="space-y-4" aria-label="Hỗ trợ">
-          <span class="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">Hỗ trợ</span>
+          <span class="text-xs font-semibold text-[#B0BEC5] uppercase tracking-wider">Hỗ trợ</span>
           <div class="flex flex-col gap-3">
             <template v-for="link in footerLinks.support" :key="link.label">
-              <a v-if="link.external" :href="link.to" target="_blank" rel="noopener noreferrer" class="text-sm text-[#64748B] hover:text-white transition-colors">
+              <a v-if="link.external" :href="link.to" target="_blank" rel="noopener noreferrer" class="text-sm text-[#94A3B8] hover:text-white transition-colors">
                 {{ link.label }}
               </a>
-              <NuxtLink v-else :to="link.to" class="text-sm text-[#64748B] hover:text-white transition-colors">
+              <NuxtLink v-else :to="link.to" class="text-sm text-[#94A3B8] hover:text-white transition-colors">
                 {{ link.label }}
               </NuxtLink>
             </template>
@@ -120,7 +120,7 @@ const footerLinks = {
                 href="https://maps.app.goo.gl/ULHJwXTF4Xe7MoTQ7"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 mt-2 text-sm font-medium text-[#0D6E6E] hover:text-[#10B981] transition-colors"
+                class="inline-flex items-center gap-2 mt-2 text-sm font-medium text-[#2DD4BF] hover:text-[#5EEAD4] transition-colors"
               >
                 <Icon name="solar:map-arrow-right-outline" size="16" aria-hidden="true" />
                 Xem trên Google Maps
@@ -146,7 +146,7 @@ const footerLinks = {
 
       <!-- Divider + Copyright -->
       <div class="border-t border-[#1E293B] pt-6">
-        <p class="text-xs text-[#475569]">&copy; {{ currentYear }} Nhà phân phối Duyên Phượng. All rights reserved.</p>
+        <p class="text-xs text-[#64748B]">&copy; {{ currentYear }} Nhà phân phối Duyên Phượng. All rights reserved.</p>
       </div>
     </div>
   </footer>

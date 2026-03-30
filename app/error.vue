@@ -41,7 +41,7 @@ function handleBack() {
     </div>
 
     <h1 class="font-['Newsreader'] text-3xl lg:text-4xl font-medium text-[#1A1A1A] mb-4">{{ title }}</h1>
-    <p class="text-base text-[#888] max-w-md mb-8">{{ message }}</p>
+    <p class="text-base text-[#666] max-w-md mb-8">{{ message }}</p>
 
     <div class="flex flex-col sm:flex-row gap-4">
       <button

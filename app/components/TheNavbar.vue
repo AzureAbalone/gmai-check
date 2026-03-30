@@ -75,7 +75,7 @@ const isProductsPage = computed(() => route.path === '/products')
           :href="link.to"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-1.5 text-sm font-medium text-[#666] relative py-1 hover:text-[#0D6E6E] transition-colors"
+          class="group flex items-center gap-1.5 text-sm font-medium text-[#555] relative py-1 hover:text-[#0D6E6E] transition-colors"
           :aria-label="link.label"
         >
           <Icon :name="link.icon" size="16" class="opacity-50 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
@@ -85,7 +85,7 @@ const isProductsPage = computed(() => route.path === '/products')
         <NuxtLink
           v-else
           :to="link.to"
-          class="group flex items-center gap-1.5 text-sm font-medium text-[#666] relative py-1 hover:text-[#0D6E6E] transition-colors"
+          class="group flex items-center gap-1.5 text-sm font-medium text-[#555] relative py-1 hover:text-[#0D6E6E] transition-colors"
           :aria-label="link.label"
         >
           <Icon :name="link.icon" size="16" class="opacity-50 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
@@ -137,7 +137,7 @@ const isProductsPage = computed(() => route.path === '/products')
             :href="link.to"
             target="_blank"
             rel="noopener noreferrer"
-            class="mobile-nav-item flex items-center gap-3 text-base font-medium text-[#666] hover:text-[#0D6E6E] hover:bg-[#F0FAF9] rounded-xl py-3 px-3 transition-all duration-200"
+            class="mobile-nav-item flex items-center gap-3 text-base font-medium text-[#555] hover:text-[#0D6E6E] hover:bg-[#F0FAF9] rounded-xl py-3 px-3 transition-all duration-200"
             :style="{ animationDelay: `${(i + 1) * 60}ms` }"
           >
             <Icon :name="link.icon" size="20" aria-hidden="true" />
@@ -146,7 +146,7 @@ const isProductsPage = computed(() => route.path === '/products')
           <NuxtLink
             v-else
             :to="link.to"
-            class="mobile-nav-item flex items-center gap-3 text-base font-medium text-[#666] hover:text-[#0D6E6E] hover:bg-[#F0FAF9] rounded-xl py-3 px-3 transition-all duration-200"
+            class="mobile-nav-item flex items-center gap-3 text-base font-medium text-[#555] hover:text-[#0D6E6E] hover:bg-[#F0FAF9] rounded-xl py-3 px-3 transition-all duration-200"
             :style="{ animationDelay: `${(i + 1) * 60}ms` }"
           >
             <Icon :name="link.icon" size="20" aria-hidden="true" />
