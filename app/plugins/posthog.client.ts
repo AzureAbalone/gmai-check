@@ -7,7 +7,7 @@ export default defineNuxtPlugin({
     const runtimeConfig = useRuntimeConfig()
 
     posthog.init(runtimeConfig.public.posthogKey as string, {
-      api_host: runtimeConfig.public.posthogHost as string,
+      api_host: 'https://hog.duyenphuong.com',
       capture_pageview: false, // We capture manually on route change
       capture_pageleave: true,
       persistence: 'localStorage+cookie',
