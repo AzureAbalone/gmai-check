@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { useHead, ref, onMounted, onUnmounted } from '#imports'
 import { useScrollReveal } from '~/composables/useScrollReveal'
+import {
+  HERO_IMAGES,
+  SHOWCASE_IMAGE,
+  getHeroImageAttrs,
+  getHeroPreloadLink,
+} from '~/utils/homepagePerformance'
 
 useScrollReveal()
 
@@ -75,13 +81,7 @@ const features = [
   },
 ]
 
-const heroImages = [
-  { src: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80', alt: 'Nhà bếp hiện đại', label: 'Nhà bếp' },
-  { src: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80', alt: 'Phòng khách tinh tế', label: 'Phòng khách' },
-  { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=520&fit=crop&crop=center&q=80', alt: 'Phòng tắm gọn gàng', label: 'Phòng tắm' },
-  { src: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80', alt: 'Phòng ngủ ấm cúng', label: 'Phòng ngủ' },
-  { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', alt: 'Ngoại thất hiện đại', label: 'Ngoại thất' },
-]
+const heroImages = HERO_IMAGES
 
 const trustBrands = [
   { name: 'Lock&Lock', fontWeight: '900', letterSpacing: '1', fontSize: '13' },
@@ -135,7 +135,7 @@ useHead({
 // ─── Preload hero images for LCP ───
 useHead({
   link: [
-    { rel: 'preload', as: 'image', href: heroImages[0]!.src },
+    getHeroPreloadLink(),
   ],
 })
 </script>
@@ -154,7 +154,7 @@ useHead({
 
       <h1
         id="hero-heading"
-        class="reveal font-['Newsreader'] text-4xl md:text-5xl lg:text-[56px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[800px]"
+        class="reveal font-display text-4xl md:text-5xl lg:text-[56px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[800px]"
       >
         Tiện ích thông minh,<br/>nâng tầm cuộc sống.
       </h1>
@@ -195,11 +195,12 @@ useHead({
           <NuxtImg
             :src="img.src"
             :alt="img.alt"
-            :loading="i === 0 ? 'eager' : 'lazy'"
-            :fetchpriority="i === 0 ? 'high' : undefined"
+            :loading="getHeroImageAttrs(i).loading"
+            :fetchpriority="getHeroImageAttrs(i).fetchpriority"
+            :sizes="getHeroImageAttrs(i).sizes"
             decoding="async"
-            width="800"
-            height="600"
+            width="1200"
+            height="900"
             class="diagonal-panel__img"
           />
           <div class="diagonal-panel__overlay">
@@ -219,14 +220,16 @@ useHead({
           class="hero-slideshow__track"
           :style="{ transform: `translateX(-${activeSlide * 100}%)` }"
         >
-          <div v-for="img in heroImages" :key="img.label" class="hero-slideshow__slide">
+          <div v-for="(img, i) in heroImages" :key="img.label" class="hero-slideshow__slide">
             <NuxtImg
               :src="img.src"
               :alt="img.alt"
-              loading="lazy"
+              :loading="i === 0 ? 'eager' : 'lazy'"
+              :fetchpriority="i === 0 ? 'high' : undefined"
+              :sizes="getHeroImageAttrs(i).mobileSizes"
               decoding="async"
-              width="800"
-              height="600"
+              width="1200"
+              height="900"
             />
             <div class="hero-slideshow__slide-overlay">
               <span class="hero-slideshow__slide-label">{{ img.label }}</span>
@@ -279,7 +282,7 @@ useHead({
         <span class="font-mono text-[11px] font-semibold tracking-[2px] text-[#0D6E6E] uppercase">
           <span class="section-dot mr-2" aria-hidden="true" />SẢN PHẨM NỔI BẬT
         </span>
-        <h2 id="features-heading" class="font-['Newsreader'] text-3xl lg:text-[40px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[700px]">
+        <h2 id="features-heading" class="font-display text-3xl lg:text-[40px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[700px]">
           Mọi tiện ích cho ngôi nhà của bạn,<br/>tất cả ở một nơi.
         </h2>
         <p class="text-base text-[#666] max-w-[560px]">
@@ -298,7 +301,7 @@ useHead({
           <div :class="[feature.color, 'icon-bounce w-12 h-12 rounded-xl flex items-center justify-center text-white']" aria-hidden="true">
             <Icon :name="feature.icon" size="22" />
           </div>
-          <h3 class="font-['Newsreader'] text-[22px] font-medium text-[#1A1A1A]">{{ feature.title }}</h3>
+          <h3 class="font-display text-[22px] font-medium text-[#1A1A1A]">{{ feature.title }}</h3>
           <p class="text-sm leading-relaxed text-[#666]">{{ feature.desc }}</p>
         </article>
       </div>
@@ -310,7 +313,7 @@ useHead({
         <span class="font-mono text-[11px] font-semibold tracking-[2px] text-[#0D6E6E] uppercase">
           <span class="section-dot mr-2" aria-hidden="true" />CHẤT LƯỢNG ĐẢM BẢO
         </span>
-        <h2 id="showcase-heading" class="font-['Newsreader'] text-3xl lg:text-4xl font-medium leading-[1.15] text-[#1A1A1A]">
+        <h2 id="showcase-heading" class="font-display text-3xl lg:text-4xl font-medium leading-[1.15] text-[#1A1A1A]">
           Sản phẩm bền đẹp,<br/>giá cả hợp lý.
         </h2>
         <p class="text-[15px] leading-relaxed text-[#666]">
@@ -326,13 +329,13 @@ useHead({
       </div>
       <div class="reveal-right flex-[1.2] -mx-6 lg:mx-0 rounded-none lg:rounded-2xl overflow-hidden h-[280px] lg:h-[380px] w-[calc(100%+48px)] lg:w-auto group">
         <NuxtImg
-          src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&q=80"
-          alt="Bộ sưu tập đồ gia dụng Duyên Phượng chất lượng cao"
+          :src="SHOWCASE_IMAGE.src"
+          :alt="SHOWCASE_IMAGE.alt"
           loading="lazy"
           decoding="async"
-          width="800"
-          height="600"
-          sizes="sm:100vw lg:60vw"
+          :width="SHOWCASE_IMAGE.width"
+          :height="SHOWCASE_IMAGE.height"
+          :sizes="SHOWCASE_IMAGE.sizes"
           class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
         />
       </div>
@@ -340,7 +343,7 @@ useHead({
 
     <!-- ═══════════════════════ FINAL CTA ═══════════════════════ -->
     <section id="contact" class="reveal cta-glow flex flex-col items-center gap-8 py-24 px-6 lg:px-[120px] bg-[#0F172A] text-center overflow-hidden" aria-labelledby="cta-heading">
-      <h2 id="cta-heading" class="font-['Newsreader'] text-3xl lg:text-5xl font-medium leading-[1.1] text-white max-w-[700px]">
+      <h2 id="cta-heading" class="font-display text-3xl lg:text-5xl font-medium leading-[1.1] text-white max-w-[700px]">
         Sản phẩm chất lượng.<br/>Giá cả hợp lý.
       </h2>
       <p class="text-base text-[#CBD5E1] max-w-[500px]">

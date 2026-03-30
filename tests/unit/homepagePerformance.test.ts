@@ -30,6 +30,13 @@ describe('homepagePerformance', () => {
     })
   })
 
+  it('returns mobile sizing metadata alongside desktop sizing', () => {
+    expect(getHeroImageAttrs(0)).toMatchObject({
+      sizes: '(max-width: 767px) 100vw, 20vw',
+      mobileSizes: '100vw',
+    })
+  })
+
   it('uses local font stacks instead of remote Google font names', () => {
     expect(SYSTEM_SANS_STACK).toContain('Segoe UI')
     expect(SYSTEM_SANS_STACK).not.toContain('Inter')

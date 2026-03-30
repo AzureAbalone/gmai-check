@@ -65,11 +65,14 @@ export const FOOTER_MAP = {
 }
 
 export function getHeroImageAttrs(index: number) {
+  const image = HERO_IMAGES[index] ?? HERO_IMAGES[0]!
+
   return {
     loading: index === 0 ? 'eager' : 'lazy',
     fetchpriority: index === 0 ? 'high' : 'auto',
     preload: index === 0,
-    sizes: HERO_IMAGES[index]?.desktopSizes ?? HERO_IMAGES[0]!.desktopSizes,
+    sizes: image.desktopSizes,
+    mobileSizes: image.mobileSizes,
   }
 }
 

@@ -35,12 +35,12 @@ function handleBack() {
   <div class="min-h-screen bg-[#FAFAFA] flex flex-col items-center justify-center px-6 text-center">
     <!-- Error visual -->
     <div class="mb-8">
-      <span class="text-[120px] lg:text-[180px] font-bold text-[#E5E5E5] leading-none select-none font-['Newsreader']">
+      <span class="font-display text-[120px] lg:text-[180px] font-bold text-[#E5E5E5] leading-none select-none">
         {{ statusCode }}
       </span>
     </div>
 
-    <h1 class="font-['Newsreader'] text-3xl lg:text-4xl font-medium text-[#1A1A1A] mb-4">{{ title }}</h1>
+    <h1 class="font-display text-3xl lg:text-4xl font-medium text-[#1A1A1A] mb-4">{{ title }}</h1>
     <p class="text-base text-[#666] max-w-md mb-8">{{ message }}</p>
 
     <div class="flex flex-col sm:flex-row gap-4">
