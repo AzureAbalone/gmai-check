@@ -15,9 +15,9 @@ describe('useDeferredMapEmbed', () => {
 
   it('loads the map permanently after explicit interaction', () => {
     const { isMapLoaded, loadMap } = useDeferredMapEmbed()
-    loadMap()
+    expect(loadMap()).toBe(true)
     expect(isMapLoaded.value).toBe(true)
-    loadMap()
+    expect(loadMap()).toBe(false)
     expect(isMapLoaded.value).toBe(true)
   })
 })
