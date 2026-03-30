@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, expectTypeOf, it } from 'vitest'
 
 import {
   FOOTER_MAP,
@@ -11,6 +11,15 @@ import {
 } from '../../app/utils/homepagePerformance'
 
 describe('homepagePerformance', () => {
+  it('returns Nuxt-friendly hero size descriptors alongside the HTML sizes contract', () => {
+    expect(getHeroImageAttrs(0)).toMatchObject({
+      sizes: '(max-width: 767px) 100vw, 20vw',
+      mobileSizes: '100vw',
+      nuxtSizes: 'xs:100vw md:20vw',
+      nuxtMobileSizes: 'xs:100vw',
+    })
+  })
+
   it('prioritizes only the first hero image', () => {
     expect(getHeroImageAttrs(0)).toMatchObject({
       loading: 'eager',
@@ -37,6 +46,13 @@ describe('homepagePerformance', () => {
     })
   })
 
+  it('keeps showcase sizing available in both HTML and Nuxt image formats', () => {
+    expect(SHOWCASE_IMAGE).toMatchObject({
+      sizes: '(max-width: 1023px) 100vw, 58vw',
+      nuxtSizes: 'xs:100vw lg:58vw',
+    })
+  })
+
   it('uses local font stacks instead of remote Google font names', () => {
     expect(SYSTEM_SANS_STACK).toContain('Segoe UI')
     expect(SYSTEM_SANS_STACK).not.toContain('Inter')
@@ -55,6 +71,18 @@ describe('homepagePerformance', () => {
 
   it('keeps showcase sizing responsive', () => {
     expect(SHOWCASE_IMAGE.sizes).toBe('(max-width: 1023px) 100vw, 58vw')
+  })
+
+  it('keeps helper return types narrow enough for Nuxt image consumers', () => {
+    const heroAttrs = getHeroImageAttrs(0)
+    const preloadLink = getHeroPreloadLink()
+
+    expectTypeOf(heroAttrs.loading).toEqualTypeOf<'eager' | 'lazy'>()
+    expectTypeOf(heroAttrs.fetchpriority).toEqualTypeOf<'high' | 'auto'>()
+    expectTypeOf(preloadLink.rel).toEqualTypeOf<'preload'>()
+    expectTypeOf(preloadLink.as).toEqualTypeOf<'image'>()
+
+    expect(true).toBe(true)
   })
 
   it('keeps the footer map CTA copy and URLs stable', () => {

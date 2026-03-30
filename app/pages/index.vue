@@ -197,7 +197,7 @@ useHead({
             :alt="img.alt"
             :loading="getHeroImageAttrs(i).loading"
             :fetchpriority="getHeroImageAttrs(i).fetchpriority"
-            :sizes="getHeroImageAttrs(i).sizes"
+            :sizes="getHeroImageAttrs(i).nuxtSizes"
             decoding="async"
             width="1200"
             height="900"
@@ -226,7 +226,7 @@ useHead({
               :alt="img.alt"
               :loading="getHeroImageAttrs(i).loading"
               :fetchpriority="getHeroImageAttrs(i).fetchpriority"
-              :sizes="getHeroImageAttrs(i).mobileSizes"
+              :sizes="getHeroImageAttrs(i).nuxtMobileSizes"
               decoding="async"
               width="1200"
               height="900"
@@ -335,7 +335,7 @@ useHead({
           decoding="async"
           :width="SHOWCASE_IMAGE.width"
           :height="SHOWCASE_IMAGE.height"
-          :sizes="SHOWCASE_IMAGE.sizes"
+          :sizes="SHOWCASE_IMAGE.nuxtSizes"
           class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
         />
       </div>
