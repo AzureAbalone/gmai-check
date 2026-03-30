@@ -34,17 +34,23 @@ const footerLinks = {
           <p class="text-sm leading-relaxed text-[#94A3B8] max-w-xs">
             Đồ gia dụng thông minh cho mọi gia đình Việt. Chất lượng cao — giá phải chăng.
           </p>
-          <div class="flex gap-3 pt-2" role="list" aria-label="Mạng xã hội">
-            <a href="#" role="listitem" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Email">
-              <Icon name="solar:letter-outline" size="18" aria-hidden="true" />
-            </a>
-            <a href="#" role="listitem" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Instagram">
-              <Icon name="solar:camera-outline" size="18" aria-hidden="true" />
-            </a>
-            <a href="https://zalo.me/0968164783" target="_blank" rel="noopener noreferrer" role="listitem" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Zalo">
-              <Icon name="solar:chat-round-dots-outline" size="18" aria-hidden="true" />
-            </a>
-          </div>
+          <ul class="flex gap-3 pt-2 list-none" aria-label="Mạng xã hội">
+            <li>
+              <a href="#" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Email">
+                <Icon name="solar:letter-outline" size="18" aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a href="#" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Instagram">
+                <Icon name="solar:camera-outline" size="18" aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a href="https://zalo.me/0968164783" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#1E293B] flex items-center justify-center text-[#94A3B8] hover:bg-[#0D6E6E] hover:text-white transition-all" aria-label="Zalo">
+                <Icon name="solar:chat-round-dots-outline" size="18" aria-hidden="true" />
+              </a>
+            </li>
+          </ul>
         </div>
 
         <!-- Link Columns -->

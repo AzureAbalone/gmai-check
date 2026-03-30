@@ -55,7 +55,7 @@ const isProductsPage = computed(() => route.path === '/products')
     role="banner"
     class="sticky top-0 z-50 flex items-center justify-between px-6 lg:px-20 py-5 transition-all duration-300"
     :class="isScrolled
-      ? 'bg-white/95 backdrop-blur-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)]'
+      ? 'bg-white backdrop-blur-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)]'
       : 'bg-[#FAFAFA]'"
   >
     <!-- Logo -->

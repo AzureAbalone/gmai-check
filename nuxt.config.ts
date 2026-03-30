@@ -47,8 +47,10 @@ export default defineNuxtConfig({
   },
 
   // ─── Robots.txt ───
-  // NOTE: "Content-Signal" on robots.txt is injected by Cloudflare (AI → Content Signals).
-  // To remove it, disable it in Cloudflare dashboard, not here.
+  // ⚠️ FIX REQUIRED: Cloudflare's "AI Bots" is OVERRIDING this robots.txt entirely.
+  // PageSpeed flags "Content-Signal: search=yes,ai-train=no" as "Unknown directive".
+  // Steps: Cloudflare Dashboard → Security → Bots → Disable "robots.txt configuration"
+  // Then this Nuxt config will serve the correct robots.txt.
   robots: {
     groups: [
       {
