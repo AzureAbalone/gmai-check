@@ -104,29 +104,24 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: { gzip: true, brotli: true },
     prerender: {
-      crawlLinks: true,
-      routes: [
-        '/',
-        '/products',
-        // Pre-render all product detail pages (IDs 1–1560)
-        ...Array.from({ length: 1560 }, (_, i) => `/products/${i + 1}`),
-      ],
+      crawlLinks: false,
+      routes: ['/', '/products'],
     },
     routeRules: {
-      // ── API caching with SWR ──
-      // Product list: cache 5 min, serve stale up to 1 hour while revalidating
+      // ── API caching with SWR (24h) ──
+      // Product list: cache 24h, serve stale up to 24h while revalidating
       '/api/products': {
-        cache: { maxAge: 300, staleMaxAge: 3600, swr: true },
-        headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600' },
+        cache: { maxAge: 86400, staleMaxAge: 86400, swr: true },
+        headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400' },
       },
-      // Product detail: cache 10 min, serve stale up to 1 hour while revalidating
+      // Product detail: cache 24h, serve stale up to 24h while revalidating
       '/api/products/**': {
-        cache: { maxAge: 600, staleMaxAge: 3600, swr: true },
-        headers: { 'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=3600' },
+        cache: { maxAge: 86400, staleMaxAge: 86400, swr: true },
+        headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400' },
       },
       // SWR/ISR for pages
       '/': { isr: 300 },
-      '/products/**': { isr: 300 },
+      '/products/**': { isr: 86400 },
       // Long cache for static assets
       '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     },
