@@ -48,6 +48,8 @@ export default defineNuxtConfig({
   },
 
   // ─── Robots.txt ───
+  // NOTE: "Content-Signal" on robots.txt is injected by Cloudflare (AI → Content Signals).
+  // To remove it, disable it in Cloudflare dashboard, not here.
   robots: {
     groups: [
       {
@@ -56,9 +58,6 @@ export default defineNuxtConfig({
       },
     ],
     sitemap: '/sitemap.xml',
-    // Disable Content-Signal — PageSpeed flags it as "Unknown directive"
-    // @ts-expect-error — valid runtime option, types not yet updated in @nuxtjs/robots
-    contentSignal: [],
   },
 
   // ─── Sitemap ───

@@ -44,7 +44,7 @@ defineProps<{
           'text-[8px]': !size || size === 'md',
           'text-[9px]': size === 'lg',
           'text-white/50': variant === 'light',
-          'text-[#999]': variant !== 'light',
+          'text-[#777]': variant !== 'light',
         }"
       >
         NHÀ PHÂN PHỐI

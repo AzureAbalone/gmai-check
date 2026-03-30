@@ -146,7 +146,7 @@ const footerLinks = {
 
       <!-- Divider + Copyright -->
       <div class="border-t border-[#1E293B] pt-6">
-        <p class="text-xs text-[#64748B]">&copy; {{ currentYear }} Nhà phân phối Duyên Phượng. All rights reserved.</p>
+        <p class="text-xs text-[#94A3B8]">&copy; {{ currentYear }} Nhà phân phối Duyên Phượng. All rights reserved.</p>
       </div>
     </div>
   </footer>

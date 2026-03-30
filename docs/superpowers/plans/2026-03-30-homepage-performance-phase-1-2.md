@@ -207,7 +207,7 @@ export default defineConfig({
 Create `app/utils/homepagePerformance.ts`:
 
 ```ts
-export const SYSTEM_SANS_STACK = 'InterVar, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+export const SYSTEM_SANS_STACK = '"Segoe UI", Roboto, Helvetica, Arial, sans-serif'
 export const SYSTEM_DISPLAY_STACK = '"Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif'
 
 export type HeroImage = {
@@ -347,9 +347,11 @@ Expected: Git creates a commit containing only the new test scaffolding and help
 Update `tests/unit/homepagePerformance.test.ts` with this extra assertion:
 
 ```ts
-  it('keeps hero sizing tuned for desktop and mobile render paths', () => {
-    expect(HERO_IMAGES[0]?.desktopSizes).toBe('(max-width: 767px) 100vw, 20vw')
-    expect(HERO_IMAGES[0]?.mobileSizes).toBe('100vw')
+  it('returns mobile sizing metadata alongside desktop sizing', () => {
+    expect(getHeroImageAttrs(0)).toMatchObject({
+      sizes: '(max-width: 767px) 100vw, 20vw',
+      mobileSizes: '100vw',
+    })
   })
 ```
 
@@ -358,10 +360,10 @@ Update `tests/unit/homepagePerformance.test.ts` with this extra assertion:
 Run:
 
 ```bash
-npx vitest run tests/unit/homepagePerformance.test.ts -t "keeps hero sizing tuned for desktop and mobile render paths"
+npx vitest run tests/unit/homepagePerformance.test.ts -t "returns mobile sizing metadata alongside desktop sizing"
 ```
 
-Expected: FAIL until the implementation exports the final hero sizing contract exactly.
+Expected: FAIL because `getHeroImageAttrs()` does not expose `mobileSizes` yet.
 
 - [ ] **Step 3: Update the helper data so the test passes**
 
@@ -386,14 +388,9 @@ export function getHeroImageAttrs(index: number) {
 Modify `nuxt.config.ts`:
 
 ```ts
-import { SYSTEM_DISPLAY_STACK, SYSTEM_SANS_STACK } from './app/utils/homepagePerformance'
-
 export default defineNuxtConfig({
   app: {
     head: {
-      bodyAttrs: {
-        style: `font-family:${SYSTEM_SANS_STACK}`,
-      },
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon.png?v=3' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
@@ -409,7 +406,7 @@ Modify the top of `app/assets/css/main.css`:
 
 ```css
 :root {
-  --font-body: InterVar, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
 }
 
@@ -420,6 +417,15 @@ body {
 
 .font-display {
   font-family: var(--font-display);
+}
+
+.diagonal-panel__label,
+.hero-slideshow__slide-label {
+  font-family: var(--font-display);
+}
+
+.pagination-btn {
+  font-family: var(--font-body);
 }
 ```
 
@@ -448,7 +454,7 @@ import {
   SHOWCASE_IMAGE,
   getHeroImageAttrs,
   getHeroPreloadLink,
-} from '~/app/utils/homepagePerformance'
+} from '~/utils/homepagePerformance'
 
 const heroImages = HERO_IMAGES
 
@@ -538,9 +544,11 @@ Expected: Git creates a commit containing the font and image-priority changes.
 Update `tests/unit/useDeferredMapEmbed.test.ts`:
 
 ```ts
-  it('supports starting in an already-loaded state', () => {
-    const { isMapLoaded } = useDeferredMapEmbed(true)
+  it('reports whether a load request changed state', () => {
+    const { isMapLoaded, loadMap } = useDeferredMapEmbed()
+    expect(loadMap()).toBe(true)
     expect(isMapLoaded.value).toBe(true)
+    expect(loadMap()).toBe(false)
   })
 ```
 
@@ -549,10 +557,10 @@ Update `tests/unit/useDeferredMapEmbed.test.ts`:
 Run:
 
 ```bash
-npx vitest run tests/unit/useDeferredMapEmbed.test.ts -t "supports starting in an already-loaded state"
+npx vitest run tests/unit/useDeferredMapEmbed.test.ts -t "reports whether a load request changed state"
 ```
 
-Expected: FAIL until the composable explicitly preserves the initial state contract.
+Expected: FAIL because `loadMap()` currently returns `undefined` instead of a change flag.
 
 - [ ] **Step 3: Update the composable and footer markup to lazy-load the embed on demand**
 
@@ -567,7 +575,10 @@ export function useDeferredMapEmbed(initiallyLoaded = false) {
   const loadMap = () => {
     if (!isMapLoaded.value) {
       isMapLoaded.value = true
+      return true
     }
+
+    return false
   }
 
   return {
@@ -581,8 +592,8 @@ Modify `app/components/TheFooter.vue`:
 
 ```vue
 <script setup lang="ts">
-import { FOOTER_MAP } from '~/app/utils/homepagePerformance'
-import { useDeferredMapEmbed } from '~/app/composables/useDeferredMapEmbed'
+import { FOOTER_MAP } from '~/utils/homepagePerformance'
+import { useDeferredMapEmbed } from '~/composables/useDeferredMapEmbed'
 
 const { isMapLoaded, loadMap } = useDeferredMapEmbed()
 </script>

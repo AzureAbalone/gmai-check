@@ -293,34 +293,35 @@ iconify-icon,
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 0;
   z-index: 10;
 }
 
 .hero-slideshow__dot {
   position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Visual dot (centered inside the touch area) */
+.hero-slideshow__dot::after {
+  content: '';
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: none;
   background: rgba(255, 255, 255, 0.45);
-  cursor: pointer;
   transition: all 0.3s ease;
-  padding: 0;
 }
 
-/* Expand touch target to 44×44px without changing visual size */
-.hero-slideshow__dot::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 44px;
-  height: 44px;
-}
-
-.hero-slideshow__dot--active {
+.hero-slideshow__dot--active::after {
   background: #fff;
   width: 24px;
   border-radius: 4px;
