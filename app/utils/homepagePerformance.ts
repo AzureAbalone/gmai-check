@@ -6,6 +6,7 @@ export type HeroImage = {
   alt: string
   label: string
   desktopSizes: string
+  mobileSizes: string
 }
 
 export const HERO_IMAGES: HeroImage[] = [
@@ -14,30 +15,35 @@ export const HERO_IMAGES: HeroImage[] = [
     alt: 'Nhà bếp hiện đại',
     label: 'Nhà bếp',
     desktopSizes: '(max-width: 767px) 100vw, 20vw',
+    mobileSizes: '100vw',
   },
   {
     src: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=72',
     alt: 'Phòng khách tinh tế',
     label: 'Phòng khách',
     desktopSizes: '(max-width: 767px) 100vw, 20vw',
+    mobileSizes: '100vw',
   },
   {
     src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=72',
     alt: 'Phòng tắm gọn gàng',
     label: 'Phòng tắm',
     desktopSizes: '(max-width: 767px) 100vw, 20vw',
+    mobileSizes: '100vw',
   },
   {
     src: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=72',
     alt: 'Phòng ngủ ấm cúng',
     label: 'Phòng ngủ',
     desktopSizes: '(max-width: 767px) 100vw, 20vw',
+    mobileSizes: '100vw',
   },
   {
     src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=72',
     alt: 'Ngoại thất hiện đại',
     label: 'Ngoại thất',
     desktopSizes: '(max-width: 767px) 100vw, 20vw',
+    mobileSizes: '100vw',
   },
 ]
 
