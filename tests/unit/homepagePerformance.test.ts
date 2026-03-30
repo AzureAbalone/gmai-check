@@ -24,6 +24,12 @@ describe('homepagePerformance', () => {
     })
   })
 
+  it('falls back to the first hero image sizes when out of range', () => {
+    expect(getHeroImageAttrs(HERO_IMAGES.length)).toMatchObject({
+      sizes: HERO_IMAGES[0]?.desktopSizes,
+    })
+  })
+
   it('uses local font stacks instead of remote Google font names', () => {
     expect(SYSTEM_SANS_STACK).toContain('Segoe UI')
     expect(SYSTEM_SANS_STACK).not.toContain('Inter')
