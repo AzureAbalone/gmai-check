@@ -105,13 +105,28 @@ export default defineNuxtConfig({
     compressPublicAssets: { gzip: true, brotli: true },
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/products', '/products/1', '/products/2', '/products/3', '/products/4'],
+      routes: [
+        '/',
+        '/products',
+        // Pre-render all product detail pages (IDs 1–1560)
+        ...Array.from({ length: 1560 }, (_, i) => `/products/${i + 1}`),
+      ],
     },
     routeRules: {
-      // Cache API responses for 60 seconds
-      '/api/**': { cache: { maxAge: 60 } },
+      // ── API caching with SWR ──
+      // Product list: cache 5 min, serve stale up to 1 hour while revalidating
+      '/api/products': {
+        cache: { maxAge: 300, staleMaxAge: 3600, swr: true },
+        headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600' },
+      },
+      // Product detail: cache 10 min, serve stale up to 1 hour while revalidating
+      '/api/products/**': {
+        cache: { maxAge: 600, staleMaxAge: 3600, swr: true },
+        headers: { 'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=3600' },
+      },
       // SWR/ISR for pages
       '/': { isr: 300 },
+      '/products/**': { isr: 300 },
       // Long cache for static assets
       '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     },

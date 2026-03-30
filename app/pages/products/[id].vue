@@ -462,6 +462,7 @@ useHead({
             <NuxtLink
               v-for="rp in relatedProducts"
               :key="rp.id"
+              :prefetch="false"
               :to="`/products/${rp.id}`"
               class="related-card group flex-none w-[180px] sm:w-[210px] lg:w-[240px] bg-white rounded-2xl overflow-hidden border border-[#E5E5E5] hover:border-[#0D6E6E]/30 hover:shadow-lg transition-all duration-300"
             >

@@ -480,6 +480,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
             </div>
             <h3 class="font-medium text-[#1A1A1A] text-base line-clamp-2">{{ product.name }}</h3>
             <NuxtLink
+              :prefetch="false"
               :to="`/products/${product.id}`"
               class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1A1A1A] text-white text-[13px] font-medium rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-sm transition-all w-full justify-center sm:w-auto"
               :aria-label="'Xem chi tiết ' + product.name"

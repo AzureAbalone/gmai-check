@@ -273,6 +273,7 @@ const categoryMap: Record<string, string> = {
           <ul class="dropdown-scroll" role="listbox" data-lenis-prevent @scroll="onSuggestionScroll">
             <li v-for="(product, i) in visibleProducts" :key="product.id" role="option">
               <NuxtLink
+                :prefetch="false"
                 :to="`/products/${product.id}`"
                 class="dropdown-item flex items-center gap-3 px-4 py-2.5 transition-colors duration-100 hover:bg-[#F8FAFA]"
                 :style="{ animationDelay: `${i * 40}ms` }"
@@ -304,6 +305,7 @@ const categoryMap: Record<string, string> = {
               :aria-selected="i === activeIndex"
             >
               <NuxtLink
+                :prefetch="false"
                 :to="`/products/${product.id}`"
                 class="dropdown-item flex items-center gap-3 px-4 py-2.5 transition-colors duration-100"
                 :class="i === activeIndex ? 'bg-[#F0FAF9]' : 'hover:bg-[#F8FAFA]'"
@@ -391,6 +393,7 @@ const categoryMap: Record<string, string> = {
               <ul class="py-1" role="listbox">
                 <li v-for="product in visibleProducts" :key="product.id" role="option">
                   <NuxtLink
+                    :prefetch="false"
                     :to="`/products/${product.id}`"
                     class="mobile-item flex items-center gap-4 px-5 py-3 transition-colors hover:bg-[#FAFAFA]"
                     @click="closeMobile"
@@ -420,6 +423,7 @@ const categoryMap: Record<string, string> = {
             <ul v-else-if="results.length" class="py-2" role="listbox">
               <li v-for="(product, i) in results" :key="product.id" role="option" :aria-selected="i === activeIndex">
                 <NuxtLink
+                  :prefetch="false"
                   :to="`/products/${product.id}`"
                   class="mobile-item flex items-center gap-4 px-5 py-3 transition-colors"
                   :class="i === activeIndex ? 'bg-[#F0FAF9]' : 'hover:bg-[#FAFAFA]'"
