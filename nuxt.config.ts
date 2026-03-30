@@ -104,8 +104,13 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: { gzip: true, brotli: true },
     prerender: {
-      crawlLinks: false,
-      routes: ['/', '/products'],
+      crawlLinks: true,
+      routes: [
+        '/',
+        '/products',
+        // Pre-render all product detail pages (IDs 1–1560)
+        ...Array.from({ length: 1560 }, (_, i) => `/products/${i + 1}`),
+      ],
     },
     routeRules: {
       // ── API caching with SWR (24h) ──
