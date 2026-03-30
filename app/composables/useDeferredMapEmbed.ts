@@ -1,10 +1,15 @@
 import { ref } from 'vue'
 
 export function useDeferredMapEmbed(initiallyLoaded = false) {
-  const isMapLoaded = ref(initiallyLoaded)
+  const isMapLoaded = ref(Boolean(initiallyLoaded))
 
   const loadMap = () => {
-    isMapLoaded.value = true
+    if (!isMapLoaded.value) {
+      isMapLoaded.value = true
+      return true
+    }
+
+    return false
   }
 
   return {

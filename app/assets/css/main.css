@@ -796,3 +796,23 @@ iconify-icon,
     background: #fff;
   }
 }
+
+.footer-map-shell {
+  background:
+    radial-gradient(circle at top right, rgba(45, 212, 191, 0.16), transparent 40%),
+    linear-gradient(135deg, #0f172a 0%, #111827 52%, #0b1120 100%);
+}
+
+.footer-map-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.footer-map-preview__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
