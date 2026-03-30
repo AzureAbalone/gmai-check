@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
 import {
@@ -7,7 +9,7 @@ import {
   SYSTEM_DISPLAY_STACK,
   SYSTEM_SANS_STACK,
   getHeroImageAttrs,
-  getHeroPreloadLink,
+  getHeroPreloadConfig,
 } from '../../app/utils/homepagePerformance'
 
 describe('homepagePerformance', () => {
@@ -24,13 +26,25 @@ describe('homepagePerformance', () => {
     expect(getHeroImageAttrs(0)).toMatchObject({
       loading: 'eager',
       fetchpriority: 'high',
-      preload: true,
     })
     expect(getHeroImageAttrs(1)).toMatchObject({
       loading: 'lazy',
       fetchpriority: 'auto',
-      preload: false,
     })
+  })
+
+  it('returns a Nuxt preload config only for the first hero image', () => {
+    expect(getHeroPreloadConfig(0)).toMatchObject({
+      fetchPriority: 'high',
+    })
+    expect(getHeroPreloadConfig(1)).toBe(false)
+  })
+
+  it('wires the responsive preload helper to the desktop hero only', () => {
+    const pageSource = readFileSync(new URL('../../app/pages/index.vue', import.meta.url), 'utf8')
+    const preloadBindings = pageSource.match(/:preload="getHeroPreloadConfig\(i\)"/g) ?? []
+
+    expect(preloadBindings).toHaveLength(1)
   })
 
   it('falls back to the first hero image sizes when out of range', () => {
@@ -60,13 +74,10 @@ describe('homepagePerformance', () => {
     expect(SYSTEM_DISPLAY_STACK).not.toContain('Newsreader')
   })
 
-  it('exposes a preload link for the real LCP hero image only', () => {
+  it('returns a preload config for the real LCP hero image only', () => {
     expect(HERO_IMAGES).toHaveLength(5)
-    expect(getHeroPreloadLink()).toMatchObject({
-      rel: 'preload',
-      as: 'image',
-      href: HERO_IMAGES[0]?.src,
-    })
+    expect(getHeroPreloadConfig(0)).toMatchObject({ fetchPriority: 'high' })
+    expect(getHeroPreloadConfig(1)).toBe(false)
   })
 
   it('keeps showcase sizing responsive', () => {
@@ -75,12 +86,11 @@ describe('homepagePerformance', () => {
 
   it('keeps helper return types narrow enough for Nuxt image consumers', () => {
     const heroAttrs = getHeroImageAttrs(0)
-    const preloadLink = getHeroPreloadLink()
+    const preloadConfig = getHeroPreloadConfig(0)
 
     expectTypeOf(heroAttrs.loading).toEqualTypeOf<'eager' | 'lazy'>()
     expectTypeOf(heroAttrs.fetchpriority).toEqualTypeOf<'high' | 'auto'>()
-    expectTypeOf(preloadLink.rel).toEqualTypeOf<'preload'>()
-    expectTypeOf(preloadLink.as).toEqualTypeOf<'image'>()
+    expectTypeOf(preloadConfig).toEqualTypeOf<false | { fetchPriority: 'high' }>()
 
     expect(true).toBe(true)
   })

@@ -89,10 +89,8 @@ export type HeroImageAttrs = {
   nuxtMobileSizes: HeroImage['nuxtMobileSizes']
 }
 
-export type HeroPreloadLink = {
-  rel: 'preload'
-  as: 'image'
-  href: HeroImage['src']
+export type HeroPreloadConfig = false | {
+  fetchPriority: 'high'
 }
 
 export function getHeroImageAttrs(index: number): HeroImageAttrs {
@@ -109,10 +107,6 @@ export function getHeroImageAttrs(index: number): HeroImageAttrs {
   }
 }
 
-export function getHeroPreloadLink(): HeroPreloadLink {
-  return {
-    rel: 'preload',
-    as: 'image',
-    href: HERO_IMAGES[0]!.src,
-  }
+export function getHeroPreloadConfig(index: number): HeroPreloadConfig {
+  return index === 0 ? { fetchPriority: 'high' } : false
 }

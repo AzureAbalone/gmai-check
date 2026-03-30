@@ -5,7 +5,7 @@ import {
   HERO_IMAGES,
   SHOWCASE_IMAGE,
   getHeroImageAttrs,
-  getHeroPreloadLink,
+  getHeroPreloadConfig,
 } from '~/utils/homepagePerformance'
 
 useScrollReveal()
@@ -132,12 +132,6 @@ useHead({
   ],
 })
 
-// ─── Preload hero images for LCP ───
-useHead({
-  link: [
-    getHeroPreloadLink(),
-  ],
-})
 </script>
 
 <template>
@@ -198,6 +192,7 @@ useHead({
             :loading="getHeroImageAttrs(i).loading"
             :fetchpriority="getHeroImageAttrs(i).fetchpriority"
             :sizes="getHeroImageAttrs(i).nuxtSizes"
+            :preload="getHeroPreloadConfig(i)"
             decoding="async"
             width="1200"
             height="900"
