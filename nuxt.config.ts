@@ -1,3 +1,5 @@
+import { SYSTEM_DISPLAY_STACK, SYSTEM_SANS_STACK } from './app/utils/homepagePerformance'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -70,6 +72,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'vi' },
+      bodyAttrs: {
+        style: `--font-body:${SYSTEM_SANS_STACK};--font-display:${SYSTEM_DISPLAY_STACK};font-family:var(--font-body);`,
+      },
       title: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống',
       meta: [
         { charset: 'utf-8' },
@@ -94,10 +99,6 @@ export default defineNuxtConfig({
         // Favicon
         { rel: 'icon', type: 'image/png', href: '/favicon.png?v=3' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
-        // Font preconnect + swap
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap' },
         // DNS prefetch for images
         { rel: 'dns-prefetch', href: 'https://images.unsplash.com' },
         // Canonical URL

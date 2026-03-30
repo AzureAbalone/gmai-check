@@ -2,6 +2,22 @@
    Nhà phân phối Duyên Phượng — Optimized Global Stylesheet
    ═══════════════════════════════════════════════════════════ */
 
+:root {
+  --font-body: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+}
+
+html,
+body {
+  font-family: var(--font-body);
+}
+
+.font-display,
+.diagonal-panel__label,
+.hero-slideshow__slide-label {
+  font-family: var(--font-display);
+}
+
 /* ─── Lenis smooth scroll base ─── */
 html.lenis,
 html.lenis body {
@@ -212,7 +228,6 @@ iconify-icon,
 /* Label text */
 .diagonal-panel__label {
   color: #fff;
-  font-family: 'Newsreader', serif;
   font-size: 22px;
   font-weight: 500;
   letter-spacing: 1px;
@@ -280,7 +295,6 @@ iconify-icon,
 
 .hero-slideshow__slide-label {
   color: #fff;
-  font-family: 'Newsreader', serif;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -582,7 +596,7 @@ iconify-icon,
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   color: #666;
   background: transparent;
   border: 1px solid #E5E5E5;
@@ -782,4 +796,24 @@ iconify-icon,
     color: #000;
     background: #fff;
   }
+}
+
+.footer-map-shell {
+  background:
+    radial-gradient(circle at top right, rgba(45, 212, 191, 0.16), transparent 40%),
+    linear-gradient(135deg, #0f172a 0%, #111827 52%, #0b1120 100%);
+}
+
+.footer-map-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.footer-map-preview__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
 }

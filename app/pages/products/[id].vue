@@ -280,7 +280,7 @@ useHead({
               <span class="font-mono text-[11px] font-semibold tracking-[2px] text-[#0D6E6E] uppercase">
                 <span class="section-dot mr-2" aria-hidden="true" />{{ categoryLabel }}
               </span>
-              <h1 class="font-['Newsreader'] text-2xl lg:text-[32px] font-medium leading-[1.2] text-[#1A1A1A]">
+              <h1 class="font-display text-2xl lg:text-[32px] font-medium leading-[1.2] text-[#1A1A1A]">
                 {{ product.name }}
               </h1>
             </div>
@@ -409,7 +409,7 @@ useHead({
       <section v-if="relatedProducts.length" class="py-16 bg-[#FAFAFA] border-t border-[#E5E5E5]" aria-labelledby="related-heading">
         <!-- Header -->
         <div class="max-w-7xl mx-auto px-6 lg:px-20 flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-between gap-2 mb-8">
-          <h2 id="related-heading" class="font-['Newsreader'] text-2xl lg:text-3xl font-medium text-[#1A1A1A]">
+          <h2 id="related-heading" class="font-display text-2xl lg:text-3xl font-medium text-[#1A1A1A]">
             Sản phẩm liên quan
           </h2>
           <NuxtLink
@@ -525,7 +525,7 @@ useHead({
     <!-- Error state -->
     <div v-else class="flex flex-col items-center justify-center py-32 px-6 text-center">
       <Icon name="solar:box-minimalistic-outline" size="64" class="text-[#E5E5E5] mb-6" aria-hidden="true" />
-      <h1 class="font-['Newsreader'] text-2xl font-medium text-[#1A1A1A] mb-2">Không tìm thấy sản phẩm</h1>
+      <h1 class="font-display text-2xl font-medium text-[#1A1A1A] mb-2">Không tìm thấy sản phẩm</h1>
       <p class="text-[#666] mb-6">Sản phẩm này không tồn tại hoặc đã bị xóa.</p>
       <NuxtLink
         to="/products"

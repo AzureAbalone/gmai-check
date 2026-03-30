@@ -289,7 +289,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
         <Icon name="solar:alt-arrow-right-linear" size="14" aria-hidden="true" />
         <span class="text-[#1A1A1A] font-medium" aria-current="page">Sản phẩm</span>
       </nav>
-      <h1 id="products-heading" class="font-['Newsreader'] text-3xl lg:text-[40px] font-medium text-[#1A1A1A]">
+      <h1 id="products-heading" class="font-display text-3xl lg:text-[40px] font-medium text-[#1A1A1A]">
         Sản phẩm gia dụng
       </h1>
       <p class="text-base text-[#666] max-w-md">

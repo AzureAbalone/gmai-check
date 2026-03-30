@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useDeferredMapEmbed } from '~/composables/useDeferredMapEmbed'
+import { FOOTER_MAP } from '~/utils/homepagePerformance'
+
 const currentYear = new Date().getFullYear()
+const { isMapLoaded, loadMap } = useDeferredMapEmbed()
 
 const footerLinks = {
   products: [
@@ -123,21 +127,22 @@ const footerLinks = {
               </div>
               <!-- Map link -->
               <a
-                href="https://maps.app.goo.gl/ULHJwXTF4Xe7MoTQ7"
+                :href="FOOTER_MAP.mapsHref"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 mt-2 text-sm font-medium text-[#2DD4BF] hover:text-[#5EEAD4] transition-colors"
               >
                 <Icon name="solar:map-arrow-right-outline" size="16" aria-hidden="true" />
-                Xem trên Google Maps
+                {{ FOOTER_MAP.externalButtonLabel }}
               </a>
             </div>
           </div>
 
           <!-- Google Map Embed -->
-          <div class="rounded-xl overflow-hidden border border-[#1E293B] h-[250px] lg:h-[280px]">
+          <div class="footer-map-shell rounded-xl overflow-hidden border border-[#1E293B] h-[250px] lg:h-[280px]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.0!2d105.5679!3d20.9249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345b2a2e9fa3b7%3A0x5d2b1e1f1e1e1e1e!2zU-G7kSA2NywgVOG7lSAzLCBUaMO0biBUw6JuIELDrG5oLCBYdcOibiBNYWksIEjDoCBO4buZaQ!5e0!3m2!1svi!2svn!4v1700000000000!5m2!1svi!2svn"
+              v-if="isMapLoaded"
+              :src="FOOTER_MAP.embedSrc"
               width="100%"
               height="100%"
               style="border: 0"
@@ -146,6 +151,32 @@ const footerLinks = {
               referrerpolicy="no-referrer-when-downgrade"
               title="Bản đồ Duyên Phượng - Số 67, Tổ 3, Thôn Tân Bình, Xã Xuân Mai, Hà Nội"
             />
+            <div v-else class="footer-map-preview h-full">
+              <div class="footer-map-preview__content">
+                <Icon name="solar:map-point-wave-outline" size="28" class="text-[#2DD4BF]" aria-hidden="true" />
+                <h4 class="font-display text-xl text-white">{{ FOOTER_MAP.previewTitle }}</h4>
+                <p class="text-sm text-[#CBD5E1] max-w-sm">{{ FOOTER_MAP.previewBody }}</p>
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#2DD4BF] text-[#042F2E] font-semibold hover:bg-[#5EEAD4] transition-colors"
+                    @click="loadMap"
+                  >
+                    <Icon name="solar:map-arrow-up-bold" size="16" aria-hidden="true" />
+                    {{ FOOTER_MAP.loadButtonLabel }}
+                  </button>
+                  <a
+                    :href="FOOTER_MAP.mapsHref"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-[#334155] text-white font-semibold hover:border-[#2DD4BF] hover:text-[#5EEAD4] transition-colors"
+                  >
+                    <Icon name="solar:map-arrow-right-outline" size="16" aria-hidden="true" />
+                    {{ FOOTER_MAP.externalButtonLabel }}
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
