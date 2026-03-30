@@ -595,7 +595,7 @@ iconify-icon,
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   color: #666;
   background: transparent;
   border: 1px solid #E5E5E5;

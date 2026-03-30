@@ -224,8 +224,8 @@ useHead({
             <NuxtImg
               :src="img.src"
               :alt="img.alt"
-              :loading="i === 0 ? 'eager' : 'lazy'"
-              :fetchpriority="i === 0 ? 'high' : undefined"
+              :loading="getHeroImageAttrs(i).loading"
+              :fetchpriority="getHeroImageAttrs(i).fetchpriority"
               :sizes="getHeroImageAttrs(i).mobileSizes"
               decoding="async"
               width="1200"
