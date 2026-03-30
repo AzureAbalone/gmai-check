@@ -1,7 +1,6 @@
-// Product Detail API — reads from generated data file.
+// Product Detail API — uses static import (works on Vercel serverless).
 
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import productsData from '../../data/products.json'
 
 interface ProductData {
   id: number
@@ -26,16 +25,7 @@ interface ProductData {
   storage: string[]
 }
 
-// Read once at startup
-const dataPath = resolve(process.cwd(), 'server/data/products.json')
-let allProducts: ProductData[] = []
-try {
-  allProducts = JSON.parse(readFileSync(dataPath, 'utf-8'))
-}
-catch {
-  // eslint-disable-next-line no-console
-  console.warn('[api/products/[id]] Could not load server/data/products.json')
-}
+const allProducts: ProductData[] = productsData as ProductData[]
 
 // Build lookup map for O(1) access
 const productMap = new Map<number, ProductData>()
@@ -45,7 +35,7 @@ for (const p of allProducts) {
 
 export default defineEventHandler((event) => {
   setResponseHeaders(event, {
-    'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+    'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
     'Content-Type': 'application/json',
   })
 
