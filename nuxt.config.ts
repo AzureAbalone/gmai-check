@@ -88,12 +88,17 @@ export default defineNuxtConfig({
         { property: 'og:site_name', content: 'Nhà phân phối Duyên Phượng' },
         { property: 'og:title', content: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống' },
         { property: 'og:description', content: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm. Giao hàng toàn quốc.' },
-        { property: 'og:image', content: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80' },
+        { property: 'og:image', content: 'https://www.duyenphuong.com/og-image.png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:type', content: 'image/png' },
+        { property: 'og:url', content: 'https://www.duyenphuong.com' },
         { property: 'og:locale', content: 'vi_VN' },
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống' },
         { name: 'twitter:description', content: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.' },
+        { name: 'twitter:image', content: 'https://www.duyenphuong.com/og-image.png' },
       ],
       link: [
         // Favicon
