@@ -309,11 +309,11 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
     </section>
 
     <!-- Filter Bar -->
-    <section class="sticky top-[72px] z-40 flex items-center gap-3 px-6 lg:px-20 py-4 bg-white border-b border-[#E5E5E5] relative" aria-label="Bộ lọc sản phẩm" data-lenis-prevent>
+    <section class="sticky top-[72px] z-40 flex items-center gap-2 md:gap-3 px-3 md:px-6 lg:px-20 py-3 md:py-4 bg-white border-b border-[#E5E5E5] relative" aria-label="Bộ lọc sản phẩm" data-lenis-prevent>
       <!-- Category Dropdown -->
       <div ref="categoryDropdownRef" class="relative">
         <button
-          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-medium border transition-all cursor-pointer"
+          class="inline-flex items-center gap-1.5 md:gap-2 px-2.5 md:px-4 py-2 md:py-2.5 rounded-full text-[12px] md:text-[13px] font-medium border transition-all cursor-pointer"
           :class="showCategoryDropdown
             ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
             : activeCategory !== 'all'
@@ -322,7 +322,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
           @click.stop="showCategoryDropdown = !showCategoryDropdown; showSortDropdown = false"
         >
           <Icon name="solar:widget-2-outline" size="14" aria-hidden="true" />
-          {{ activeCategoryLabel }}
+          <span class="hidden md:inline">{{ activeCategoryLabel }}</span>
           <Icon
             name="solar:alt-arrow-down-outline"
             size="14"
@@ -368,14 +368,14 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
 
       <!-- Hokori Quick Filter -->
       <button
-        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-medium border transition-all cursor-pointer"
+        class="inline-flex items-center gap-1.5 md:gap-2 px-2.5 md:px-4 py-2 md:py-2.5 rounded-full text-[12px] md:text-[13px] font-medium border transition-all cursor-pointer"
         :class="hokoriOnly
           ? 'bg-[#0D6E6E] text-white border-[#0D6E6E]'
           : 'bg-transparent text-[#555] border-[#E5E5E5] hover:border-[#0D6E6E] hover:text-[#0D6E6E]'"
         @click="toggleHokori"
       >
         <Icon name="solar:star-bold" size="14" aria-hidden="true" />
-        Hokori
+        <span class="hidden md:inline">Hokori</span>
         <Icon
           v-if="hokoriOnly"
           name="solar:close-circle-bold"
@@ -393,7 +393,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
       <!-- Sort Dropdown -->
       <div ref="sortDropdownRef" class="relative ml-auto">
         <button
-          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-medium border transition-all cursor-pointer"
+          class="inline-flex items-center gap-1.5 md:gap-2 px-2.5 md:px-4 py-2 md:py-2.5 rounded-full text-[12px] md:text-[13px] font-medium border transition-all cursor-pointer"
           :class="showSortDropdown
             ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
             : sortOrder !== 'default'
@@ -402,7 +402,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
           @click.stop="showSortDropdown = !showSortDropdown; showCategoryDropdown = false"
         >
           <Icon name="solar:sort-from-top-to-bottom-outline" size="14" aria-hidden="true" />
-          {{ activeSortLabel }}
+          <span class="hidden md:inline">{{ activeSortLabel }}</span>
           <Icon
             name="solar:alt-arrow-down-outline"
             size="14"
