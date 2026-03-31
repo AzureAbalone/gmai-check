@@ -375,7 +375,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
         @click="toggleHokori"
       >
         <Icon name="solar:star-bold" size="14" aria-hidden="true" />
-        <span class="hidden md:inline">Hokori</span>
+        <span :class="hokoriOnly ? 'inline' : 'hidden md:inline'">Hokori</span>
         <Icon
           v-if="hokoriOnly"
           name="solar:close-circle-bold"

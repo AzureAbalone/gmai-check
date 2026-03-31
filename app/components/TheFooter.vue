@@ -114,7 +114,7 @@ const footerLinks = {
                 <Icon name="solar:phone-calling-outline" size="18" class="text-[#94A3B8] mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <div>
                   <p class="text-xs font-medium text-[#94A3B8] uppercase tracking-wider mb-1">Hotline</p>
-                  <a href="tel:0968164783" class="text-sm text-[#CBD5E1] hover:text-white transition-colors">0968 164 783</a>
+                  <a href="tel:0968164783" class="text-sm text-[#CBD5E1] hover:text-white transition-colors">0968 164 783 / 0974 951 981</a>
                 </div>
               </div>
               <!-- Zalo -->

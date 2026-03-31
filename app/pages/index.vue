@@ -57,29 +57,7 @@ const onTouchEnd = (e: TouchEvent) => {
 
 onMounted(() => startAutoplay())
 onUnmounted(() => stopAutoplay())
-const features = [
-  {
-    icon: 'solar:chef-hat-heart-bold',
-    title: 'Nhà Bếp',
-    desc: 'Rổ rá, hộp đựng thực phẩm, kệ gia vị, dụng cụ nấu ăn — tất cả để căn bếp gọn gàng hơn.',
-    color: 'bg-[#0D6E6E]',
-    accent: '#0D6E6E',
-  },
-  {
-    icon: 'solar:bath-bold',
-    title: 'Phòng Tắm',
-    desc: 'Kệ nhà tắm, giá treo, hộp xà phòng, rèm cửa — sạch sẽ và tiện nghi mỗi ngày.',
-    color: 'bg-[#E07B54]',
-    accent: '#E07B54',
-  },
-  {
-    icon: 'solar:sofa-2-bold',
-    title: 'Phòng Khách',
-    desc: 'Thùng rác phân loại, hộp lưu trữ, ghế nhựa, kệ đa năng — ngôi nhà ngăn nắp hơn.',
-    color: 'bg-[#1A1A1A]',
-    accent: '#1A1A1A',
-  },
-]
+
 
 const heroImages = HERO_IMAGES
 
@@ -167,7 +145,7 @@ useHead({
           Xem sản phẩm
         </NuxtLink>
         <a
-          href="#features"
+          href="#about"
           class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#1A1A1A] text-base font-semibold rounded-lg border border-[#E5E5E5] hover:border-[#1A1A1A] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-sm transition-all"
         >
           Tìm hiểu thêm
@@ -271,36 +249,7 @@ useHead({
       </div>
     </section>
 
-    <!-- ═══════════════════════ FEATURES ═══════════════════════ -->
-    <section id="features" class="py-20 px-6 lg:px-[120px] bg-white" aria-labelledby="features-heading">
-      <div class="reveal flex flex-col items-center gap-4 text-center mb-16">
-        <span class="font-mono text-[11px] font-semibold tracking-[2px] text-[#0D6E6E] uppercase">
-          <span class="section-dot mr-2" aria-hidden="true" />SẢN PHẨM NỔI BẬT
-        </span>
-        <h2 id="features-heading" class="font-display text-3xl lg:text-[40px] font-medium leading-[1.1] text-[#1A1A1A] max-w-[700px]">
-          Mọi tiện ích cho ngôi nhà của bạn,<br/>tất cả ở một nơi.
-        </h2>
-        <p class="text-base text-[#666] max-w-[560px]">
-          Từ nhà bếp gọn gàng đến phòng tắm sạch sẽ — chúng tôi mang đến sản phẩm chất lượng với giá phải chăng nhất.
-        </p>
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" role="list">
-        <article
-          v-for="(feature, i) in features"
-          :key="feature.title"
-          role="listitem"
-          :class="['reveal', `reveal-delay-${i + 1}`, 'feature-card flex flex-col gap-5 p-8 bg-[#FAFAFA] rounded-2xl hover:-translate-y-1 transition-all duration-300 group']"
-          :style="{ '--card-accent': feature.accent }"
-        >
-          <div :class="[feature.color, 'icon-bounce w-12 h-12 rounded-xl flex items-center justify-center text-white']" aria-hidden="true">
-            <Icon :name="feature.icon" size="22" />
-          </div>
-          <h3 class="font-display text-[22px] font-medium text-[#1A1A1A]">{{ feature.title }}</h3>
-          <p class="text-sm leading-relaxed text-[#666]">{{ feature.desc }}</p>
-        </article>
-      </div>
-    </section>
 
     <!-- ═══════════════════════ SHOWCASE ═══════════════════════ -->
     <section id="about" class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 py-16 px-6 lg:px-[120px] bg-[#FAFAFA]" aria-labelledby="showcase-heading">
