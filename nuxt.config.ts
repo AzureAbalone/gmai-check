@@ -44,7 +44,7 @@ export default defineNuxtConfig({
   site: {
     url: 'https://www.duyenphuong.com',
     name: 'Nhà phân phối Duyên Phượng',
-    description: 'Sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.',
+    description: 'Sản phẩm gia dụng chất lượng cao.',
     defaultLocale: 'vi',
   },
 
@@ -79,7 +79,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm. Đặt hàng ngay để được tư vấn.' },
+        { name: 'description', content: 'Sản phẩm gia dụng chất lượng cao. Đặt hàng ngay để được tư vấn.' },
         // Theme / PWA color
         { name: 'theme-color', content: '#0D6E6E' },
         { name: 'msapplication-TileColor', content: '#0D6E6E' },
@@ -87,7 +87,7 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Nhà phân phối Duyên Phượng' },
         { property: 'og:title', content: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống' },
-        { property: 'og:description', content: 'Sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm. Đặt hàng ngay để được tư vấn.' },
+        { property: 'og:description', content: 'Sản phẩm gia dụng chất lượng cao. Đặt hàng ngay để được tư vấn.' },
         { property: 'og:image', content: 'https://www.duyenphuong.com/og-image.png' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
@@ -97,7 +97,7 @@ export default defineNuxtConfig({
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống' },
-        { name: 'twitter:description', content: 'Sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.' },
+        { name: 'twitter:description', content: 'Sản phẩm gia dụng chất lượng cao.' },
         { name: 'twitter:image', content: 'https://www.duyenphuong.com/og-image.png' },
       ],
       link: [

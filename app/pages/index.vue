@@ -73,7 +73,7 @@ const trustBrands = [
 useHead({
   title: 'Nhà phân phối Duyên Phượng — Tiện ích thông minh, nâng tầm cuộc sống',
   meta: [
-    { name: 'description', content: 'Sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm. Xem chi tiết và liên hệ ngay.' },
+    { name: 'description', content: 'Sản phẩm gia dụng chất lượng cao. Xem chi tiết và liên hệ ngay.' },
   ],
   script: [
     {
@@ -132,7 +132,7 @@ useHead({
       </h1>
 
       <p class="reveal text-lg text-[#555] max-w-[600px] leading-relaxed">
-        Sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.<br class="hidden md:block"/>
+        Sản phẩm gia dụng chất lượng cao.<br class="hidden md:block"/>
         Xem chi tiết sản phẩm và liên hệ ngay.
       </p>
 
@@ -261,7 +261,7 @@ useHead({
           Sản phẩm bền đẹp,<br/>giá cả hợp lý.
         </h2>
         <p class="text-[15px] leading-relaxed text-[#666]">
-          Chúng tôi hợp tác trực tiếp với các nhà sản xuất hàng đầu Việt Nam và Nhật Bản để mang đến sản phẩm chất lượng cao nhất với mức giá tốt nhất cho người tiêu dùng.
+          Chúng tôi hợp tác trực tiếp với các nhà sản xuất để mang đến sản phẩm chất lượng cao nhất với mức giá tốt nhất cho người tiêu dùng.
         </p>
         <NuxtLink
           to="/products"
