@@ -237,7 +237,7 @@ useHead({
         '@type': 'CollectionPage',
         name: 'Sản phẩm gia dụng — Duyên Phượng',
         description: 'Bộ sưu tập sản phẩm gia dụng chất lượng cao',
-        url: 'https://vinahome.vn/products',
+        url: 'https://www.duyenphuong.com/products',
       }),
     },
   ],

@@ -107,7 +107,7 @@ export default defineNuxtConfig({
         // DNS prefetch for images
         { rel: 'dns-prefetch', href: 'https://images.unsplash.com' },
         // Canonical URL
-        { rel: 'canonical', href: 'https://vinahome.vn' },
+        { rel: 'canonical', href: 'https://www.duyenphuong.com' },
       ],
     },
     // Page transitions
