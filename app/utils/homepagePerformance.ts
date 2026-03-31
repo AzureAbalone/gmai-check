@@ -31,8 +31,8 @@ export const HERO_IMAGES = [
     nuxtMobileSizes: 'xs:100vw',
   },
   {
-    src: 'https://vietnhatplastic.com/Data/Sites/1/Product/4391/1-6075-1.jpg',
-    alt: 'Bộ ca tổ ong 1900ml 4 cốc Hokori 6075-1',
+    src: 'https://vietnhatplastic.com/Data/Sites/1/Product/4109/vn_web_spmm_2310_t12_25-16-(1).png',
+    alt: 'Chậu viền 2T9 Hokori 2310',
     label: 'Chậu Hokori',
     desktopSizes: '(max-width: 767px) 100vw, 20vw',
     mobileSizes: '100vw',
