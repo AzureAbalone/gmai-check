@@ -84,6 +84,7 @@ const dynamicCategories = computed(() => {
 })
 
 const activeCategory = ref('all')
+const hokoriOnly = ref(false)
 const sortOrder = ref('default')
 const route = useRoute()
 const router = useRouter()
@@ -127,6 +128,9 @@ watch(activeCategory, (category) => {
 
 const filteredProducts = computed(() => {
   let items = products.value || []
+  if (hokoriOnly.value) {
+    items = items.filter((p) => p.category.toLowerCase().includes('hokori'))
+  }
   if (activeCategory.value !== 'all') {
     items = items.filter((p) => p.category === activeCategory.value)
   }
@@ -215,7 +219,7 @@ onMounted(() => {
 })
 
 // Reset page when category/sort changes
-watch([activeCategory, sortOrder], () => {
+watch([activeCategory, sortOrder, hokoriOnly], () => {
   currentPage.value = 1
 })
 
@@ -267,6 +271,13 @@ function selectSort(value: string) {
   showSortDropdown.value = false
 }
 
+function toggleHokori() {
+  hokoriOnly.value = !hokoriOnly.value
+  if (hokoriOnly.value) {
+    activeCategory.value = 'all'
+  }
+}
+
 function handleClickOutside(e: MouseEvent) {
   if (categoryDropdownRef.value && !categoryDropdownRef.value.contains(e.target as Node)) {
     showCategoryDropdown.value = false
@@ -298,7 +309,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
     </section>
 
     <!-- Filter Bar -->
-    <section class="sticky top-[72px] z-40 flex items-center gap-3 px-6 lg:px-20 py-4 bg-white border-b border-[#E5E5E5] relative" aria-label="Bộ lọc sản phẩm">
+    <section class="sticky top-[72px] z-40 flex items-center gap-3 px-6 lg:px-20 py-4 bg-white border-b border-[#E5E5E5] relative" aria-label="Bộ lọc sản phẩm" data-lenis-prevent>
       <!-- Category Dropdown -->
       <div ref="categoryDropdownRef" class="relative">
         <button
@@ -330,7 +341,8 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
         >
           <div
             v-if="showCategoryDropdown"
-            class="absolute top-full left-0 mt-2 w-64 max-h-80 overflow-y-auto bg-white rounded-xl border border-[#E5E5E5] shadow-lg shadow-black/5"
+            class="absolute top-full left-0 mt-2 w-64 max-h-80 overflow-y-auto overscroll-contain scroll-smooth bg-white rounded-xl border border-[#E5E5E5] shadow-lg shadow-black/5 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#E0E0E0] [&::-webkit-scrollbar-track]:bg-transparent [-webkit-overflow-scrolling:touch]"
+            data-lenis-prevent
           >
             <button
               v-for="cat in dynamicCategories"
@@ -353,6 +365,25 @@ onBeforeUnmount(() => document.removeEventListener('click', handleClickOutside))
           </div>
         </Transition>
       </div>
+
+      <!-- Hokori Quick Filter -->
+      <button
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[13px] font-medium border transition-all cursor-pointer"
+        :class="hokoriOnly
+          ? 'bg-[#0D6E6E] text-white border-[#0D6E6E]'
+          : 'bg-transparent text-[#555] border-[#E5E5E5] hover:border-[#0D6E6E] hover:text-[#0D6E6E]'"
+        @click="toggleHokori"
+      >
+        <Icon name="solar:star-bold" size="14" aria-hidden="true" />
+        Hokori
+        <Icon
+          v-if="hokoriOnly"
+          name="solar:close-circle-bold"
+          size="14"
+          aria-hidden="true"
+          class="ml-0.5"
+        />
+      </button>
 
       <!-- ★ Center: Expanding Search Magnifier ★ -->
       <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
