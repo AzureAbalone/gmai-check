@@ -42,7 +42,7 @@ export default defineNuxtConfig({
 
   // ─── Site config for SEO / Sitemap ───
   site: {
-    url: 'https://vinahome.vn',
+    url: 'https://www.duyenphuong.com',
     name: 'Nhà phân phối Duyên Phượng',
     description: 'Hàng trăm sản phẩm gia dụng chất lượng cao — từ nhà bếp đến phòng tắm.',
     defaultLocale: 'vi',
