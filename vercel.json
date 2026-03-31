@@ -1,0 +1,97 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nuxtjs",
+  "headers": [
+    {
+      "source": "/og-image.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, s-maxage=86400"
+        }
+      ]
+    }
+  ],
+  "rewrites": [],
+  "firewall": {
+    "rules": [
+      {
+        "id": "allow-social-crawlers",
+        "action": "bypass",
+        "condition": {
+          "or": [
+            { "ua": { "inc": "facebookexternalhit" } },
+            { "ua": { "inc": "Facebot" } },
+            { "ua": { "inc": "Twitterbot" } },
+            { "ua": { "inc": "TelegramBot" } },
+            { "ua": { "inc": "LinkedInBot" } },
+            { "ua": { "inc": "Slackbot" } },
+            { "ua": { "inc": "Slackbot-LinkExpanding" } },
+            { "ua": { "inc": "WhatsApp" } },
+            { "ua": { "inc": "Zalobot" } },
+            { "ua": { "inc": "Viber" } },
+            { "ua": { "inc": "Skype" } },
+            { "ua": { "inc": "Discordbot" } },
+            { "ua": { "inc": "PinterestBot" } },
+            { "ua": { "inc": "Snapchat" } },
+            { "ua": { "inc": "Line" } },
+            { "ua": { "inc": "KakaoTalk" } },
+            { "ua": { "inc": "WeChat" } },
+            { "ua": { "inc": "Tumblr" } },
+            { "ua": { "inc": "redditbot" } },
+            { "ua": { "inc": "Quora Link Preview" } },
+            { "ua": { "inc": "Embedly" } },
+            { "ua": { "inc": "Iframely" } },
+            { "ua": { "inc": "outbrain" } },
+            { "ua": { "inc": "W3C_Validator" } },
+            { "ua": { "inc": "vkShare" } },
+            { "ua": { "inc": "Mastodon" } },
+            { "ua": { "inc": "Pleroma" } },
+            { "ua": { "inc": "Misskey" } },
+            { "ua": { "inc": "Signal" } }
+          ]
+        }
+      },
+      {
+        "id": "allow-search-engines",
+        "action": "bypass",
+        "condition": {
+          "or": [
+            { "ua": { "inc": "Googlebot" } },
+            { "ua": { "inc": "Google-InspectionTool" } },
+            { "ua": { "inc": "GoogleOther" } },
+            { "ua": { "inc": "Google-Extended" } },
+            { "ua": { "inc": "AdsBot-Google" } },
+            { "ua": { "inc": "Mediapartners-Google" } },
+            { "ua": { "inc": "APIs-Google" } },
+            { "ua": { "inc": "bingbot" } },
+            { "ua": { "inc": "msnbot" } },
+            { "ua": { "inc": "Baiduspider" } },
+            { "ua": { "inc": "YandexBot" } },
+            { "ua": { "inc": "DuckDuckBot" } },
+            { "ua": { "inc": "Sogou" } },
+            { "ua": { "inc": "ia_archiver" } },
+            { "ua": { "inc": "Applebot" } },
+            { "ua": { "inc": "NaverBot" } },
+            { "ua": { "inc": "Coccoc" } }
+          ]
+        }
+      },
+      {
+        "id": "allow-link-preview-tools",
+        "action": "bypass",
+        "condition": {
+          "or": [
+            { "ua": { "inc": "Lighthouse" } },
+            { "ua": { "inc": "PageSpeed" } },
+            { "ua": { "inc": "GTmetrix" } },
+            { "ua": { "inc": "OpenGraphIO" } },
+            { "ua": { "inc": "curl" } },
+            { "ua": { "inc": "wget" } },
+            { "ua": { "inc": "Postman" } }
+          ]
+        }
+      }
+    ]
+  }
+}
