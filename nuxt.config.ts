@@ -173,5 +173,6 @@ export default defineNuxtConfig({
     payloadExtraction: process.env.NODE_ENV !== 'development',
     renderJsonPayloads: true,
     viewTransition: true,
+
   },
 })
