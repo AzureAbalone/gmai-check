@@ -139,14 +139,14 @@ useHead({
       <div class="reveal flex flex-col sm:flex-row items-center gap-4">
         <NuxtLink
           to="/products"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-[#1A1A1A] text-white text-base font-semibold rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-lg transition-all"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#1A1A1A] text-white text-base font-semibold rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-lg transition-[transform,box-shadow,background-color] duration-200 will-change-transform"
         >
           <Icon name="solar:eye-outline" size="18" aria-hidden="true" />
           Xem sản phẩm
         </NuxtLink>
         <a
           href="#about"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#1A1A1A] text-base font-semibold rounded-lg border border-[#E5E5E5] hover:border-[#1A1A1A] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-sm transition-all"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#1A1A1A] text-base font-semibold rounded-lg border border-[#E5E5E5] hover:border-[#1A1A1A] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-sm transition-[transform,box-shadow,border-color] duration-200 will-change-transform"
         >
           Tìm hiểu thêm
           <Icon name="solar:arrow-right-outline" size="16" aria-hidden="true" />
@@ -265,7 +265,7 @@ useHead({
         </p>
         <NuxtLink
           to="/products"
-          class="btn-arrow-slide inline-flex items-center gap-2 px-6 py-2.5 bg-[#1A1A1A] text-white text-sm font-semibold rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-md transition-all"
+          class="btn-arrow-slide inline-flex items-center gap-2 px-6 py-2.5 bg-[#1A1A1A] text-white text-sm font-semibold rounded-lg hover:bg-[#333] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-md transition-[transform,box-shadow,background-color] duration-200 will-change-transform"
         >
           Xem sản phẩm
           <Icon name="solar:arrow-right-bold" size="16" aria-hidden="true" class="arrow-icon" />
@@ -296,7 +296,7 @@ useHead({
       <div class="flex flex-col sm:flex-row gap-4">
         <NuxtLink
           to="/products"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0F172A] text-base font-semibold rounded-lg hover:bg-gray-100 hover:-translate-y-0.5 active:translate-y-0 transition-all"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0F172A] text-base font-semibold rounded-lg hover:bg-gray-100 hover:-translate-y-0.5 active:translate-y-0 transition-[transform,background-color] duration-200 will-change-transform"
         >
           <Icon name="solar:eye-outline" size="18" aria-hidden="true" />
           Xem bộ sưu tập
@@ -305,7 +305,7 @@ useHead({
           href="https://zalo.me/0968164783"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white text-base font-semibold rounded-lg border border-[#334155] hover:bg-white/[0.08] hover:border-white/40 hover:-translate-y-0.5 active:translate-y-0 transition-all"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white text-base font-semibold rounded-lg border border-[#334155] hover:bg-white/[0.08] hover:border-white/40 hover:-translate-y-0.5 active:translate-y-0 transition-[transform,border-color,background-color] duration-200 will-change-transform"
         >
           <Icon name="solar:chat-round-dots-outline" size="18" aria-hidden="true" />
           Liên hệ qua Zalo

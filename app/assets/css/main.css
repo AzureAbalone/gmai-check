@@ -342,9 +342,11 @@ iconify-icon,
 }
 
 /* ─── Custom scrollbar (thin) ─── */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(13, 110, 110, 0.3) transparent;
+@supports (scrollbar-color: auto) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(13, 110, 110, 0.3) transparent;
+  }
 }
 
 ::-webkit-scrollbar {
